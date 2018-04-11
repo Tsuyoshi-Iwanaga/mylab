@@ -198,13 +198,9 @@ body {
   font-size: 1.4rem;
   font-family: "-apple-system", "BlinkMacSystemFont", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "segoe ui", "游ゴシック Medium", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
   line-height: 1.5;
-<<<<<<< HEAD
   padding: 40px 0;
   background: linear-gradient(270deg, #778899, #9dceea);
   background-size: 100% 100%;
-=======
-  background: #8fbc8f;
->>>>>>> 0cb227b6d72f436596a5eb1ab22d077b6cd878de
 }
 
 ul {
@@ -225,7 +221,6 @@ img {
 /*----------------------
 base layout
 ------------------------*/
-<<<<<<< HEAD
 .l-contentsWrap {
     width: 100%;
     max-width: 1080px;
@@ -234,14 +229,5 @@ base layout
 }
 
 .l-contentsWrap.-bgWhite {
-=======
-.l-contentWrap {
-    width: 100%;
-    max-width: 1080px;
-    margin: 0 auto;
-}
-
-.l-contentWrap.-bgWhite {
->>>>>>> 0cb227b6d72f436596a5eb1ab22d077b6cd878de
     background: #fff;
 }
