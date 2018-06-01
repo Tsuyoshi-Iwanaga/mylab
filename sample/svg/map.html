@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>MapTest</title>
+<style>
+body {
+  background: #fff6e9;
+}
+.sectionTitle {
+  color: #807b68;
+  font-family: 'メイリオ', 'Meiryo', sans-serif;
+  font-size: 40px;
+  text-align: center;
+  font-weight: normal;
+  margin-bottom: 40px 0 30px;
+}
+.mapArea {
+  padding: 60px;
+  background: #fff;
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
+  font-size: 0;
+}
+.map {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 512px;
+  margin-bottom: 20px;
+}
+area:hover {
+  opacity: 0.5;
+}
+.map_list_area {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  margin-left: 70px;
+  vertical-align: top;
+  width: 350px;
+  border: 1px solid #b9b7ad;
+  min-height: 500px;
+  font-size: 1.0rem;
+}
+.map_list_iniText {
+  display: block;
+  position: absolute;
+  top: 50%;
+  padding-left: 40px;
+  margin-top: -0.5em;
+  color: #807b68;
+}
+.area_list {
+  list-style: none;
+  margin: 0;
+}
+.area_list_title {
+  position: relative;
+  background: #f8f7f2;
+  border-bottom: 1px solid #b9b7ad;
+  font-size: 20px;
+  color: #807b68;
+  font-weight: bold;
+  padding: 15px 20px;
+}
+.area_list_item {
+  padding: 14px 20px 10px;
+  font-size: 16px;
+  color: #807b68;
+  margin: 0;
+  border-bottom: 1px dotted #b9b7ad;
+}
+.area_list_comment {
+  display: block;
+  font-size: 12px;
+}
+.area_list_new {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 10px;
+  color: #ff7e00;
+  font-size: 12px;
+}
+.map_desc {
+  font-size: 16px;
+  color: #807b68;
+  text-indent: -1em;
+  padding-left: 1em;
+}
+</style>
+</head>
+<body>
+<h3 class="sectionTitle">面談可能エリア一覧</h3>
+<div class="mapArea">
+  <div class="map">
+    <object data="map.svg" width="512" height="491" type="image/svg+xml" id="mapSVG"></object>
+  </div>
+  <div class="map_list_area">
+    <p class="map_list_iniText">ここにエリアが表示されます。</p>
+  </div>
+  <div class="map_desc">
+    <p>※各県庁所在地から公共交通機関や車等で片道1時間程度が面談可能エリアです。<br>離島は対象エリア外です。<br>詳細なエリアに関してはお電話にてお問い合わせください。<br>上記以外のエリアは面談エリア対象外です。</p>
+  </div>
+</div>
+
+<script src="jquery-3.2.1.js"></script>
+<script>
+$(window).on('load', function(){
+  
+  var mapSVG = (function() {
+    
+    //jsonファイルの取得
+    $.ajax({
+      url: 'area_info.json',
+      type: 'GET',
+      dataType: 'json'      
+    }).done(function(data) {
+      
+      //各種変数の定義
+      var json = data[0],
+          $mapSVG = $(document.getElementById('mapSVG').contentDocument),
+          $area = $mapSVG.find('.js-area');
+          $pre = $area.find('.js-pre');
+      
+      //SVG上の各県への処理
+      $pre.each(function(){
+        var preName = $(this).attr('id');            
+            
+        Object.keys(json).forEach(function(area) {
+          var pre_list = json[area].area_pre,
+              $pre_area = $mapSVG.parent();
+          
+          //JSONの中から該当の項目を見つけた後
+          if(pre_list[preName]) {
+            pre_area_state = pre_list[preName].state;
+            $preBg = $mapSVG.find('#' + preName).find('.js-pre-bg');
+            
+            function _changeBgColor(target, color) {
+              target.css({'fill': color});
+            }
+            
+            function _paingPre() {
+              if(pre_area_state === 'expanded') {
+                _changeBgColor($preBg, '#9ede65');
+              } else if(pre_area_state === 'excluded') {
+                _changeBgColor($preBg, '#dedede');
+              }
+            }
+            
+            _paingPre();
+            
+            $preBg.color = $preBg.css('fill');
+          }
+        });
+      });
+      
+      $area.each(function(){
+        var area = $(this).attr('id');
+        
+        $(this).on('mouseenter', function(){
+          $(this).find('.js-pre-bg').css({
+            "cursor": "pointer",
+            "fill": '#ff8e14'            
+          });
+        });
+        
+        $(this).on('mouseleave', function(){
+          $(this).find('.js-pre-bg').each(function(){
+            if(json[area].area_pre[$(this).parent().attr('id')].state === 'expanded') {
+              $(this).css({
+                'fill': '#9ede65'
+              });
+            } else if(json[area].area_pre[$(this).parent().attr('id')].state === 'excluded') {
+              $(this).css({
+                'fill': '#dedede'
+              });
+            } else {
+              $(this).css({
+                'fill': '#6FBA2C'
+              });
+            }
+          });
+        });
+        
+      });
+      
+      //各県をクリックした時の動作
+      $pre.on('click', function(){
+        var pre_area, pre_area_char, pre_list, pre_name, pre_char, pre_state, pre_comment, pre_new,
+        area_list, area_list_title, area_list_item, i;
+        
+        $('.map_list_area').empty();
+  
+        pre_name = $(this).attr('id');
+        
+        Object.keys(data[0]).forEach(function(area) {
+          pre_list = data[0][area].area_pre;
+          if(pre_list[pre_name]) {
+            pre_area = data[0][area];
+            pre_area_char = pre_area.area_name;
+          }
+        });
+        
+        area_list = $('<dl class="area_list"></dl>');
+        area_list_title = $('<dt class="area_list_title"></dt>');
+        area_list_title.text(pre_area_char);
+        area_list.append(area_list_title);
+        
+        Object.keys(pre_area.area_pre).forEach(function(pre) {
+          pre_char = pre_area.area_pre[pre].name || '';
+          pre_comment = pre_area.area_pre[pre].comment || '';
+          pre_new = pre_area.area_pre[pre].new || false;
+          area_list_item = $('<dd class="area_list_item"></dd>');
+          
+          area_list_item.text(pre_char);
+          if(pre_new) {
+            area_list_item.append($('<span class="area_list_new">NEW<span>'));
+          }
+          if(pre_comment) {
+            area_list_item.append($('<span class="area_list_comment">' + pre_comment + '<span>'));
+          }
+          
+          area_list.append(area_list_item);
+        });
+        
+        $('.map_list_area').append(area_list);
+      });
+    });
+
+  })();
+});
+</script>
+</body>
+</html>
