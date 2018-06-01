@@ -97,7 +97,7 @@
           "comment": "",
           "new": true
         }
-      }      
+      }
     },
     "koshinetsu-hokuriku": {
       "area_name": "甲信越・北陸",
@@ -138,7 +138,7 @@
           "comment": "",
           "new": false
         }
-      }      
+      }
     },
     "tokai": {
       "area_name": "東海",
@@ -167,7 +167,7 @@
           "comment": "",
           "new": false
         }
-      }      
+      }
     },
     "kansai": {
       "area_name": "関西",
@@ -208,7 +208,7 @@
           "comment": "",
           "new": false
         }
-      }      
+      }
     },
     "tyugoku": {
       "area_name": "中国",
@@ -242,8 +242,8 @@
           "state": "excluded",
           "comment": "",
           "new": false
-        }        
-      }      
+        }
+      }
     },
     "shikoku": {
       "area_name": "四国",
@@ -272,7 +272,7 @@
           "comment": "",
           "new": false
         }
-      }      
+      }
     },
     "kyusyu": {
       "area_name": "九州・沖縄",
