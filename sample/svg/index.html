@@ -7,6 +7,7 @@
 <title>flexBoxSample</title>
 <link rel="stylesheet" href="../../common/css/common.css">
 <link rel="icon" href="../../favicon.ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
 <style>
 .mapArea {
   background: #fff;
@@ -86,11 +87,37 @@ area:hover {
               <p class="map_list_iniText">ここにエリアが表示されます。</p>
             </div>
           </div>
-          <p><a href="/mylab/">&gt; TOPに戻る</p>
+          <pre>
+            <code class="html">
+&lt;object data=&quot;map.svg&quot; width=&quot;512&quot; height=&quot;491&quot; type=&quot;image/svg+xml&quot; id=&quot;mapSVG&quot;&gt;&lt;/object&gt;
+            </code>
+          </pre>
+          <pre>
+            <code class="javascript">
+//SVGの取得
+
+$mapSVG = $(document.getElementById('mapSVG').contentDocument)
+
+//SVG内の各要素にアクセス
+
+$pre = $mapSVG.find('.js-pre');
+
+//例えば塗りつぶしの色を変更するなら
+
+$pre.css({'fill': '#9ede65'});
+            </code>
+          </pre>
+          <p><a href="/">&gt; TOPに戻る</p>
       </section>
   </div>
 </section>
 <script src="../../common/js/jquery-3.2.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script src="svg.js"></script>
+<script>
+;(function($){
+  hljs.initHighlightingOnLoad();
+})(jQuery)
+</script>
 </body>
 </html>
