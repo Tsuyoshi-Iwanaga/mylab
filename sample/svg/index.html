@@ -77,23 +77,22 @@ area:hover {
 <body>
 <section>
   <div class="l-contentsWrap -bgWhite">
-      <h1 class="c-largeTitle">SVGを使った地図のサンプル</h1>
-      <section>
-          <div class="mapArea">
-            <div class="map">
-              <object data="map.svg" width="512" height="491" type="image/svg+xml" id="mapSVG"></object>
-            </div>
-            <div class="map_list_area">
-              <p class="map_list_iniText">ここにエリアが表示されます。</p>
-            </div>
-          </div>
-          <pre>
-            <code class="html">
+    <h1 class="c-largeTitle">SVGを使った地図のサンプル</h1>
+    <div class="mapArea">
+      <div class="map">
+        <object data="map.svg" width="512" height="491" type="image/svg+xml" id="mapSVG"></object>
+      </div>
+      <div class="map_list_area">
+        <p class="map_list_iniText">ここにエリアが表示されます。</p>
+      </div>
+    </div>
+    <pre>
+      <code class="html">
 &lt;object data=&quot;map.svg&quot; width=&quot;512&quot; height=&quot;491&quot; type=&quot;image/svg+xml&quot; id=&quot;mapSVG&quot;&gt;&lt;/object&gt;
-            </code>
-          </pre>
-          <pre>
-            <code class="javascript">
+      </code>
+    </pre>
+    <pre>
+      <code class="javascript">
 //SVGの取得
 
 $mapSVG = $(document.getElementById('mapSVG').contentDocument)
@@ -105,10 +104,9 @@ $pre = $mapSVG.find('.js-pre');
 //例えば塗りつぶしの色を変更するなら
 
 $pre.css({'fill': '#9ede65'});
-            </code>
-          </pre>
-          <p><a href="/mylab/">&gt; TOPに戻る</p>
-      </section>
+      </code>
+    </pre>
+    <p><a href="/mylab/">&gt; TOPに戻る</p>
   </div>
 </section>
 <script src="../../common/js/jquery-3.2.1.js"></script>
