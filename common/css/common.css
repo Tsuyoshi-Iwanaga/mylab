@@ -18,7 +18,7 @@ ul p {
 
 hr {
   -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
   height: 0;
   overflow: visible;
 }
@@ -36,7 +36,7 @@ abbr[title] {
   border-bottom: none;
   text-decoration: underline;
   -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
+  text-decoration: underline dotted;
 }
 
 b,
@@ -124,7 +124,7 @@ fieldset {
 
 legend {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   color: inherit;
   display: table;
   max-width: 100%;
@@ -143,7 +143,7 @@ textarea {
 [type="checkbox"],
 [type="radio"] {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding: 0;
 }
 
@@ -191,7 +191,7 @@ html {
 
 *, *:before, *:after {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
@@ -234,27 +234,27 @@ base layout
 }
 
 .l-contentsWrap {
-    width: 100%;
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 40px;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px;
 }
 
 .l-contentsWrap.-bgWhite {
-    background: #fff;
+  background: #fff;
 }
 
 .p-indexList_item {
   border-bottom: 1px dotted #666;
 }
 
-.p-indexList_item  a{
+.p-indexList_item a {
   display: block;
   width: 100%;
   padding: 0.5em 0;
   height: auto;
 }
 
-.p-indexList_item  a:hover{
+.p-indexList_item a:hover {
   text-decoration: underline;
 }
