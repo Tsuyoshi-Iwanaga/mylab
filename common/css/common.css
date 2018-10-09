@@ -262,3 +262,7 @@ base layout
 .p-indexList_item a:hover {
   text-decoration: underline;
 }
+
+.hljs {
+  background: #333;
+}
