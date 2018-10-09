@@ -51,6 +51,10 @@ samp {
   font-size: 1em;
 }
 
+code {
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+}
+
 small {
   font-size: 80%;
 }
