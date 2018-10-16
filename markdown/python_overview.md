@@ -26,10 +26,10 @@ if / elif / else
 while / for / in / continue / break
 def / lambda / return / pass / yield
 class
-try / finally / raise
+try / finally / except / raise
 import / from / as
 
-is / nonlocal / del / with / assert / except / 
+is / nonlocal / del / with / assert /
 ```
 
 ## エスケープシーケンス
@@ -560,17 +560,47 @@ $ pip install -U pip #pip自体をアップデートする
 ## クラス
 
 ```python
-
+class Class:
+    #コンストラクタ
+    def __init__(self):
+        
+    #インスタンスメソッド  
+    def instance_method(self):
+    
+    #クラスメソッド
+    @staticmethod
+    def class_method():
+        
+instance = Class() #インスタンスを作る
+instance.instance_method() #インスタンスメソッドを呼ぶ
+Class.classmethod() #クラスメソッドを呼ぶ        
 ```
 
 ## 継承
 
 ```python
+class SuperClass:
+    def __init__(self):
 
+class Class(SuperClass):
+    def __init__(self):
+        super().__init__(self)
 ```
 
 ```python
 #多重継承
+class A:
+    def __init__(self):
+        
+class B:
+    def __init__(self):
+        
+class C:
+    def __init__(self):
+        
+class Class(A, B, C): #この場合はA > B > Cという優先度になる
+    def __init__(self):
+        super().__init__(self)
 ```
 
 ## オーバーライド
