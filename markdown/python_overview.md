@@ -562,18 +562,25 @@ $ pip install -U pip #pip自体をアップデートする
 ```python
 class Class:
     #コンストラクタ
-    def __init__(self):
+    def __init__(self, prop):
+        #インスタンス変数
+        self.prop = prop
         
-    #インスタンスメソッド  
+	#インスタンスメソッド
     def instance_method(self):
+        print(self.prop)
     
     #クラスメソッド
     @staticmethod
     def class_method():
+        print('ClassMethod!')
+    
+    #クラス変数
+    class_prop = 'classProps'
         
-instance = Class() #インスタンスを作る
-instance.instance_method() #インスタンスメソッドを呼ぶ
-Class.classmethod() #クラスメソッドを呼ぶ        
+instance = Class('instance') #インスタンスを作る
+instance.instance_method() #-> instance
+Class.class_method() #-> ClassMethod!
 ```
 
 ## 継承
@@ -581,32 +588,44 @@ Class.classmethod() #クラスメソッドを呼ぶ
 ```python
 class SuperClass:
     def __init__(self):
+        pass
+    
+    def method(self):
+        print('SuperClass')    
 
-class Class(SuperClass):
+class SubClass(SuperClass):
     def __init__(self):
-        super().__init__(self)
+        super().__init__()
+    
+    #親クラスのメソッドをオーバーライド
+    def method(self):
+        super().method()
+        print('SubClass')
+
+instance = SubClass()
+instance.method() #->SuperClass SubClass
 ```
 
 ```python
 #多重継承
 class A:
     def __init__(self):
+        self.prop = 'A'
         
 class B:
     def __init__(self):
+        self.prop = 'B'
         
 class C:
     def __init__(self):
+        self.prop = 'C'
         
 class Class(A, B, C): #この場合はA > B > Cという優先度になる
     def __init__(self):
-        super().__init__(self)
-```
-
-## オーバーライド
-
-```python
-
+        super().__init__()
+        
+instance = Class()
+print(instance.prop) #-> A (Aの__init__が優先される)
 ```
 
 ## ゲッター / セッター
