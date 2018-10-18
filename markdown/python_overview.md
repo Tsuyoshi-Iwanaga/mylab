@@ -566,8 +566,16 @@ class Class:
         #インスタンス変数
         self.prop = prop
         
-	#インスタンスメソッド
-    def instance_method(self):
+    #インスタンスメソッド(公開メソッド)
+    def instance_method01(self):
+        print(self.prop)
+    
+    #インスタンスメソッド(暗黙の非公開メソッド)
+    def _instance_method02(self):
+        print(self.prop)
+        
+    #インスタンスメソッド(マングリングされる非公開メソッド)
+    def __instance_method03(self):
         print(self.prop)
     
     #クラスメソッド
@@ -579,7 +587,9 @@ class Class:
     class_prop = 'classProps'
         
 instance = Class('instance') #インスタンスを作る
-instance.instance_method() #-> instance
+instance.instance_method01() #-> instance
+instance._instance_method02() #-> instance(非公開とはいえ普通に呼び出し可能)
+instance._Class__instance_method03() #-> instance(__クラス名_メソッド名とすれば呼び出し可能)
 Class.class_method() #-> ClassMethod!
 ```
 
@@ -631,17 +641,70 @@ print(instance.prop) #-> A (Aの__init__が優先される)
 ## ゲッター / セッター
 
 ```python
-
+class Clock:
+    def __init__(self, hour):
+        self._hour = hour
+        self._ampm = 'am'
+    
+    @property #getter
+    def hour(self):
+        return self._hour
+    
+    @hour.setter #setter
+    def hour(self, value):
+        self._hour = value % 12
+        self._ampm = 'am' if value <= 12 else 'pm'
+    
+    @property
+    def ampm(self):
+        return self._ampm
+    
+obj = Clock(11)
+print(obj.hour, obj.ampm) #11 am ゲッター経由で_hourを取得できる
+obj.hour = 13 # セッター経由で_hourに値をセット、指定のフォーマットに自動変換される。
+print(obj.hour, obj.ampm) #1 pm
 ```
 
 ## 特殊メソッド
 
 ```python
+#演算子のオーバーロード
+class Pos:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
+    def __add__(self, other):
+        return Pos(self.x + other.x , self.y + other.y)
+
+    def __str__(self):
+        return "({0}, {1})".format(self.x, self.y)
+
+p1 = Pos(10, 20)
+p2 = Pos(30, 40)
+
+p3 = p1 + p2 # +で演算
+print(p3) #printで出力
 ```
 
-## 抽象基底クラス
-
 ```python
+object.__add__(self, other) # +を使ったときの挙動
+object.__sub__(self, other) # -を使ったときの挙動
+object.__mul__(self, other) # *を使ったときの挙動
+object.__truediv__(self, other) # /を使ったときの挙動
+object.__floordiv__(self, other) # //を使ったときの挙動
+object.__mod__(self, other) # %を使ったときの挙動
+object.__lt__(self, other) # <を使ったときの挙動
+object.__le__(self, other) # <=を使ったときの挙動
+object.__eq__(self, other) # <=を使ったときの挙動
+object.__ne__(self, other) # !=を使ったときの挙動
+object.__gt__(self, other) # >を使ったときの挙動
+object.__ge__(self, other) # >=を使ったときの挙動
 
+object.__getitem__(self, key) # Class[]の形でアクセスした時の挙動
+object.__setitem__(self, key, value) # class[]の形で値をセットした時の挙動
+object.__contains__(self, item) # inを使った時の結果を返す
+
+object.__iter__(self) # イテレータを初期化
+object.__next__(self) # 次の値を返す
 ```
