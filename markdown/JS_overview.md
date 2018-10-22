@@ -274,7 +274,21 @@ Promise.reject(value)//強制的に失敗するプロミスを返す
 async/await
 
 ```javascript
+//3秒待つ関数
+function waitFor3Seconds(){
+  return new Promise((resolve)=>{
+    setTimeout(resolve, 3000);
+  });
+}
+async function main(){
+  console.log('main started');//1
+  await waitFor3Seconds();//ここで処理の完了を待つ
+  console.log('done!');//3
+}
+main();
+console.log('called main');//2(待ってる間にこちらに処理が移る)
 
+//=>'main started' 'called main' 'done!'
 ```
 
 
