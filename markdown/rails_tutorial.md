@@ -1,6 +1,6 @@
-## 手順書/レギュレーション
+## Ruby on Rails チュートリアル
 
-### ★導入
+### 導入
 
 #### Rubyとgemのバージョン確認
 
@@ -32,19 +32,26 @@ rails _5.1.6_ new hello_app
 ```ruby
 source 'https://rubygems.org'
 
-gem 'rails',        '5.1.6'
-gem 'puma',         '3.9.1'
-gem 'sass-rails',   '5.0.6'
-gem 'uglifier',     '3.2.0'
-gem 'coffee-rails', '4.2.2'
-gem 'jquery-rails', '4.3.1'
-gem 'turbolinks',   '5.0.1'
-gem 'jbuilder',     '2.6.4'
+gem 'rails',                   '5.1.6'
+gem 'bcrypt',                  '3.1.12'
+gem 'faker',                   '1.7.3'
+gem 'carrierwave',             '1.2.2'
+gem 'mini_magick',             '4.7.0'
+gem 'will_paginate',           '3.1.6'
+gem 'bootstrap-will_paginate', '1.0.0'
+gem 'bootstrap-sass',          '3.3.7'
+gem 'puma',                    '3.9.1'
+gem 'sass-rails',              '5.0.6'
+gem 'uglifier',                '3.2.0'
+gem 'coffee-rails',            '4.2.2'
+gem 'jquery-rails',            '4.3.1'
+gem 'turbolinks',              '5.0.1'
+gem 'jbuilder',                '2.7.0'
 
 # sqlite3 gemはdevelopとtestの環境だけで使う(HerokuのDBとの競合を避けるため)
 group :development, :test do
-  gem 'sqlite3',      '1.3.13'
-  gem 'byebug', '9.0.6', platform: :mri
+  gem 'sqlite3', '1.3.13'
+  gem 'byebug',  '9.0.6', platform: :mri
 end
 
 group :development do
@@ -54,9 +61,18 @@ group :development do
   gem 'spring-watcher-listen', '2.0.1'
 end
 
+group :test do
+  gem 'rails-controller-testing', '1.0.2'
+  gem 'minitest',                 '5.10.3'
+  gem 'minitest-reporters',       '1.1.14'
+  gem 'guard',                    '2.14.1'
+  gem 'guard-minitest',           '2.4.6'
+end
+
 # 本番ではPostgreSQLを使う
 group :production do
-  gem 'pg', '0.20.0'
+  gem 'pg',   '0.20.0'
+  gem 'fog',  '1.42'
 end
 
 # Windows環境ではtzinfo-dataというgemを含める必要があります
@@ -213,13 +229,241 @@ Controller < ApplicationController < ActionController::Base
 
 ### ★静的なページの作成
 
-```ruby
+#### コントローラを作る
 
+```ruby
+rails generate controller StaticPages home help
+#controllers/static_pages_controller.rbが自動で生成される。
+#views/static_pages/home.html.erbとviews/static_pages/help.html.erbが自動生成される。
+#test/controllers/static_pages_controller_test.rbというテストファイルが自動生成される。
+#config/routes.rbに"get static_pages/home", "get static_pages/help"が追加される。
+```
+
+#### railsで操作を戻す方法
+
+```shell
+rails generate model User name:string email:string
+rails destroy model User #Userモデルを削除する
+```
+
+```shell
+rails db:migrate
+rails db:rollback #一個戻す
+rails db:migrate VERSION=0 #最初に戻す
+```
+
+#### aboutページの追加(①まずテストを書く)
+
+```ruby
+test "should get about" do
+    get static_pages_about_url
+    assert_response :success
+end
+```
+
+#### aboutページの追加(②ルーティングを設定する)
+
+```ruby
+get  'static_pages/help'
+get  'static_pages/about' #ここに追加, static_pages_about_urlというヘルパーが使えるようになる
+root 'application#hello'
+```
+
+#### aboutページの追加(③controllerにアクションを設定)
+
+```ruby
+def about
+end #これだけでrailsではviews/static_pages/about.html.erbを表示するようになる。
+```
+
+#### aboutページの追加(④ビューを作る)
+
+```shell
+touch app/views/static_pages/about.html.erb #コマンドラインでファイル作るとかっこいい
+```
+
+#### セレクタの有無と内容をテストする
+
+```ruby
+assert_select "title", "Home | Ruby on Rails Tutorial Sample App"
+```
+
+#### テストが実行される直前に実行されるメソッドを定義
+
+```ruby
+def setup
+    @base_title = "Ruby on Rails Tutorial Sample App"
+end #テスト内では#{@base_title}で参照できる
+```
+
+#### ビューの中で変数を使う
+
+```ruby
+<% provide(:title, "Home") %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield(:title) %> | Ruby on Rails Tutorial Sample App</title>
+  </head>
+```
+
+#### ビューの仕組み
+
+```shell
+#これが大本のビューテンプレート<%= yield %>に各ビューの内容が埋め込まれる。
+app/views/layouts/application.html.erb
+
+#パーシャル(個別のビュー)が<% yield %>となっているコンテンツ部分に挿入される
+app/views/static_pages/home.html.erbなど
+```
+
+### rootのルーティングを変更
+
+```ruby
+root 'static_pages#home' #ここを変更 root_urlというヘルパーが使えるようになる
+get 'static_pages/home'
+```
+
+```ruby
+test "should get root" do #root用のテスト
+    get root_url
+    assert_response :success
+end
 ```
 
 
 
+### ★Rubyの文法
 
+#### ヘルパー
+
+```ruby
+#app/helper/application_helper.rb
+
+#モジュール、他ファイルからincludeで呼び出せるがrailsでは自動でやってくれる
+module ApplicationHelper
+
+#関数定義、rubyでは関数内でreturnを使わない時、デフォルトで最後に評価された式がreturnされる
+def full_title(page_title = '') #引数のデフォルト値
+    base_title = "Ruby on Rails Tutorial Sample App"
+    if page_title.empty?
+        bese_title
+    else
+        page_title + "|" + bese_title
+    end
+end
+```
+
+```ruby
+<title><%= full_title(yield(:title)) %></title> #レイアウトビュー内で使う
+```
+
+#### ブロック
+
+```ruby
+(1..5).each { |i| puts 2 * i }
+(1..5).map { |i| i**2 } #[1, 4, 9, 16, 25]
+
+(1..5).each do |i|
+   puts 2 * i
+end
+
+%w[A B C].map { |char| char.downcase } #["a", "b", "c"]
+%w[A B C].map(&:downcase) #symbol-to-proc記法、これは上と同じ意味
+```
+
+#### ハッシュ / シンボル
+
+```ruby
+user = { :name => "Michael Hartl", :email => "michael@example.com" }
+user = { name : "Michael Hartl", email : "michael@example.com" }
+
+user[:name] #"mhartl@example.com"
+```
+
+```shell
+puts :name.inspect
+p :name #上と同じ
+```
+
+#### メソッド呼び出し
+
+```ruby
+#rubyでは引数のカッコ、末尾の引数がオブジェクトの時の{}を省略できる。
+stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+stylesheet_link_tag('application', media: 'all', 'data-turbolinks-track': 'reload')
+stylesheet_link_tag('application', { media: 'all', 'data-turbolinks-track': 'reload'})
+```
+
+#### クラス
+
+```ruby
+s = String.new('foobar')
+s.class #String
+s.class.superclass #Object
+s.class.superclass.superclass #BasicObject
+s.class.superclass.superclass.superclass #nil
+```
+
+```ruby
+class User
+    attr_accessor :name, :email #アクセサ getterとsetter
+    
+    def initialize(attribute = {}) #いわゆるコンストラクタ
+        @name = attribute[:name]
+        @email = attribute[:email]
+    end
+    
+    def formatted_email #インスタンスメソッド
+        "#{@name} #{@email}"
+    end
+end
+
+user = User.new(name: "Michael Hartl", email: "mhartl@example.com")
+```
+
+
+
+### ★レイアウト
+
+#### リンク、画像、パーシャル
+
+```ruby
+<%= link_to "Home", root_path, id: "logo" %>
+#root_pathならルートパス、root_urlなら絶対パスを返す
+```
+
+```ruby
+<%= image_tag("rails.png", alt: "Rails logo") %>
+```
+
+```ruby
+<%= render 'layouts/header' %> #拡張子は省略可能
+```
+
+#### ルーティングのカスタマイズ
+
+```ruby
+Rails.application.routes.draw do
+  root 'static_pages#home'
+  get  '/help',    to: 'static_pages#help'
+  get  '/about',   to: 'static_pages#about'
+  get  '/contact', to: 'static_pages#contact'
+end
+```
+
+#### レイアウトのリンクをチェックするテスト
+
+```ruby
+test "layout links" do
+  get root_path
+  assert_template 'static_pages/home' #テンプレートのテスト
+  assert_select "a[href=?]", root_path, count: 2 #リンクと個数のテスト
+  assert_select "a[href=?]", help_path
+  assert_select "a[href=?]", about_path
+  assert_select "a[href=?]", contact_path
+end
+```
 
 
 
@@ -254,7 +498,7 @@ rail console --sandbox
 ```ruby
 user = User.new(name: "tarou", email: "aaa@gmail.com")
 user.valid? #有効性チェック
-user.save #DBに保存
+user.save #DBに保存(保存するまではただメモリ上にあるだけ)
 user.name
 user.email
 user.id #マジックカラム(id)
@@ -335,12 +579,6 @@ user.password_digest #ハッシュ化されたパスワードが表示
 user.authenticate("morimori") #パスワードが違うのでfalse
 !!user.authenticate("foobar") #正しいパスワードを与えたのでtrue
 ```
-
-
-
-
-
-
 
 
 
