@@ -518,6 +518,7 @@ User.all.length #データの個数を返してくれる
 
 user.email = "ccc.gmail.com" #メモリ上で更新
 user.save #DBに保存
+user.reload #DBの情報をもとに再読み込みする
 user.update_attributes(name: "bob", email: "ccc@gmial.com") #まとめて更新、保存
 user.update_attribute(:name, "michel") #特定の属性だけを更新、保存
 
@@ -579,6 +580,124 @@ user.password_digest #ハッシュ化されたパスワードが表示
 user.authenticate("morimori") #パスワードが違うのでfalse
 !!user.authenticate("foobar") #正しいパスワードを与えたのでtrue
 ```
+
+※モデル内にhas_secure_passwordを指定したときの挙動
+
+- ハッシュ化したパスワードをpassword_digestという属性でDBに保存できるようになる。
+- Userインスタンスはpasswordとpassword_confirmationという属性を持つようになる。
+- passwordとpassword_confirmationの存在性、一致性のバリデーションが追加される。
+- user.authenticate('パスワード文字列')というメソッドを使えるようになる。ture/falseを返す。 
+
+
+
+### ★ユーザ登録
+
+#### デバッグ機能をつける
+
+/app/views/layouts/application.html.erb
+
+```ruby
+<%= debug(params) if Rails.env.development? %> #開発環境のみ表示させる
+```
+
+#### Userリソースのルーティングを設定する
+
+```ruby
+Rails.application.routes.draw do
+  root 'static_pages#home'
+  get  '/help',    to: 'static_pages#help'
+  get  '/about',   to: 'static_pages#about'
+  get  '/contact', to: 'static_pages#contact'
+  get  '/signup',  to: 'users#new'
+  resources :users #追記(index,show,new,create,edit,update,destroyアクション自動で追加)
+end
+```
+
+#### コントローラーとビューを設定する
+
+app/controllers/users_controller.rb
+
+```ruby
+class UserController < ApplicationController
+    def show
+        @user = User.find(param[:id])#/users/:idから取得した値がはいる。@userはビューで利用可
+    end
+    
+    def new
+        @user = User.new #空のユーザオブジェクトを@userに入れておく
+    end
+end
+```
+
+#### デバッカー
+
+```ruby
+def show
+  @user = User.find(params[:id])
+  debugger #ここでコードが止まって、この時の@userの値をコンソールで確認することができる
+end
+```
+
+#### Gravatar画像を表示する
+
+app/helper/users_helper.rb
+
+```ruby
+module UsersHelper
+  def gravatar_for(user)
+      gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
+      gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}"
+      image_tag(gravatar_url, alt: user.name, class: "gravatar")
+  end
+end
+#GravatarはメールアドレスをMD5という仕組みでハッシュ化している。
+#RubyではDigestライブラリのhexdigestメソッドを使うとMD5のハッシュ化が実現する。
+```
+
+app/views/users/show.html.erb
+
+```ruby
+<% provide(:title, @user.name) %>
+<h1>
+  <%= gravatar_for @user %>
+  <%= @user.name %>
+</h1>
+```
+
+#### 新規登録用のフォームをつくる
+
+app/views/users/new.html.erb
+
+```ruby
+<% provide(:title, 'Signup') %>
+<% form_for(@user) do |f| %>
+  <% f.label :name %>
+  <% f.text_field :name %>
+
+  <% f.label :email %>
+  <% f.email_field :email %>
+
+  <% f.label :password %>
+  <% f.password_field :password %>
+
+  <% f.label :password_confirmation "Confirmation" %>
+  <% f.password_field :password_confirmation %>
+
+  <% f.submit "" :name %>
+<% end %>
+```
+
+↓こういうHTMLが生成される
+
+(/usersにpostメソッドで送る。name="user[name]"などの値はハッシュ形式でparams[:user]に入っている。
+
+```html
+<form action="/users" class="new_user" id="new_user" method="post">
+  <label for="user_name">Name</label>
+  <input id="user_name" name="user[name]" type="text" /> ...
+```
+
+
 
 
 
