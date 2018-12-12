@@ -67,8 +67,6 @@
       </code>
     </pre>
 
-    <hr>
-
     <!-- 3col -->
     <h2 class="c-middleTitle">3カラム</h2>
     <div style="margin: 40px 0;">
@@ -130,8 +128,6 @@
 }
       </code>
     </pre>
-
-    <hr>
 
     <!-- ボタン -->
     <h2 class="c-middleTitle">ボタン</h2>
@@ -269,12 +265,99 @@
       </code>
     </pre>
 
-      <p><a href="../">&gt; TOPに戻る</p>
+    <!-- アコーディオン -->
+    <h2 class="c-middleTitle">アコーディオン(.is-activeの付け替え)</h2>
+    <div style="margin: 40px 0;">
+      <dl class="c-accodion js-accodion">
+        <dt class="c-accodion_head">アコーディオン</dt>
+        <dd class="c-accodion_content" style="margin:0;">ダミーダミーダミー</dd>
+      </dl>
+    </div>
+    <pre>
+      <code class="html">
+&lt;dl class=&quot;c-accodion js-accodion&quot;&gt;
+  &lt;dt class=&quot;c-accodion_head&quot;&gt;アコーディオン&lt;/dt&gt;
+  &lt;dd class=&quot;c-accodion_content&quot;&gt;ダミーダミーダミー&lt;/dd&gt;
+&lt;/dl&gt;
+      </code>
+    </pre>
+    <pre>
+      <code class="sass">
+.c-accodion {
+  border: 1px solid #999;
+  &_head {
+    position: relative;
+    padding: 1.0em 3.5em 1.0em 1.0em;
+    color: #fff;
+    background: #666;
+    &:before {
+      content: "";
+      display: block;
+      width: 4px;
+      height: 20px;
+      position: absolute;
+      top: 50%;
+      right: calc(2.0rem + 8px);
+      transform: translateY(-50%);
+      background: #fff;
+    }
+    &:after {
+      content: "";
+      display: block;
+      width: 20px;
+      height: 4px;
+      position: absolute;
+      top: 50%;
+      right: 2.0rem;
+      transform: translateY(-50%);
+      background: #fff;
+    }
+  }
+  &_content {
+    padding-left: 1.0em;
+    opacity: 0;
+    height: 0;
+    transition: height 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out;
+  }
+  &.is-active {
+    & > .c-accodion_head {
+      &:before {
+        display: none;
+      }
+    }
+    & > .c-accodion_content {
+      opacity: 1.0;
+      height: auto;
+      padding-top: 1.0em;
+      padding-bottom: 1.0em;
+    }
+  }
+}
+      </code>
+      <code class="javascript">
+$(function(){
+  var accWrap = $('.js-accodion'),
+      accTitle = accWrap.find('dt'),
+      activeClass = 'is-active';
+
+  accTitle.on('click', function(){
+    if($(this).parent().hasClass(activeClass)) {
+      $(this).parent().removeClass(activeClass)
+    } else {
+      $(this).parent().addClass(activeClass)
+    }
+  });
+});
+        </code>
+    </pre>
+
+    <p><a href="../">&gt; TOPに戻る</p>
     </section>
   </div>
 </section>
 <script src="../../common/js/jquery-3.2.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="script.js"></script>
 <script>
 ;(function($){
   hljs.initHighlightingOnLoad();
