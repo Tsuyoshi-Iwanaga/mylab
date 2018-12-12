@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>CSS-Parts</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<link rel="icon" href="../../favicon.ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
+<link rel="stylesheet" href="style.css">
+<body>
+<section>
+  <div class="l-contentsWrap -bgWhite">
+    <h1 class="c-largeTitle">CSS-Parts</h1>
+    <section>
+
+    <!-- 2col -->
+    <h2 class="c-middleTitle">2カラム</h2>
+    <div style="margin: 40px 0;">
+      <div class="c-2col_wrap">
+        <div class="c-2col_col">
+          <div class="c-2col_colInner">
+            <p>カラム1</p>
+          </div>
+        </div>
+        <div class="c-2col_col">
+          <div class="c-2col_colInner">
+            <p>カラム2</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <pre>
+      <code class="html">
+&lt;div class=&quot;c-2col_wrap&quot;&gt;
+  &lt;div class=&quot;c-2col_col&quot;&gt;
+    &lt;div class=&quot;c-2col_colInner&quot;&gt;
+      &lt;p&gt;カラム1&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;c-2col_col&quot;&gt;
+    &lt;div class=&quot;c-2col_colInner&quot;&gt;
+      &lt;p&gt;カラム2&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+      </code>
+    </pre>
+    <pre>
+      <code class="sass">
+.c-2col{
+  box-sizing: border-box;
+  &_wrap {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &_col {
+    width: 50%;
+    text-align: center;
+    background: #eee;
+    border: 1px solid #999;
+  }
+}
+      </code>
+    </pre>
+
+    <hr>
+
+    <!-- 3col -->
+    <h2 class="c-middleTitle">3カラム</h2>
+    <div style="margin: 40px 0;">
+      <div class="c-3col_wrap">
+        <div class="c-3col_col">
+          <div class="c-3col_colInner">
+            <p>カラム1</p>
+          </div>
+        </div>
+        <div class="c-3col_col">
+          <div class="c-3col_colInner">
+            <p>カラム2</p>
+          </div>
+        </div>
+        <div class="c-3col_col">
+          <div class="c-3col_colInner">
+            <p>カラム3</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <pre>
+      <code class="html">
+&lt;div class=&quot;c-3col_wrap&quot;&gt;
+  &lt;div class=&quot;c-3col_col&quot;&gt;
+    &lt;div class=&quot;c-3col_colInner&quot;&gt;
+      &lt;p&gt;カラム1&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;c-3col_col&quot;&gt;
+    &lt;div class=&quot;c-3col_colInner&quot;&gt;
+      &lt;p&gt;カラム2&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;c-3col_col&quot;&gt;
+    &lt;div class=&quot;c-3col_colInner&quot;&gt;
+      &lt;p&gt;カラム3&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+      </code>
+    </pre>
+    <pre>
+      <code class="sass">
+.c-3col{
+  box-sizing: border-box;
+  &_wrap {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &_col {
+    width: 33.33333%;
+    text-align: center;
+    background: #eee;
+    border: 1px solid #999;
+  }
+}
+      </code>
+    </pre>
+
+    <hr>
+
+    <!-- ボタン -->
+    <h2 class="c-middleTitle">ボタン</h2>
+    <div style="margin: 40px 0;">
+      <p class="c-btn -iconLeftArrow"><a href="#">もどる</a></p>
+      <p class="c-btn -iconRightArrow"><a href="#">申し込む</a></p>
+      <button class="c-btn -iconRightArrow" style="border: none;">ラッパーがbutton要素でもOK</button>
+      <button class="c-btn -iconRightArrow -wideFixed300" style="border: none;">幅固定300px</button>
+    </div>
+    <pre>
+      <code class="html">
+&lt;p class=&quot;c-btn -iconLeftArrow&quot;&gt;&lt;a href=&quot;#&quot;&gt;もどる&lt;/a&gt;&lt;/p&gt;
+&lt;p class=&quot;c-btn -iconRightArrow&quot;&gt;&lt;a href=&quot;#&quot;&gt;申し込む&lt;/a&gt;&lt;/p&gt;
+&lt;button class=&quot;c-btn -iconRightArrow&quot; style=&quot;border: none;&quot;&gt;ラッパーがbutton要素でもOK&lt;/button&gt;
+&lt;button class=&quot;c-btn -iconRightArrow -wideFixed300&quot; style=&quot;border: none;&quot;&gt;幅固定300px&lt;/button&gt;
+      </code>
+    </pre>
+    <pre>
+      <code class="sass">
+.c-btn {
+  display: inline-block;
+  border-radius: 1000px;
+  display: inline-block;
+  border-radius: 1000px;
+  background: #333;
+  position: relative;
+  color: #fff;
+  text-align: center;
+  line-height: 1.0;
+  text-decoration: none;
+  font-size: 1.6rem;
+  padding: 2.0rem 3.5rem 2.0rem;
+  transition: opacity 1s ease;
+  min-width: 24.0rem;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+  & a {
+    display: block;
+    width: 100%;
+    color: #fff;
+  }
+  &.-wideFixed300 {
+    min-width: 300px;
+  }
+  &.-iconRightArrow {
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 2rem;
+      background: #fff;
+      width: 2px;
+      height: 12px;
+      margin-top: -3px;
+      transform: rotate(45deg);
+    }
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 2rem;
+      background: #fff;
+      width: 2px;
+      height: 12px;
+      margin-top: -10px;
+      transform: rotate(135deg);
+    }
+  }
+  &.-iconLeftArrow {
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 2rem;
+      background: #fff;
+      width: 2px;
+      height: 12px;
+      margin-top: -10px;
+      transform: rotate(45deg);
+    }
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 2rem;
+      background: #fff;
+      width: 2px;
+      height: 12px;
+      margin-top: -3px;
+      transform: rotate(135deg);
+    }
+  }
+}
+      </code>
+    </pre>
+
+    <!-- KVなど -->
+    <h2 class="c-middleTitle">KVなど上下中央寄せ</h2>
+    <div style="margin: 40px 0;">
+      <div class="c-centered_wrap">
+        <p class="c-centered_box"><img src="./images/image.png" alt=""></p>
+      </div>
+    </div>
+    <pre>
+      <code class="html">
+&lt;div class=&quot;c-centered_wrap&quot;&gt;
+  &lt;p class=&quot;c-centered_box&quot;&gt;&lt;img src=&quot;./images/image.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;/div&gt;
+      </code>
+    </pre>
+    <pre>
+      <code class="sass">
+.c-centered {
+  &_wrap {
+    width: 100%;
+    position: relative;
+    background: url(./images/bg.jpg) top center no-repeat;
+    background-size: cover;
+    min-height: 320px;
+  }
+  &_box {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+      </code>
+    </pre>
+
+      <p><a href="../">&gt; TOPに戻る</p>
+    </section>
+  </div>
+</section>
+<script src="../../common/js/jquery-3.2.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+;(function($){
+  hljs.initHighlightingOnLoad();
+})(jQuery)
+</script>
+</body>
+</html>
