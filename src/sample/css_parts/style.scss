@@ -219,3 +219,24 @@
     }
   }
 }
+
+@mixin calcCard($col-num, $item-width) {
+  width: #{$item-width};
+  margin-right: calc((100% - (#{$item-width} * #{$col-num}))/(#{$col-num} - 1));
+  &:nth-of-type(#{$col-num}) {
+    margin-right: 0;
+  }
+}
+.c-card {//4カラム、幅20%の場合
+  &_list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -1em;
+  }
+  &_item {
+    @include calcCard(4, 20%);
+    background: #eee;
+    padding: 1em;
+    margin-bottom: 1em;
+  }
+}

@@ -225,3 +225,21 @@
 .c-tab_contentItem.is-active {
   display: block;
 }
+
+.c-card_list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: -1em;
+}
+
+.c-card_item {
+  width: 20%;
+  margin-right: calc((100% - (20% * 4))/(4 - 1));
+  background: #eee;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.c-card_item:nth-of-type(4) {
+  margin-right: 0;
+}

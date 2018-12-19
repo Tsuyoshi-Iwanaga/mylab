@@ -445,6 +445,60 @@ tabSwitch(index);
       </code>
     </pre>
 
+    <!-- カード -->
+    <h2 class="c-middleTitle">カード</h2>
+    <div style="margin: 40px 0;">
+      <div class="c-card">
+        <ul class="c-card_list">
+          <li class="c-card_item">col01</li>
+          <li class="c-card_item">col02<br>col02</li>
+          <li class="c-card_item">col03<br>col03<br>col03</li>
+          <li class="c-card_item">col04<br>col04<br>col04<br>col04</li>
+          <li class="c-card_item">col05</li>
+          <li class="c-card_item">col06<br>col06<br>col06</li>
+          <li class="c-card_item">col06<br>col06<br>col06</li>
+        </ul>
+      </div>
+    </div>
+    <pre>
+      <code class="html">
+&lt;div class=&quot;c-card&quot;&gt;
+  &lt;ul class=&quot;c-card_list&quot;&gt;
+    &lt;li class=&quot;c-card_item&quot;&gt;col01&lt;/li&gt;
+    &lt;li class=&quot;c-card_item&quot;&gt;col02&lt;br&gt;col02&lt;/li&gt;
+    &lt;li class=&quot;c-card_item&quot;&gt;col03&lt;br&gt;col03&lt;br&gt;col03&lt;/li&gt;
+    &lt;li class=&quot;c-card_item&quot;&gt;col04&lt;br&gt;col04&lt;br&gt;col04&lt;br&gt;col04&lt;/li&gt;
+    &lt;li class=&quot;c-card_item&quot;&gt;col05&lt;/li&gt;
+    &lt;li class=&quot;c-card_item&quot;&gt;col06&lt;br&gt;col06&lt;br&gt;col06&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+      </code>
+    </pre>
+    <pre>
+      <code class="sass">
+@mixin calcCard($col-num, $item-width) {
+  width: #{$item-width};
+  margin-right: calc((100% - (#{$item-width} * #{$col-num}))/(#{$col-num} - 1));
+  &:nth-of-type(#{$col-num}) {
+    margin-right: 0;
+  }
+}
+.c-card {//4カラム、幅20%の場合
+  &_list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -1em;
+  }
+  &_item {
+    @include calcCard(4, 20%);
+    background: #eee;
+    padding: 1em;
+    margin-bottom: 1em;
+  }
+}
+      </code>
+    </pre>
+
     <p><a href="../">&gt; TOPに戻る</p>
     </section>
   </div>
