@@ -137,6 +137,9 @@
     padding: 1.0em 3.5em 1.0em 1.0em;
     color: #fff;
     background: #666;
+    &:hover {
+      cursor: pointer;
+    }
     &:before {
       content: "";
       display: block;
@@ -164,7 +167,7 @@
     padding-left: 1.0em;
     opacity: 0;
     height: 0;
-    transition: height 0.2s ease-out, padding-top 0.2s ease-out, padding-bottom 0.2s ease-out;
+    transition: height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease;
   }
   &.is-active {
     & > .c-accodion_head {
