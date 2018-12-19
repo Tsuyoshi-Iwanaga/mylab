@@ -3,7 +3,8 @@
   "scripts": {
     "ejs": "gulp ejs",
     "sass": "gulp sass",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "build": "gulp build"
   },
   "devDependencies": {
     "del": "^3.0.0",
