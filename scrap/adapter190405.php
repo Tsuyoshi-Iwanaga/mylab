@@ -16,7 +16,7 @@ class ShowFile {
   public function showPlain() {
     echo '<pre>';
     echo htmlspecialchars(fine_get_contents($this->filename), ENT_QUOTES, mb_internal_encoding());
-    ehco '</pre>';
+    echo '</pre>';
   }
 
   public function showHighlight() {
