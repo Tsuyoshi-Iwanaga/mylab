@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Sample</title>
+<style>
+.calWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  padding: 15px;
+  font-size: 12px;
+}
+.calMonth_cal {
+  width: 100%;
+  max-width: 203px;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+.calMonth_row {
+  font-size: 0;
+
+}
+.calMonth_date {
+  display: inline-block;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  padding: 5px;
+  text-align: right;
+  margin: 0;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.calMonth_date.-label {
+  background: #e6e6e6;
+  font-weight: bold;
+  color: #666;
+}
+.calMonth_date.-select {
+  background: #f6f6f6;
+}
+.calMonth_date.-select:hover {
+  cursor: pointer;
+}
+.calTime {
+  width: 100%;
+  max-width: 50px;
+  background: #e6e6e6;
+}
+.calTime_row {
+  border-top: 1px solid #ccc;
+}
+.calTime_time {
+  margin: 0;
+  height: 18px;
+  padding: 5px;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.calTime_time:hover {
+  cursor: pointer;
+}
+.calMonth_switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.calMonth_switcher {
+  margin: 0;
+}
+.calMonth_title {
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<input type="text" class="js-dateTime" style="margin-bottom: 30px;">
+
+<div class="calWrap">
+  <div class="calMont_wrap">
+    <div class="calMonth_switch">
+      <p class="calMonth_switcher js-calMonthBack">←</p>
+      <p class="calMonth_title"><span class="js-yearItem"></span>年&nbsp;<span class="js-monthItem"></span>月</p>
+      <p class="calMonth_switcher js-calMonthFoward">→</p>
+    </div>
+    <div class="calMonth_cal">
+      <div class="calMonth_row">
+        <p class="calMonth_date -label">月</p>
+        <p class="calMonth_date -label">火</p>
+        <p class="calMonth_date -label">水</p>
+        <p class="calMonth_date -label">木</p>
+        <p class="calMonth_date -label">金</p>
+        <p class="calMonth_date -label">土</p>
+        <p class="calMonth_date -label">日</p>
+      </div>
+      <div class="calMonth_row">
+        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
+        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
+        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
+        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
+        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
+        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
+        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
+      </div>
+      <div class="calMonth_row">
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+      </div>
+      <div class="calMonth_row">
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+      </div>
+      <div class="calMonth_row">
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+      </div>
+      <div class="calMonth_row">
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+      </div>
+    </div>
+  </div>
+  <div class="calTime">
+    <div class="calTime_wrap">
+      <div class="calTime_row">
+        <p class="calTime_time">12:00</p>
+        <p class="calTime_time">13:00</p>
+        <p class="calTime_time">14:00</p>
+        <p class="calTime_time">15:00</p>
+        <p class="calTime_time">16:00</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="./date.js"></script>
+<script>
+
+  var now = new Date();
+
+  var state = {
+    current: now,
+  };
+
+  function displayCal (num) {
+    var currentTime = state.current;
+    var monthProceed = num || 0;
+    var calDateArr = [];
+    
+    currentTime.setMonth(currentTime.getMonth() + monthProceed);
+
+    var day = new Date(currentTime.getFullYear() + '-' + (currentTime.getMonth() + 1) + '-' + '1');
+
+    day.setDate(day.getDate() - (day.getDay() - 1));
+
+    for(var i=0; i < 35; i++) {
+      calDateArr.push(day.getDate());
+      day.setDate(day.getDate() + 1);
+    }
+
+    calDateArr.forEach(function(v, i) {
+      $('.js-dateItem').eq(i).text(v);
+    });
+
+    $('.js-yearItem').text(currentTime.getFullYear());
+    $('.js-monthItem').text(currentTime.getMonth() + 1);
+  }
+
+  displayCal ();
+
+  $('.js-calMonthBack').on('click', function(){
+    displayCal(-1);
+  });
+
+  $('.js-calMonthFoward').on('click', function(){
+    displayCal(1);
+  });
+
+
+
+
+
+
+
+
+  // $('.js-dateTime').Calselector({
+  //   aaaa: true
+  // });
+</script>
+</body>
+</html>
