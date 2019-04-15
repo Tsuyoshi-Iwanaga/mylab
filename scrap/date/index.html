@@ -49,6 +49,9 @@
 .calMonth_date.-select:hover {
   cursor: pointer;
 }
+.calMonth_date.is-active {
+  background: pink;
+}
 .calTime {
   width: 100%;
   max-width: 50px;
@@ -68,6 +71,9 @@
 .calTime_time:hover {
   cursor: pointer;
 }
+.calTime_time.is-active {
+  background: pink;
+}
 .calMonth_switch {
   display: flex;
   justify-content: space-between;
@@ -76,6 +82,7 @@
 }
 .calMonth_switcher {
   margin: 0;
+  cursor: pointer;
 }
 .calMonth_title {
   margin: 0;
@@ -153,11 +160,11 @@
   <div class="calTime">
     <div class="calTime_wrap">
       <div class="calTime_row">
-        <p class="calTime_time">12:00</p>
-        <p class="calTime_time">13:00</p>
-        <p class="calTime_time">14:00</p>
-        <p class="calTime_time">15:00</p>
-        <p class="calTime_time">16:00</p>
+        <p class="calTime_time js-timeItem">12:00</p>
+        <p class="calTime_time js-timeItem">13:00</p>
+        <p class="calTime_time js-timeItem">14:00</p>
+        <p class="calTime_time js-timeItem">15:00</p>
+        <p class="calTime_time js-timeItem">16:00</p>
       </div>
     </div>
   </div>
@@ -168,17 +175,37 @@
 <script src="./date.js"></script>
 <script>
 
+  var activeClassName = 'is-active';
   var now = new Date();
-
   var state = {
     current: now,
+    selectedDate: null,
+    selectedTime: null
   };
+
+  function convertTimeToString(obj) {
+    return String(obj.getFullYear()) + '-' + String(obj.getMonth()) + '-' + String(obj.getDate());
+  }
+
+  function convertStringToTime(str) {
+    if(!/\d{4}-\d+-\d+/.test(str)){ retrun; }
+    obj = new Date(str);
+    return obj;
+  }
+
+  function judgeSelectComplete() {
+    if(state.selectedDate && state.selectedTime) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   function displayCal (num) {
     var currentTime = state.current;
     var monthProceed = num || 0;
     var calDateArr = [];
-    
+
     currentTime.setMonth(currentTime.getMonth() + monthProceed);
 
     var day = new Date(currentTime.getFullYear() + '-' + (currentTime.getMonth() + 1) + '-' + '1');
@@ -198,8 +225,7 @@
     $('.js-monthItem').text(currentTime.getMonth() + 1);
   }
 
-  displayCal ();
-
+  //Event Binding
   $('.js-calMonthBack').on('click', function(){
     displayCal(-1);
   });
@@ -208,12 +234,28 @@
     displayCal(1);
   });
 
+  $('.js-dateItem').on('click', function(){
+    state.selectedDate = null;
+    $('.js-dateItem').removeClass(activeClassName);
+    $(this).addClass(activeClassName);
+    state.selectedDate = state.current.getFullYear() + '-' + state.current.getMonth() + '-' + $(this).text();
+    console.log(judgeSelectComplete());//項目が埋まっているかの判定
+  });
 
+  $('.js-timeItem').on('click', function(){
+    state.selectedTime = null;
+    $('.js-timeItem').removeClass(activeClassName);
+    $(this).addClass(activeClassName);
+    state.selectedTime = $(this).text();
+    console.log(judgeSelectComplete());//項目が埋まっているかの判定
+  });
 
+  $('.js-dateTime').on('keypress', function(ev){
+    //inputをクリックした時の処理
+  });
 
-
-
-
+  //初回実行
+  displayCal ();
 
   // $('.js-dateTime').Calselector({
   //   aaaa: true
