@@ -7,7 +7,7 @@
 
     var _Calselector = function(elem, settings) {
       var _ = this, dataSettings;
-      
+
       _.defaults = {
         month: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
         day: ["日", "月", "火", "水", "木", "金", "土"]
@@ -36,7 +36,7 @@
     });
   }
 
-  Calselector.prototype.bindEvents = function () {
+  Calselector.prototype.init = function () {
   }
 
   Calselector.prototype.bindEvents = function () {
@@ -82,5 +82,5 @@
     }
     return _;
   };
-  
+
 })(jQuery);
