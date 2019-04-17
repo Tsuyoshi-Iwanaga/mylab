@@ -46,6 +46,12 @@
 .calMonth_date.-select {
   background: #f6f6f6;
 }
+.calMonth_date.is-disabled {
+  background: #e6e6e6;
+}
+.calMonth_date.is-excluded {
+  background: #666;
+}
 .calMonth_date.-select:hover {
   cursor: pointer;
 }
@@ -176,12 +182,19 @@
 <script>
 
   var activeClassName = 'is-active';
+  var disabledClassName = 'is-disabled';
+  var excludedClassName = 'is-excluded';
   var now = new Date();
   var state = {
     current: now,
     selectedDate: null,
-    selectedTime: null
+    selectedTime: null,
+    disabledDate: [0, 1, 5, 6],
+    startDate: new Date('1970-01-06').getTime(),
+    endDate: new Date('1970-03-01').getTime(),
   };
+
+  $('.calWrap').hide();
 
   function convertTimeToString(obj) {
     return String(obj.getFullYear()) + '-' + String(obj.getMonth()) + '-' + String(obj.getDate());
@@ -206,6 +219,9 @@
     var monthProceed = num || 0;
     var calDateArr = [];
 
+    $('.js-dateItem').removeClass(disabledClassName);
+    $('.js-dateItem').removeClass(activeClassName);
+
     currentTime.setMonth(currentTime.getMonth() + monthProceed);
 
     var day = new Date(currentTime.getFullYear() + '-' + (currentTime.getMonth() + 1) + '-' + '1');
@@ -214,15 +230,41 @@
 
     for(var i=0; i < 35; i++) {
       calDateArr.push(day.getDate());
+
+      $('.js-dateItem').eq(i).text(day.getDate());
+
+      //対象月でない日時は無効化
+      if(day.getMonth() !== state.current.getMonth()) {
+        $('.js-dateItem').eq(i).addClass(excludedClassName);
+      }
+
+      //対象月でない曜日は無効化
+      if(state.disabledDate.indexOf(day.getDay()) >= 0) {
+        $('.js-dateItem').eq(i).addClass(disabledClassName);
+      }
+
+      //開始月より前なら無効化
+      if(new Date().getTime() - state.startDate > day.getTime()) {
+        $('.js-dateItem').eq(i).addClass(disabledClassName);
+      }
+
+      //開始月より後なら無効化
+      if(new Date().getTime() + state.endDate < day.getTime()) {
+        $('.js-dateItem').eq(i).addClass(disabledClassName);
+      }
+
+      //一個日にちを進める
       day.setDate(day.getDate() + 1);
     }
 
-    calDateArr.forEach(function(v, i) {
-      $('.js-dateItem').eq(i).text(v);
-    });
-
     $('.js-yearItem').text(currentTime.getFullYear());
     $('.js-monthItem').text(currentTime.getMonth() + 1);
+  }
+
+  function inputDate() {
+    $('.js-dateTime').val(state.selectedDate + ' ' + state.selectedTime);
+    $('.js-dateTime').attr('disabled', false);
+    $('.calWrap').hide();
   }
 
   //Event Binding
@@ -235,11 +277,11 @@
   });
 
   $('.js-dateItem').on('click', function(){
+    if($(this).hasClass(disabledClassName) || $(this).hasClass(excludedClassName)) { return; }
     state.selectedDate = null;
     $('.js-dateItem').removeClass(activeClassName);
     $(this).addClass(activeClassName);
-    state.selectedDate = state.current.getFullYear() + '-' + state.current.getMonth() + '-' + $(this).text();
-    console.log(judgeSelectComplete());//項目が埋まっているかの判定
+    state.selectedDate = state.current.getFullYear() + '/' + (state.current.getMonth() + 1) + '/' + $(this).text();
   });
 
   $('.js-timeItem').on('click', function(){
@@ -247,19 +289,18 @@
     $('.js-timeItem').removeClass(activeClassName);
     $(this).addClass(activeClassName);
     state.selectedTime = $(this).text();
-    console.log(judgeSelectComplete());//項目が埋まっているかの判定
+    if(judgeSelectComplete()) {
+      inputDate();
+    }
   });
 
-  $('.js-dateTime').on('keypress', function(ev){
-    //inputをクリックした時の処理
+  $('.js-dateTime').on('click focus', function(ev){
+    $(this).attr('disabled', 'true');
+    $('.calWrap').show();
   });
 
   //初回実行
   displayCal ();
-
-  // $('.js-dateTime').Calselector({
-  //   aaaa: true
-  // });
 </script>
 </body>
 </html>
