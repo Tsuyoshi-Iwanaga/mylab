@@ -8,9 +8,11 @@
     var _ = this;
 
     _.initials = {
-      initial_font: 12,
-      max_font: 24,
-      enlarge_ratio: 1.2
+      dateHead: ['月','火','水','木','金','土','日'],
+      disabledDates: ['2019/03/21', '2019/03/21', '2019/03/21'],
+      minDate: '1970/01/01',
+      maxDate: '1970/01/01',
+      disabledWeekDays: [0,4,5,6]
     };
 
     _.settings = $.extend({}, _.initials, options);
