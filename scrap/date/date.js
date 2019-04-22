@@ -12,8 +12,18 @@
       disabledDates: ['2019/03/21', '2019/03/21', '2019/03/21'],
       minDate: '1970/01/01',
       maxDate: '1970/01/01',
-      disabledWeekDays: [0,4,5,6]
+      disabledWeekDays: [0,4,5,6],
+      startDate: new Date('1970-01-06').getTime(),
+      endDate: new Date('1970-03-01').getTime(),
+      activeClassName: 'is-active',
+      disabledClassName: 'is-disabled',
+      excludedClassName: 'is-excluded',
     };
+
+    _.state = {
+      selectedDate: null,
+      selectedTime: null,
+    }
 
     _.settings = $.extend({}, _.initials, options);
 
@@ -23,7 +33,37 @@
   //初回実行
   CalTimePicker.prototype.init = function(element){
     var _ = this;
-    console.log(_);
+    _.renderCal();
+  };
+
+  //カレンダー描画
+  CalTimePicker.prototype.renderCal = function(element){
+    var _ = this;
+  };
+
+  //メソッド例
+  CalTimePicker.prototype.xxx = function(element) {
+    var _ = this;
+  };
+
+  //メソッド例
+  CalTimePicker.prototype.xxx = function(element) {
+    var _ = this;
+  };
+
+  //メソッド例
+  CalTimePicker.prototype.xxx = function(element) {
+    var _ = this;
+  };
+
+  //メソッド例
+  CalTimePicker.prototype.xxx = function(element) {
+    var _ = this;
+  };
+
+  //メソッド例
+  CalTimePicker.prototype.xxx = function(element) {
+    var _ = this;
   };
 
   //メソッド例

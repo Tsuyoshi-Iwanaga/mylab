@@ -117,13 +117,13 @@
         <p class="calMonth_date -label">日</p>
       </div>
       <div class="calMonth_row">
-        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
-        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
-        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
-        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
-        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
-        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
-        <p class="calMonth_date -select js-dateItem" data-eq="1"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
+        <p class="calMonth_date -select js-dateItem"></p>
       </div>
       <div class="calMonth_row">
         <p class="calMonth_date -select js-dateItem"></p>
@@ -194,7 +194,7 @@
     endDate: new Date('1970-03-01').getTime(),
   };
 
-  $('.calWrap').hide();
+  //$('.calWrap').hide();
 
   function convertTimeToString(obj) {
     return String(obj.getFullYear()) + '-' + String(obj.getMonth()) + '-' + String(obj.getDate());
