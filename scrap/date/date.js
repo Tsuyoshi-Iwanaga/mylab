@@ -193,6 +193,16 @@
       $(this).attr('disabled', 'true');
       _.$el.parent().find('.calWrap').show();
     });
+
+    _.$el.parent().find('.calWrap').on('click', function(){
+      return false;
+    });
+
+    $('body').on('click', function(ev) {
+      if(ev.target === _.$el[0]) { return }
+      _.$el.attr('disabled', false);
+      _.$el.parent().find('.calWrap').hide();
+    });
   };
 
   //日にちと時間が選択されているかの判定
