@@ -41,7 +41,6 @@
     _.renderCal(0);
     _.bindEvents();
     _.$el.parent().find('.calWrap').hide();
-    console.log(_.$el)
   };
 
   //初期描画
@@ -53,7 +52,7 @@
         $timeWrap = $('<div class="calTime"></div>'),
         $timeRow = $('<div class="calTime_row"></div>'),
 
-        $swicher = $('<div class="calMonth_switch"><p class="calMonth_switcher js-calMonthBack">←</p><p class="calMonth_title"><span class="js-yearItem"></span>年&nbsp;<span class="js-monthItem"></span>月</p><p class="calMonth_switcher js-calMonthFoward">→</p></div>'),
+        $swicher = $('<div class="calMonth_switch"><p class="calMonth_switcher -back js-calMonthBack"></p><p class="calMonth_title"><span class="js-yearItem"></span>年&nbsp;<span class="js-monthItem"></span>月</p><p class="calMonth_switcher -foward js-calMonthFoward"></p></div>'),
         $monthCol = $('<div class="calMonth_cal"></div>'),
         $timeCol = $('<div class="calTime"></div>'),
         $timeWrap = $('<div class="calTime_wrap"></div>');
@@ -82,7 +81,7 @@
 
     //ラッパー
     $wrapper.css({position: 'relative', display: 'inline-block', height: _.$el.outerHeight(), lineHeight: '1.0', fontSize: '0', verticalAlign: 'top'});
-    $contents.css({position: 'absolute', top: _.$el.outerHeight() + 8, left: '0', width: '320px'});
+    $contents.css({position: 'absolute', top: _.$el.outerHeight() + 8, left: '0', width: '300px', zIndex: '100'});
 
     //組み立て、レンダリング
     $calWrap.append($swicher, $monthCol);
@@ -100,12 +99,13 @@
     _.state.selectedYear = now.getFullYear();
     _.state.selectedMonth = now.getMonth() + 1;
     _.state.selectedDate = now.getDate();
+
   };
 
   //カレンダー描画
   CalTimePicker.prototype.renderCal = function(num){
     var _ = this,
-        day = new Date(_.state.selectedYear + '-' + (_.state.selectedMonth) + '-' + _.state.selectedDate),
+        day = new Date(_.state.selectedYear + '/' + (_.state.selectedMonth) + '/' + _.state.selectedDate),
         monthProceed = num || 0,
         items = _.$el.parent().find('.js-dateItem');
 
@@ -143,7 +143,7 @@
 
       //対象の開始期間以前は無効化
       if(_.settings.startDate) {
-        if(new Date().getTime() - _.settings.startDate > day.getTime()) {
+        if(new Date().getTime() + _.settings.startDate > day.getTime()) {
           _.$el.parent().find('.js-dateItem').eq(i).addClass(_.settings.disabledClassName);
         }
       }
@@ -230,11 +230,12 @@
     }
   };
 
-  //メソッド例
+  //フォームへ出力
   CalTimePicker.prototype.inputDateTime = function() {
     var _ = this;
     _.$el.val(_.state.selectedYear + '/' + _.state.selectedMonth + '/' + _.state.selectedDate + ' ' + _.state.selectedTime);
     _.$el.attr('disabled', false);
+    _.$el.trigger('change');
     _.$el.parent().find('.calWrap').hide();
   };
 
