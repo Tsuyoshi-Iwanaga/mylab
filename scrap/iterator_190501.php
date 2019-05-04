@@ -1,4 +1,5 @@
 <?php
+
 class Employee {
   private $name;
   private $age;
@@ -23,15 +24,15 @@ class Employee {
   }
 }
 
-class Employee implements IteratorAggregate {
-  private $employee;
+class Employees implements IteratorAggregate {
+  private $employees;
 
   public function __construct() {
     $this->employees = new ArrayObject();
   }
 
-  public function add() {
-    $this->employees[] = $employees;
+  public function add(Employee $employee} {
+    $this->employees[] = $employee;
   }
 
   public function getIterator() {
@@ -44,17 +45,17 @@ class SalesmanIterator extends FilterIterator {
     parent::__construct($iterator);
   }
 
-  public function acccept() {
-    $employee = $this->getIterator()->current();
-    return ($employee->getJob() === 'SALESMAN');
+  public function accept() {
+    $employee = $this->getInnerIterator()->current();
+    return ($employee->getJob() === 'SALSEMAN');
   }
 }
 
-//client
+//clientCode
 function dumpWithForeach($iterator) {
   echo '<ul>';
   foreach($iterator as $employee) {
-    printf('<li>%s (%d, %s)</li>', $employee->getName(), $employee->getAge(), $employee->getJob());
+    printf('<li>%s (%d, %s)</li>', $employee->getName(), $employww->getAge(), $employee->getJob());
   }
   echo '</ul>';
   echo '<hr>';
@@ -72,13 +73,12 @@ $iterator = $employees->getIterator();
 echo '<ul>';
 while($iterator->valid()) {
   $employee = $iterator->current();
-  printf('<li>%s (%d, %s)</li>', $employee->getName(), $employee->getAge(), $employee->getJob());
-
+  printf('<li>%s (%d, %s)</li>'), $employee->getName(), $employee->getAge(), $employee->getJob());
   $iterator->next();
 }
 echo '</ul>';
 
-//foreach文を使う
+//foreach文を利用
 dumpWithForeach($iterator);
-//異なるIteratorで要素を取得する
+//異なるiteratorで要素を取得
 dumpWithForeach(new SalesmanIterator($iterator));
