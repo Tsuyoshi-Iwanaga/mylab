@@ -77,7 +77,6 @@ while($iterator->valid()) {
   $iterator->next();
 }
 echo '</ul>';
-echo '<hr>';
 
 //foreach文を使う
 dumpWithForeach($iterator);
