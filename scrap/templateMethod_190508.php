@@ -38,7 +38,7 @@ class ListDisplay extends AbstractDisplay {
   }
 
   protected function displayFooter() {
-    echo '</dl>';
+    echo '</dt>';
   }
 }
 
@@ -50,8 +50,8 @@ class TableDisplay extends AbstractDisplay {
   protected function displayBody() {
     foreach($this->getData() as $key => $value) {
       echo '<tr>';
-      echo '<th>'. $key . '</th>';
-      echo '<td>'. $value . '</td>';
+      echo '<th>'. $key. '</th>';
+      echo '<td>'. $value. '</td>';
       echo '</tr>';
     }
   }
@@ -61,7 +61,6 @@ class TableDisplay extends AbstractDisplay {
   }
 }
 
-//clientCode
 $data = ['Design Pattern', 'Gang of four', 'Template Method'];
 
 $display1 = new ListDisplay($data);

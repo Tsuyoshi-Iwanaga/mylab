@@ -1,17 +1,17 @@
 <?php
 
-class SingletonSample {
+class Singleton {
   private $id;
   private static $instance;
 
   private function __construct() {
-    $this->id = md5(data('r'). mt_rand());
+    $this->id = md5(data('r').mt_rand());
   }
 
   public static function getInstance() {
     if(!isset(self::$instance)) {
       self::$instance = new SingletonSample();
-      echo 'a SingletonSample instance was created!';
+      echo 'a SingletonSample instance was created';
     }
     return self::$instance;
   }
@@ -26,10 +26,10 @@ class SingletonSample {
 }
 
 //clientCode
-$isntance1 = SingletonSample::getInstance();
+$instance1 = SingletonSample::getInstance();
 $instance2 = SingletonSample::getInstance();
 
 echo 'ID is same?:'. ($instance1->getId() === $instance2->getId() ? true : false);
-echo 'instance is same?:'. ($insatance1 === $instance2 ? true : false);
+echo 'instance is same?:'. ($instance1 === $instance2 ? true : false);
 
-$instance1_clone = clone $insatnce1;//Fatal error
+$instance1_clone = clone $instance1;//Fatal error
