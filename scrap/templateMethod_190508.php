@@ -61,6 +61,7 @@ class TableDisplay extends AbstractDisplay {
   }
 }
 
+//clientCode
 $data = ['Design Pattern', 'Gang of four', 'Template Method'];
 
 $display1 = new ListDisplay($data);
