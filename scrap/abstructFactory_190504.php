@@ -105,9 +105,9 @@ class MockItemDao implements ItemDao {
 class MockOrderDao implements OrderDao {
   public function findById($order_id) {
     $order = new Order('999');
-    $order->addItem(new Item('99', 'おちゃまるタオル'));
-    $order->addItem(new Item('99', 'おちゃまるパンツ'));
-    $order->addItem(new Item('99', 'おちゃまる靴下'));
+    $order->addItem(new Item('99', 'タオル'));
+    $order->addItem(new Item('99', 'パンツ'));
+    $order->addItem(new Item('99', '靴下'));
 
     return $order;
   }
