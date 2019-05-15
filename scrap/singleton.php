@@ -5,13 +5,13 @@ class Singleton {
   private static $instance;
 
   private function __construct() {
-    $this->id = md5(data('r').mt_rand());
+    $this->id = md5(date('r').mt_rand());
   }
 
   public static function getInstance() {
     if(!isset(self::$instance)) {
       self::$instance = new SingletonSample();
-      echo 'a SingletonSample instance was created';
+      echo 'a SingletonSample instance was created!';
     }
     return self::$instance;
   }
