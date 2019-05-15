@@ -1,0 +1,179 @@
+/* --- basic style --- */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.4rem;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+dd {
+  margin-left: 0;
+}
+
+.l-wrap {
+  width: 100%;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 200vh;
+}
+
+.l-section {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.c-title {
+  border-left: 5px solid #0f1269;
+  padding-left: 10px;
+}
+
+/* --- accodion --- */
+.acc__title {
+  padding: 1em;
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+}
+.acc__title.is-active {
+  background: #0f1269;
+  font-weight: bold;
+}
+.acc__content {
+  padding: 1em;
+  background: #fff;
+  border-left: 1px #333 solid;
+  border-right: 1px #333 solid;
+  border-bottom: 1px #333 solid;
+}
+
+/* --- tab --- */
+.tab__headList {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 0;
+}
+.tab__headItem {
+  background: #333;
+  color: #fff;
+  padding: 1em 0;
+  text-align: center;
+  width: calc(100% / 3);
+  cursor: pointer;
+}
+.tab__headItem.is-active {
+  background: #0f1269;
+  font-weight: bold;
+}
+.tab__contentList {
+  position: relative;
+}
+.tab__contentItem {
+  border: 1px solid #333;
+  padding: 1em;
+}
+.tab__contentItem.is-active {
+  display: block !important;
+}
+
+/* --- calender --- */
+.calWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  padding: 0.8rem 0.8rem 1.8rem;
+  font-size: 1.4rem;
+  background-color: #fff;
+  color: #333;
+}
+.calMonth_cal {
+  width: 100%;
+  border-top: 1px solid #ccc;
+}
+.calMonth_row {
+  font-size: 0;
+}
+.calMonth_date {
+  display: inline-block;
+  font-size: 1.4rem;
+  width: 2.0rem;
+  padding: 0.5rem;
+  text-align: right;
+  margin: 0;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.calMonth_date:nth-child(7n) {
+  border-right: 1px solid #ccc;
+}
+.calMonth_date.-label {
+  text-align: center;
+  background: #0f1269;
+  color: #fff;
+}
+.calMonth_date.-select {
+  background: #f5f5f5;
+  color: #666;
+}
+.calMonth_date.is-disabled {
+  background: #fafafa;
+  color: #bfbfbf;
+}
+.calMonth_date.is-excluded {
+  background: #fdfdfd;
+  color: #e0e0e0  ;
+}
+.calMonth_date.-select:hover {
+  cursor: pointer;
+}
+.calMonth_date.is-active {
+  background: #e96a27;
+  color: #fff;
+}
+.calTime {
+  width: 100%;
+  max-width: 5.6rem;
+  color: #666;
+  background: #f5f5f5;
+}
+.calTime_row {
+  border-top: 1px solid #ccc;
+}
+.calTime_time {
+  text-align: center;
+  margin: 0;
+  padding: 0.5rem;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.calTime_time:hover {
+  cursor: pointer;
+}
+.calTime_time.is-active {
+  background: #e96a27;
+  color: #fff;
+}
+.calMonth_switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.calMonth_switcher {
+  margin: 0;
+  cursor: pointer;
+}
+.calMonth_title {
+  font-weight: bold;
+  margin: 0;
+}

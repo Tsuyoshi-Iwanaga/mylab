@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="./css/styles.css">
+<title>JS WorkShop</title>
+</head>
+<body>
+  <div class="l-wrap">
+    <h1>JS WorkShop</h1>
+
+    <section class="l-section" id="section01">
+      <h2 class="c-title">Accordion Sample</h2>
+      <h3>個々が独立して開く</h3>
+      <dl class="acc js-acc01">
+        <dt class="acc__title js-accTitle">Title01</dt>
+        <dd class="acc__content js-accContent">
+          <dl class="acc js-acc01">
+            <dt class="acc__title js-accTitle">Title01</dt>
+            <dd class="acc__content js-accContent">Content01</dd>
+            <dt class="acc__title js-accTitle">Title02</dt>
+            <dd class="acc__content js-accContent">Content02</dd>
+            <dt class="acc__title js-accTitle">Title03</dt>
+            <dd class="acc__content js-accContent">Content03</dd>
+          </dl>
+        </dd>
+        <dt class="acc__title js-accTitle">Title02</dt>
+        <dd class="acc__content js-accContent">Content02</dd>
+        <dt class="acc__title js-accTitle">Title03</dt>
+        <dd class="acc__content js-accContent">Content03</dd>
+      </dl>
+      <h3>1つしか開かない</h3>
+      <dl class="acc js-acc02">
+        <dt class="acc__title js-accTitle">Title01</dt>
+        <dd class="acc__content js-accContent">
+          Content01
+          <dl class="acc js-acc02">
+            <dt class="acc__title js-accTitle">Title01</dt>
+            <dd class="acc__content js-accContent">Content01</dd>
+            <dt class="acc__title js-accTitle">Title02</dt>
+            <dd class="acc__content js-accContent">Content02</dd>
+            <dt class="acc__title js-accTitle">Title03</dt>
+            <dd class="acc__content js-accContent">Content03</dd>
+          </dl>
+        </dd>
+        <dt class="acc__title js-accTitle">Title02</dt>
+        <dd class="acc__content js-accContent">Content02</dd>
+        <dt class="acc__title js-accTitle">Title03</dt>
+        <dd class="acc__content js-accContent">Content03</dd>
+      </dl>
+    </section>
+
+    <section class="l-section">
+      <h2 class="c-title">Tab</h2>
+      <div class="tab js-tab">
+        <ul class="tab__headList js-tabHead">
+          <li class="tab__headItem">タブ01</li>
+          <li class="tab__headItem">タブ02</li>
+          <li class="tab__headItem">タブ03</li>
+        </ul>
+        <div class="tab__contentList js-tabContent">
+          <div class="tab__contentItem">
+            ダミー01ダミー01ダミー01ダミー01ダミー01
+            <div class="tab js-tab">
+              <ul class="tab__headList js-tabHead">
+                <li class="tab__headItem">タブ01</li>
+                <li class="tab__headItem">タブ02</li>
+                <li class="tab__headItem">タブ03</li>
+              </ul>
+              <div class="tab__contentList js-tabContent">
+                <div class="tab__contentItem">ダミー01ダミー01ダミー01ダミー01ダミー01<br>ダミー01ダミー01ダミー01ダミー01ダミー01<br>ダミー01ダミー01ダミー01ダミー01ダミー01</div>
+                <div class="tab__contentItem">ダミー02ダミー02ダミー02ダミー02ダミー02<br>ダミー02ダミー02ダミー02ダミー02ダミー02</div>
+                <div class="tab__contentItem">ダミー03ダミー03ダミー03ダミー03ダミー03</div>
+              </div>
+            </div>
+          </div>
+          <div class="tab__contentItem">ダミー02ダミー02ダミー02ダミー02ダミー02<br>ダミー02ダミー02ダミー02ダミー02ダミー02</div>
+          <div class="tab__contentItem">ダミー03ダミー03ダミー03ダミー03ダミー03<br>ダミー03ダミー03ダミー03ダミー03ダミー03<br>ダミー03ダミー03ダミー03ダミー03ダミー03</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="l-section">
+      <h2 class="c-title">SmoothScroll</h2>
+      <p><a href="#">↑トップ(#)へ戻る</a></p>
+      <p><a href="#section01">↑#section01へ戻る</a></p>
+      <p><a href="#" class="js-notScroll">通常のダミーリンク(.js-notScrollを付与)</a></p>
+    </section>
+
+    <section class="l-section">
+      <h2 class="c-title">Calendar(date/time)</h2>
+      <h3>通常</h3>
+      <p><input type="text" class="js-caltime01"></p>
+      <h3>オプション付き</h3>
+      <p><input type="text" class="js-caltime02"></p>
+    </section>
+
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+  <script src="./js/tab.js"></script>
+  <script src="./js/acc.js"></script>
+  <script src="./js/smoothScroll.js"></script>
+  <script src="./js/caltimepicker.js"></script>
+  <script>
+    $(function(){
+      //accordion
+      $('.js-acc01').accordion();
+      $('.js-acc02').accordion({ allClose: true});
+
+      //tab
+      $('.js-tab').tab();
+
+      //callender
+      $('.js-caltime01').calTimePicker();
+      $('.js-caltime02').calTimePicker({
+        disabledDates: ['2019/7/15','2019/8/11','2019/8/12','2019/9/16','2019/9/23','2019/10/14','2019/10/22','2019/11/3','2019/11/4','2019/11/23'],
+        disabledWeekDays: [0, 4, 5, 6],
+        timeItems: ['12:00', '13:00', '14:00', '15:00', '16:00'],
+        startDate: new Date('1970/01/06').getTime(),
+        endDate: new Date('1970/03/01').getTime()
+      });
+    });
+  </script>
+</body>
+</html>
