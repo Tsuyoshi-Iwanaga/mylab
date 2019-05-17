@@ -1,5 +1,8 @@
 <?php
 
+ini_set('display_errors', "On");
+
+// //AbstractClass
 abstract class AbstractDisplay {
   private $data;
 
@@ -10,14 +13,14 @@ abstract class AbstractDisplay {
     $this->data = $data;
   }
 
+  public function getData() {
+    return $this->data;
+  }
+
   public function display() {
     $this->displayHeader();
     $this->displayBody();
     $this->displayFooter();
-  }
-
-  public function getData() {
-    return $this->data;
   }
 
   protected abstract function displayHeader();
@@ -25,32 +28,33 @@ abstract class AbstractDisplay {
   protected abstract function displayFooter();
 }
 
+// //ConcreteClass
 class ListDisplay extends AbstractDisplay {
   protected function displayHeader() {
     echo '<dl>';
   }
 
   protected function displayBody() {
-    foreach($this->getData() as $key => $value) {
-      echo '<dt>Item'. $key . '</dt>';
-      echo '<dd>'. $value . '</dd>';
+    foreach ($this->getData() as $key => $value) {
+      echo '<dt>Item'. $key. '</dt>';
+      echo '<dd>'. $value. '</dd>';
     }
   }
 
   protected function displayFooter() {
-    echo '</dt>';
+    echo '</dl>';
   }
 }
 
 class TableDisplay extends AbstractDisplay {
   protected function displayHeader() {
-    echo '<table>';
+    echo '<table border="1">';
   }
 
   protected function displayBody() {
-    foreach($this->getData() as $key => $value) {
+    foreach ($this->getData() as $key => $value) {
       echo '<tr>';
-      echo '<th>'. $key. '</th>';
+      echo '<td>Item'.$key. '</td>';
       echo '<td>'. $value. '</td>';
       echo '</tr>';
     }
@@ -62,7 +66,7 @@ class TableDisplay extends AbstractDisplay {
 }
 
 //clientCode
-$data = ['Design Pattern', 'Gang of four', 'Template Method'];
+$data = ['Design Pattern', 'Gang of four', 'Template Method1', 'Template Method2'];
 
 $display1 = new ListDisplay($data);
 $display2 = new TableDisplay($data);
