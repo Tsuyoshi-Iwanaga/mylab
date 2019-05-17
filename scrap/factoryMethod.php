@@ -1,13 +1,9 @@
 <?php
 
-//---------------Product---------------//
-
 interface Reader {
   public function read();
   public function display();
 }
-
-//---------------ConcreteProduct---------------//
 
 class CSVFileReader implements Reader {
   private $filename;
@@ -16,7 +12,7 @@ class CSVFileReader implements Reader {
 
   public function __construct($filename) {
     if(!is_readable($filename)) {
-      throw new Exception('file' .$filename .'is not readable!');
+      throw new Exception('file'. $filename. 'is not readable!');
     }
     $this->filename = $filename;
   }
@@ -26,30 +22,31 @@ class CSVFileReader implements Reader {
   }
 
   public function display() {
-    $colum = 0;
+    $column = 0;
     $tmp = '';
-    while ($data = fgetcsv ($this->handler, 1000, ",")) {
-      $num = count ($data);
+
+    while ($data = fgetcsv($this->handler, 1000, ",")) {
+      $num = count($data);
       for ($c = 0; $c < $num; $c++) {
-          if ($c == 0) {
-              if ($column != 0 && $data[$c] != $tmp) {
-                  echo "</ul>";
-              }
-              if ($data[$c] != $tmp) {
-                  echo "<b>" . $data[$c] . "</b>";
-                  echo "<ul>";
-                  $tmp = $data[$c];
-              }
-          }else {
-              echo "<li>";
-              echo $data[$c];
-              echo "</li>";
+        if($c == 0) {
+          if ($column != 0 && $data[$c] != $tmp) {
+            echo '</ul>';
           }
+          if ($data[$c] != $tmp) {
+            echo '<b>'. $data[$c]. '</b>';
+            echo '<ul>';
+            $tmp = $data[$c];
+          }
+        } else {
+          echo '<li>';
+          echo $data[$c];
+          echo '</li>';
+        }
       }
-      $column++;
-  }
-  echo "</ul>";
-  fclose ($this->handler);
+      $column ++;
+    }
+    echo '</ul>';
+    fclose ($this->handler);
   }
 }
 
@@ -59,23 +56,19 @@ class XMLFileReader implements Reader {
   private $handler;
 
   public function __construct($filename) {
-    if (!is_readable($filename)) {
-      throw new Exception('file'. $filename. 'is not readable!');
+    if(!is_readable($filename)) {
+      throw new Exception('file'. $filename. 'is not readable');
     }
     $this->filename = $filename;
   }
 
   public function read() {
-    $this->handler = simplexml_load_file($this->filename);
-  }
-
-  public function convert($str) {
     return mb_convert_encoding($str, mb_internal_encoding(), 'auto');
   }
 
   public function display() {
     foreach($this->handler->artist as $artist) {
-      echo '<b>' . $this->convert($artist['name']). '</b>';
+      echo '<b>'. $this->convert($artist['name']). '</b>';
       echo '<ul>';
       foreach($artist->music as $music) {
         echo '<li>';
@@ -87,11 +80,7 @@ class XMLFileReader implements Reader {
   }
 }
 
-//---------------Creator---------------//
-
 class ReaderFactory {
-
-  //factoryMethod
   public function create($filename) {
     $reader = $this->createReader($filename);
     return $reader;
@@ -106,12 +95,10 @@ class ReaderFactory {
     } elseif ($posxml !== false) {
       return new XMLFileReader($filename);
     } else {
-      die('This filename is not supported!');
+      die('This filename is not supported');
     }
   }
 }
-
-//---------------client---------------//
 
 $filename = 'Music.xml';
 $factory = new ReaderFactory();

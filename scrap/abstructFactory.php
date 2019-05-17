@@ -1,5 +1,4 @@
 <?php
-//abstractFactory
 
 interface DaoFactory {
   public function createItemDao();
@@ -34,26 +33,24 @@ interface OrderDao {
 }
 
 class DbItemDao implements ItemDao {
-  private $items;
+  private $item;
 
   public function __construct() {
     $fp = fopen('item_data.txt', 'r');
-
     $dummy = fget($fp, 4096);
 
-    $this->items = array();
+    $this->item = array();
     while($buffer = fgets($fp, 4096)) {
       $item_id = trim(substr($buffer, 0, 10));
       $item_name = trim(substr($buffer, 0, 10));
       $item = new Item($item_id, $item_name);
-      $this->items[$item->getId()] = $item;
+      $this->item[$item->getId()] = $item;
     }
-
     fclose($fp);
   }
 
   public function findById($item_id) {
-    if(array_key_exists($item_id, $this->items)) {
+    if(array_key_exists($item_id, $this->item)) {
       return $this->items[$item_id];
     } else {
       return null;
@@ -66,7 +63,6 @@ class DbOrderDao implements OrderDao {
 
   public function __construct(ItemDao $item_dao) {
     $fp = fopen('order_data.txt', 'r');
-
     $dummy = fget($fp, 4096);
 
     $this->orders = array();
@@ -108,8 +104,6 @@ class MockOrderDao implements OrderDao {
     $order->addItem(new Item('99', 'タオル'));
     $order->addItem(new Item('99', 'パンツ'));
     $order->addItem(new Item('99', '靴下'));
-
-    return $order;
   }
 }
 
@@ -158,34 +152,32 @@ class Order {
   }
 }
 
-//clientCode
 if(isset($_POST['factory'])) {
   $factory = $_POST['factory'];
 
-  switch($factory) {
+  switch ($factory) {
     case 1:
-      include_once 'DbFactory.class.php';
       $factory = new DbFactory();
       break;
     case 2:
-      include_once 'MockFactory.class.php';
       $factory = new MockFactory();
       break;
     default:
       throw new RuntimeException('invalid factory');
   }
+}
 
-  $item_id = 1;
-  $item_dao = $factory->createItemDao();
-  $item = $item_dao->findById($item_id);
-  echo 'ID='. $item_id . 'の商品は' .$item->getName() . 'です<br>';
+$item_id = 1;
+$item_dao = $facotry->createItemDao();
+$item = $item_dao->findById($item_id);
+echo 'ID=' . $item_id . 'の標品は' . $item->getName() . 'です<br>';
 
-  $order_id = 3;
-  $order_dao = $factory->createOrderDao();
-  $order = $order_dao->findById($order_id);
-  echo 'ID='. $order_id . 'の注文情報は以下の通りです';
-  echo '<ul>';
-  foreach($order->getItems() as $item) {
+$order_id = 3;
+$order_dao = $factory->createOrderDao();
+$order = $order_data->findById($order_id);
+echo 'ID='. $order_id . 'の注文情報は以下のとおりです';
+echo '<ul>';
+  foreach ($order->getItems() as $item) {
     echo '<li>' . $item['object']->getName();
   }
   echo '</ul>';
@@ -193,11 +185,12 @@ if(isset($_POST['factory'])) {
 ?>
 <hr>
 <form action="" method="post">
-<div>
-  DaoFactoryの種類：
-  <input type="radio" name="factory" value="1">DbFactory
-  <input type="radio" name="factory" value="2">MockFactory
-</div>
-<div>
-  <input type="submit">
-</div>
+  <div>
+    DaoFactoryの概要:
+    <input type="radio" name="factory" value="1">DbFactory
+    <input type="radio" name="factory" value="2">MockFactory
+  </div>
+  <div>
+    <input type="submit">
+  </div>
+</form>
