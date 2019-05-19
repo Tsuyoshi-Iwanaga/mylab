@@ -2,7 +2,7 @@
 
 ini_set('display_errors', "On");
 
-// //AbstractClass
+//AbstractClass
 abstract class AbstractDisplay {
   private $data;
 
@@ -28,7 +28,7 @@ abstract class AbstractDisplay {
   protected abstract function displayFooter();
 }
 
-// //ConcreteClass
+//ConcreteClass
 class ListDisplay extends AbstractDisplay {
   protected function displayHeader() {
     echo '<dl>';

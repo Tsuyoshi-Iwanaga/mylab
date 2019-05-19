@@ -1,11 +1,14 @@
 <?php
 
-interface Reader {
+ini_set('display_errors', "On");
+
+interface Reader{
   public function read();
   public function display();
 }
 
 class CSVFileReader implements Reader {
+
   private $filename;
 
   private $handler;
@@ -25,14 +28,14 @@ class CSVFileReader implements Reader {
     $column = 0;
     $tmp = '';
 
-    while ($data = fgetcsv($this->handler, 1000, ",")) {
+    while ($data = fgetcsv($this->handler, 1000, ',')) {
       $num = count($data);
       for ($c = 0; $c < $num; $c++) {
         if($c == 0) {
-          if ($column != 0 && $data[$c] != $tmp) {
+          if($column != 0 && $data[$c] != $tmp) {
             echo '</ul>';
           }
-          if ($data[$c] != $tmp) {
+          if($data[$c] != $tmp) {
             echo '<b>'. $data[$c]. '</b>';
             echo '<ul>';
             $tmp = $data[$c];
@@ -43,26 +46,31 @@ class CSVFileReader implements Reader {
           echo '</li>';
         }
       }
-      $column ++;
+      $column++;
     }
     echo '</ul>';
-    fclose ($this->handler);
+    fclose($this->handler);
   }
 }
 
 class XMLFileReader implements Reader {
+
   private $filename;
 
   private $handler;
 
   public function __construct($filename) {
-    if(!is_readable($filename)) {
-      throw new Exception('file'. $filename. 'is not readable');
+    if (!is_readable($filename)) {
+      throw new \Exception('file '.$filename.' is not readable !');
     }
     $this->filename = $filename;
   }
 
   public function read() {
+    $this->handler = simplexml_load_file($this->filename);
+  }
+
+  private function convert($str) {
     return mb_convert_encoding($str, mb_internal_encoding(), 'auto');
   }
 
@@ -80,28 +88,42 @@ class XMLFileReader implements Reader {
   }
 }
 
+//factory
 class ReaderFactory {
+
   public function create($filename) {
     $reader = $this->createReader($filename);
     return $reader;
   }
 
+  //条件に応じてインスタンスを返すFactoryMethod
   private function createReader($filename) {
     $poscsv = stripos($filename, '.csv');
     $posxml = stripos($filename, '.xml');
 
-    if($poscsv !== false) {
+    if ($poscsv !== false) {
       return new CSVFileReader($filename);
     } elseif ($posxml !== false) {
       return new XMLFileReader($filename);
     } else {
-      die('This filename is not supported');
+      die('This filename is not supported:'. $filename);
     }
   }
 }
 
-$filename = 'Music.xml';
+//clientCode
+$filename = './sample01.csv';
+
 $factory = new ReaderFactory();
 $data = $factory->create($filename);
 $data->read();
 $data->display();
+
+?>
+<html lnag="ja">
+<head>
+<title>作曲者と作品たち</title>
+</head>
+<body>
+</body>
+</html>
