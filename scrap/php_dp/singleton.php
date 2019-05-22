@@ -4,7 +4,7 @@ ini_set('display_errors', "On");
 
 class Singleton {
   private $id;
-  
+
   private static $instance;
 
   //コンストラクタをprivateにする → newできなくなる

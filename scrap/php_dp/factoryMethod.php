@@ -2,7 +2,7 @@
 
 ini_set('display_errors', "On");
 
-interface Reader{
+interface Reader {
   public function read();
   public function display();
 }
@@ -70,17 +70,13 @@ class XMLFileReader implements Reader {
     $this->handler = simplexml_load_file($this->filename);
   }
 
-  private function convert($str) {
-    return mb_convert_encoding($str, mb_internal_encoding(), 'auto');
-  }
-
   public function display() {
     foreach($this->handler->artist as $artist) {
-      echo '<b>'. $this->convert($artist['name']). '</b>';
+      echo '<b>'. $artist['name']. '</b>';
       echo '<ul>';
       foreach($artist->music as $music) {
         echo '<li>';
-        echo $this->convert($music['name']);
+        echo $music['name'];
         echo '</li>';
       }
       echo '</ul>';
@@ -112,7 +108,8 @@ class ReaderFactory {
 }
 
 //clientCode
-$filename = './sample01.csv';
+//$filename = './src/sample01.csv';
+$filename = './src/sample01.xml';
 
 $factory = new ReaderFactory();
 $data = $factory->create($filename);
