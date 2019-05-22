@@ -48,7 +48,7 @@ class OrderItem {
 
 class Order {
   private $items;
-  
+
   public function __construct() {
     $this->items = array();
   }
@@ -69,7 +69,7 @@ class ItemDao {
   private $items;
 
   private function __construct() {
-    $fp = fopen('item_data.txt', 'r');
+    $fp = fopen('./src/item_data.txt', 'r');
 
     $dummy = fgets($fp, 4096);
 

@@ -40,7 +40,7 @@ interface OrderDao {
 class DbItemDao implements ItemDao{
   private $items;
   public function __construct() {
-    $fp = fopen('item_data.txt', 'r');
+    $fp = fopen('./src/item_data.txt', 'r');
 
     //ヘッダ行を抜く
     $dummy = fgets($fp, 4096);
@@ -69,7 +69,7 @@ class DbItemDao implements ItemDao{
 class DbOrderDao implements OrderDao{
   private $orders;
   public function __construct(ItemDao $item_dao) {
-    $fp = fopen('order_data.txt', 'r');
+    $fp = fopen('./src/order_data.txt', 'r');
 
     //ヘッダ行を抜く
     $dummy = fgets($fp, 4096);
