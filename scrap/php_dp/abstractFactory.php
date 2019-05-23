@@ -9,7 +9,7 @@ interface DaoFactory {
 }
 
 //-----------ConcreteFactory-----------
-class DbFactory implements DaoFactory{
+class DbFactory implements DaoFactory {
   public function createItemDao() {
     return new DbItemDao();
   }
@@ -18,7 +18,7 @@ class DbFactory implements DaoFactory{
   }
 }
 
-class MockFactory implements DaoFactory{
+class MockFactory implements DaoFactory {
   public function createItemDao() {
     return new MockItemDao();
   }
@@ -37,7 +37,7 @@ interface OrderDao {
 }
 
 //-----------ConcreteProduct-----------
-class DbItemDao implements ItemDao{
+class DbItemDao implements ItemDao {
   private $items;
   public function __construct() {
     $fp = fopen('./src/item_data.txt', 'r');
@@ -66,7 +66,7 @@ class DbItemDao implements ItemDao{
   }
 }
 
-class DbOrderDao implements OrderDao{
+class DbOrderDao implements OrderDao {
   private $orders;
   public function __construct(ItemDao $item_dao) {
     $fp = fopen('./src/order_data.txt', 'r');
@@ -101,14 +101,14 @@ class DbOrderDao implements OrderDao{
   }
 }
 
-class MockItemDao implements ItemDao{
+class MockItemDao implements ItemDao {
   public function findById($item_id) {
     $item = new Item('99', 'ダミー商品');
     return $item;
   }
 }
 
-class MockOrderDao implements OrderDao{
+class MockOrderDao implements OrderDao {
   public function findById($order_id) {
     $order = new Order('999');
     $order->addItem(new Item('99', 'ダミー商品'));
@@ -121,7 +121,7 @@ class MockOrderDao implements OrderDao{
 
 //-----------Item Order-----------
 
-class Item{
+class Item {
   private $id;
   private $name;
   public function __construct($id, $name) {
@@ -136,7 +136,7 @@ class Item{
   }
 }
 
-class Order{
+class Order {
   private $id;
   private $items;
   public function __construct($id) {
