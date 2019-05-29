@@ -31,7 +31,7 @@ class Singleton {
 }
 
 //インスタンスの生成
-//$instance1 = new Singleton(); これはエラーになる
+//$instance1 = new Singleton(); これはエラーに
 $instance1 = Singleton::getInstance();
 $instance2 = Singleton::getInstance();
 echo '<hr>';
