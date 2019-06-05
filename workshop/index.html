@@ -96,13 +96,31 @@
       <p><input type="text" class="js-caltime02"></p>
     </section>
 
+    <section class="l-section">
+      <h2 class="c-title">Modal</h2>
+      <p><a href="#" class="js-modal js-notScroll" data-modal="#modal01">モーダル01を開く</a></p>
+      <p><a href="#" class="js-modal js-notScroll" data-modal="#modal02">モーダル02を開く</a></p>
+    </section>
+
   </div>
   <div id="menu01" class="p-menuList">
     <ul>
-      <li class="p-menu_item"><a href="#">1階層目→</a></li>
+      <li class="p-menu_item"><a href="#">ダミー</a></li>
       <li class="p-menu_item"><a href="#">ダミー</a></li>
       <li class="p-menu_item"><a href="#">ダミー</a></li>
     </ul>
+  </div>
+  <div id="modal01" class="p-modalContent01">
+    <span class="p-modalCloseBtn js-modalClose"></span>
+    <div class="p-modalWrap">
+      <div>ダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミー</div>
+    </div>
+  </div>
+  <div id="modal02" class="p-modalContent02">
+    <span class="p-modalCloseBtn js-modalClose"></span>
+    <div class="p-modalWrap">
+      <p><img src="./images/img01.jpg" alt=""></p>
+    </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
   <script src="./js/tab.js"></script>
@@ -110,6 +128,7 @@
   <script src="./js/smoothScroll.js"></script>
   <script src="./js/caltimepicker.js"></script>
   <script src="./js/slideMenu.js"></script>
+  <script src="./js/modal.js"></script>
   <script>
     $(function(){
       //accordion
@@ -138,6 +157,9 @@
       //   overLayBG: '#0f1269',
       //   overLayOpacity: 0.8,
       // });
+
+      //modal
+      $('.js-modal').modal();
     });
   </script>
 </body>
