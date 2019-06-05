@@ -9,8 +9,7 @@
 </head>
 <body>
   <div class="l-wrap">
-    <h1>JS WorkShop</h1>
-
+    <h1 class="p-Lv1Title">JS WorkShop<p class="p-menuSwichArea js-slideMenu01" data-target="#menu01"><span class="p-menuSwichIcon"></span></p></h1>
     <section class="l-section" id="section01">
       <h2 class="c-title">Accordion Sample</h2>
       <h3>個々が独立して開く</h3>
@@ -98,11 +97,19 @@
     </section>
 
   </div>
+  <div id="menu01" class="p-menuList">
+    <ul>
+      <li class="p-menu_item"><a href="#">1階層目→</a></li>
+      <li class="p-menu_item"><a href="#">ダミー</a></li>
+      <li class="p-menu_item"><a href="#">ダミー</a></li>
+    </ul>
+  </div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
   <script src="./js/tab.js"></script>
   <script src="./js/acc.js"></script>
   <script src="./js/smoothScroll.js"></script>
   <script src="./js/caltimepicker.js"></script>
+  <script src="./js/slideMenu.js"></script>
   <script>
     $(function(){
       //accordion
@@ -121,6 +128,16 @@
         startDate: new Date('1970/01/06').getTime(),
         endDate: new Date('1970/03/01').getTime()
       });
+
+      //slideMenu
+      $('.js-slideMenu01').slideMenu();
+      // $('.js-slideMenu01').slideMenu({
+      //   fromDirection: 'right',
+      //   targetTransition: 'all 0.5s ease-in',
+      //   zIndex: 5,
+      //   overLayBG: '#0f1269',
+      //   overLayOpacity: 0.8,
+      // });
     });
   </script>
 </body>

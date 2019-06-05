@@ -177,3 +177,96 @@ dd {
   font-weight: bold;
   margin: 0;
 }
+
+/* --- slideMenu --- */
+.p-Lv1Title {
+  position: relative;
+}
+
+.p-menuSwichArea {
+  display: inline-block;
+  width: 42px;
+  height: 42px;
+  position: absolute;
+  margin: 0;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.p-menuSwichIcon {
+  display: block;
+  position: relative;
+  width: 42px;
+  height: 4px;
+  background: #333;
+}
+
+.p-menuSwichIcon:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 42px;
+  height: 4px;
+  background: #333;
+  bottom: -18px;
+  right: 0;
+}
+
+.p-menuSwichIcon:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 42px;
+  height: 4px;
+  background: #333;
+  bottom: -36px;
+  right: 0;
+}
+
+.p-menuSwichArea.is-active > .p-menuSwichIcon {
+  width: 55px;
+  transform: rotate(45deg);
+  top: 18px;
+  right: 6px;
+}
+
+.p-menuSwichArea.is-active > .p-menuSwichIcon:before {
+  display: none;
+}
+
+.p-menuSwichArea.is-active > .p-menuSwichIcon:after {
+  width: 55px;
+  transform: rotate(90deg);
+  top: 0;
+}
+
+.p-menuList {
+  width: 100%;
+  min-width: 300px;
+  max-width: 300px;
+  height: 120vh;
+  background: #eee;
+  color: #fff;
+}
+
+.p-menuList > ul {
+  margin: 0;
+}
+
+.p-menu_item {
+  font-size: 1.7rem;
+  padding: 1rem;
+  border-bottom: 1px solid #aaa;
+}
+
+.p-menu_item > a {
+  display: block;
+  text-decoration: none;
+  transition: all 0.5s ease;
+  color: #333;
+}
+
+.p-menu_item > a:hover {
+  opacity: 0.5;
+}
