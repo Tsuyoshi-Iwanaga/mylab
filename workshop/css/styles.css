@@ -387,3 +387,17 @@ dd {
   background: #0f1269;
   color: #fff;
 }
+@media screen and (max-width: 678px) {
+  .p-navList_item dl {
+    margin: 0;
+  }
+  .p-navList {
+    flex-wrap: wrap;
+  }
+  .p-navList_item {
+    width: 100%;
+  }
+  .p-navList_head {
+    border-right: 1px solid #666;
+  }
+}
