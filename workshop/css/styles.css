@@ -325,3 +325,34 @@ dd {
   left: 5px;
   transform: rotate(135deg);
 }
+
+/* --- textArea --- */
+.p-textArea {
+  background: #333;
+  padding: 20px;
+  color: #fff;
+}
+.p-codeInput {
+  width: 30%;
+  height: 1em;
+  padding: 0.5em;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+}
+.p-execBtn {
+  outline: none;
+  border: none;
+  border-radius: 1000px;
+  background: #0f1269;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+  min-width: 200px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  margin-top: 1em;
+}
+.p-execBtn:hover {
+  opacity: 0.8;
+}
