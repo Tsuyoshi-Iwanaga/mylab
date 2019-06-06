@@ -356,3 +356,34 @@ dd {
 .p-execBtn:hover {
   opacity: 0.8;
 }
+
+/* --- navigation --- */
+.p-navList {
+  display: flex;
+}
+.p-navList_item {
+  width: 33%;
+}
+.p-navList_head {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
+  background: #eee;
+  padding: 1em;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+  border-left: 1px solid #666;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.p-navPannel {
+  padding: 20px;
+  background: #eee;
+}
+.p-navList_item:last-child .p-navList_head {
+  border-right: 1px solid #666;
+}
+.p-navList_item.is-active .p-navList_head {
+  background: #0f1269;
+  color: #fff;
+}

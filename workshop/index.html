@@ -10,6 +10,8 @@
 <body>
   <div class="l-wrap">
     <h1 class="p-Lv1Title">JS WorkShop<p class="p-menuSwichArea js-slideMenu01" data-target="#menu01"><span class="p-menuSwichIcon"></span></p></h1>
+
+    <!-- アコーディオン -->
     <section class="l-section" id="section01">
       <h2 class="c-title">Accordion Sample</h2>
       <h3>個々が独立して開く</h3>
@@ -51,6 +53,7 @@
       </dl>
     </section>
 
+    <!-- タブ -->
     <section class="l-section">
       <h2 class="c-title">Tab</h2>
       <div class="tab js-tab">
@@ -81,6 +84,7 @@
       </div>
     </section>
 
+    <!-- スムーススクロール -->
     <section class="l-section">
       <h2 class="c-title">SmoothScroll</h2>
       <p><a href="#">↑トップ(#)へ戻る</a></p>
@@ -88,6 +92,7 @@
       <p><a href="#" class="js-notScroll">通常のダミーリンク(.js-notScrollを付与)</a></p>
     </section>
 
+    <!-- カレンダー -->
     <section class="l-section">
       <h2 class="c-title">Calendar(date/time)</h2>
       <h3>通常</h3>
@@ -96,12 +101,61 @@
       <p><input type="text" class="js-caltime02"></p>
     </section>
 
+    <!-- モーダル -->
     <section class="l-section">
       <h2 class="c-title">Modal</h2>
       <p><a href="#" class="js-modal js-notScroll" data-modal="#modal01">モーダル01を開く</a></p>
       <p><a href="#" class="js-modal js-notScroll" data-modal="#modal02">モーダル02を開く</a></p>
     </section>
 
+    <section>
+      <h2 class="c-title">Navigation</h2>
+      <h3>読み込み時にカレント表示をつけるにはURLに?category=1などを指定
+      </h3>
+      <ul class="p-navList">
+        <li class="p-navList_item">
+          <dl class="js-navHead">
+            <dt class="p-navList_head">コンテンツ01</dt>
+            <dd class="p-navList_content js-navContent">
+              <ul class="p-navPannel">
+                <li>ダミー001</li>
+                <li>ダミー002</li>
+                <li>ダミー003</li>
+                <li>ダミー004</li>
+              </ul>
+            </dd>
+          </dl>
+        </li>
+        <li class="p-navList_item">
+          <dl class="js-navHead">
+            <dt class="p-navList_head">コンテンツ02</dt>
+            <dd class="p-navList_content js-navContent">
+              <ul class="p-navPannel">
+                <li>ダミー001</li>
+                <li>ダミー002</li>
+                <li>ダミー003</li>
+                <li>ダミー004</li>
+              </ul>
+            </dd>
+          </dl>
+        </li>
+        <li class="p-navList_item">
+          <dl class="js-navHead">
+            <dt class="p-navList_head">コンテンツ03</dt>
+            <dd class="p-navList_content js-navContent">
+              <ul class="p-navPannel">
+                <li>ダミー001</li>
+                <li>ダミー002</li>
+                <li>ダミー003</li>
+                <li>ダミー004</li>
+              </ul>
+            </dd>
+          </dl>
+        </li>
+      </ul>
+    </section>
+
+    <!-- クイズ -->
     <section class="l-section">
       <h2 class="c-title">Quiz</h2>
       <div class="p-textArea">
@@ -116,6 +170,7 @@
     </section>
 
   </div>
+  <!-- メニューパーツ -->
   <div id="menu01" class="p-menuList">
     <ul>
       <li class="p-menu_item"><a href="#">ダミー</a></li>
@@ -123,6 +178,7 @@
       <li class="p-menu_item"><a href="#">ダミー</a></li>
     </ul>
   </div>
+  <!-- モーダルパーツ -->
   <div id="modal01" class="p-modalContent01">
     <span class="p-modalCloseBtn js-modalClose"></span>
     <div class="p-modalWrap">
@@ -142,6 +198,7 @@
   <script src="./js/caltimepicker.js"></script>
   <script src="./js/slideMenu.js"></script>
   <script src="./js/modal.js"></script>
+  <script src="./js/navigation.js"></script>
   <script src="./js/quiz.js"></script>
   <script>
     $(function(){
@@ -174,6 +231,9 @@
 
       //modal
       $('.js-modal').modal();
+
+      //navigation
+      $(document).navigation();
     });
   </script>
 </body>
