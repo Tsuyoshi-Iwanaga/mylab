@@ -91,7 +91,7 @@ function testCopy(ItemManager $manager, $item_code) {
   $item2->getDetail()->comment = 'コメントを書き換えました';
 
   echo '■オリジナル';
-  $item->dumpData();
+  $item1->dumpData();
   echo '■コピー';
   $item2->dumpData();
   echo '<hr>';

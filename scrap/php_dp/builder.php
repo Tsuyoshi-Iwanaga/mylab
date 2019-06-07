@@ -22,11 +22,11 @@ class News {
 }
 
 //Director
-class NewsDirector {
+class Director {
   private $builder;
   private $url;
 
-  public function __construct(ArtistsBuilder $builder, $url) {
+  public function __construct(Builder $builder, $url) {
     $this->builder = $builder;
     $this->url = $url;
   }
@@ -64,7 +64,7 @@ class ArtistsBuilder implements Builder {
 //clientCode
 $builder = new ArtistsBuilder();
 $url = './src/sample01.xml';
-$director = new NewsDirector($builder, $url);
+$director = new Director($builder, $url);
 
 foreach($director->getArtists() as $article) {
   print($article->getTitle(). ' → '. $article->getUrl());
