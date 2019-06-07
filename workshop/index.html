@@ -155,6 +155,17 @@
       </ul>
     </section>
 
+    <section>
+      <div class="p-switchImage js-switchImage">
+        <div class="p-switchImageMain js-switchImage_main"></div>
+        <ul class="p-switchImageNav js-switchImage_sub">
+          <li class="p-switchImageNav_item"><img src="./images/dummy01.jpg" alt=""></li>
+          <li class="p-switchImageNav_item"><img src="./images/dummy02.jpg" alt=""></li>
+          <li class="p-switchImageNav_item"><img src="./images/dummy03.jpg" alt=""></li>
+        </ul>
+      </div>
+    </section>
+
     <!-- クイズ -->
     <section class="l-section">
       <h2 class="c-title">Quiz</h2>
@@ -191,7 +202,7 @@
       <p><img src="./images/img01.jpg" alt=""></p>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+  <script src="./js/jquery-3.3.1.min.js"></script>
   <script src="./js/tab.js"></script>
   <script src="./js/acc.js"></script>
   <script src="./js/smoothScroll.js"></script>
@@ -199,6 +210,7 @@
   <script src="./js/slideMenu.js"></script>
   <script src="./js/modal.js"></script>
   <script src="./js/navigation.js"></script>
+  <script src="./js/switchImage.js"></script>
   <script src="./js/quiz.js"></script>
   <script>
     $(function(){
@@ -234,6 +246,12 @@
 
       //navigation
       $(document).navigation();
+
+      //switchImage
+      $('.js-switchImage').switchImage();
+      // $('.js-switchImage').switchImage({
+      //   triggerEvent: 'mouseenter'
+      // });
     });
   </script>
 </body>

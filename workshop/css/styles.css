@@ -401,3 +401,35 @@ dd {
     border-right: 1px solid #666;
   }
 }
+
+/* --- switch Image --- */
+.p-switchImage {
+  width: 100%;
+  max-width: 500px;
+}
+.p-switchImageMain > img {
+  width: 100%;
+}
+.p-switchImageNav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.p-switchImageNav_item {
+  box-sizing: border-box;
+  width: 30%;
+  max-width: 150px;
+  cursor: pointer;
+}
+.p-switchImageNav_item img {
+  border: 4px solid transparent;
+}
+.p-switchImageNav_item:hover img {
+  border: 4px solid #0f1269;
+}
+.p-switchImageNav_item.is-active img {
+  border: 4px solid orange;
+}
+.p-switchImageNav_item > img {
+  width: 100%;
+}
