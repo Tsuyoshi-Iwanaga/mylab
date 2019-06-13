@@ -168,16 +168,27 @@
 
     <!-- クイズ -->
     <section class="l-section">
-      <h2 class="c-title">Quiz</h2>
-      <div class="p-textArea">
-        <p>var a = 1;</p>
-        <textarea class="p-codeInput js-input"></textarea>
-        <p>return a + b;</p>
-        <p>}</p>
-        <p>問題: 3が返されるようにしてください</p>
-        <p class="js-output"></p>
+      <div class="js-quiz">
+          <h2 class="c-title">Quiz</h2>
+          <ul>
+            <li class="p-textArea js-quizItem">
+              <p>var a = 1;</p>
+              <textarea class="p-codeInput js-input"></textarea>
+              <p>return a + b;</p>
+              <p>}</p>
+              <p>問題: 3が返されるようにしてください</p>
+            </li>
+            <li class="p-textArea js-quizItem">
+              <p>var a = 1;</p>
+              <textarea class="p-codeInput js-input"></textarea>
+              <p>return a + b;</p>
+              <p>}</p>
+              <p>問題: 3が返されるようにしてください</p>
+            </li>
+          </ul>
+          <p class="js-output"></p>
+          <button class="p-execBtn js-exec">実行</button>
       </div>
-      <button class="p-execBtn js-exec">実行</button>
     </section>
 
   </div>
@@ -252,6 +263,8 @@
       // $('.js-switchImage').switchImage({
       //   triggerEvent: 'mouseenter'
       // });
+
+      $('.js-quiz').quiz();
     });
   </script>
 </body>
