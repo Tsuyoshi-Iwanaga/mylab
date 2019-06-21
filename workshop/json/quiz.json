@@ -2,8 +2,5 @@
   "1": {
     "answer": "3",
     "template": "var a = 1;${input}return a + b;"
-  },
-  "2": {
-
   }
 }]
