@@ -2,103 +2,67 @@
 
 ini_set('display_errors', "On");
 
-class File {
-  private $name;
+abstract class AbstractDisplay {
+  private $data;
 
-  public function __construct($name) {
-    $this->name = $name;
+  public function __construct($data) {
+    if(!is_array($data)) {
+      $data = array($data);
+    }
+    $this->data = $data;
   }
 
-  public function __getName() {
-    return $this->name;
+  public function getData() {
+    return $this->data;
   }
 
-  public function decompress() {
-    echo $this->name. 'を展開しました<br>';
+  public function display() {
+    $this->displayHeader();
+    $this->displayBody();
+    $this->displayFooter();
   }
 
-  public function compress() {
-    echo $this->name. 'を圧縮しました<br>';
-  }
-
-  public function create() {
-    echo $this->name. 'を作成しました';
-  }
+  protected abstract function displayHeader();
+  protected abstract function displayBody();
+  protected abstract function displayFooter();
 }
 
-interface Command {
-  public function execute();
-}
-
-class TouchCommand implements Command {
-  private $file;
-
-  public function __construct(File $file) {
-    $this->file = $file;
+class ListDisplay extends AbstractDisplay {
+  protected function displayHeader() {
+    echo '<dl>';
   }
 
-  public function execute() {
-    $this->file->create();
-  }
-}
-
-class CompressCommand implements Command {
-  private $file;
-
-  public function __construct(File $file) {
-    $this->file = $file;
-  }
-
-  public function execute() {
-    $this->file->compress();
-  }
-}
-
-class CopyCommand implements Command {
-  private $file;
-
-  public function __construct(File $file) {
-    $this->file = $file;
-  }
-
-  public function execute() {
-    $file = new File('copy_of'. $this->file->getName());
-    $file->create();
-  }
-}
-
-class Queue {
-  private $commands;
-  private $current_index;
-
-  public function __construct() {
-    $this->commands = array();
-    $this->current_index = 0;
-  }
-
-  public function addCommand(Command $command) {
-    $this->command[] = $command;
-  }
-
-  public function run() {
-    while(!is_null($commnad = $this->next())) {
-      $command->execute();
+  protected function displayBody() {
+    foreach($this->getData() as $key => $value) {
+      echo '<dt>Item'. $key. '</dt>';
+      echo '<dd>'. $value. '</dd>';
     }
   }
 
-  private function next() {
-    if(count($this->commands) === 0 || count($this->commands) <= $this->current_index) {
-      return null;
-    } else {
-      return $this->commands[$this->current_index++];
+  protected function displayFooter() {
+    echo '</dl>';
+  }
+}
+
+class TableDisplay extends AbstractDisplay {
+  protected function displayHeader() {
+    echo '<table border="1">';
+  }
+
+  protected function displayBody() {
+    foreach($this->getData() as $key => $value) {
+      echo '<tr>';
+      echo '<td>Item'. $key. '</td>';
+      echo '<td>'. $value '</td>';
+      echo '</tr>';
     }
   }
 }
 
-$queue = new Queue();
-$file = new File('Sample.txt');
-$queue->addCommand(new TouchCommand($file));
-$queue->addCommand(new CompressCommand($file));
-$queue->addCommand(new CopyCommand($file));
+$data = ["design pattern", "gang of four", "Template Method", "Templatemeshod"];
 
-$queue->run();
+$display1 = new ListDisplay($data);
+$display2 = new TableDisplay($data);
+
+$display1->display();
+$display2->display();
