@@ -433,3 +433,32 @@ dd {
 .p-switchImageNav_item > img {
   width: 100%;
 }
+
+/* --- tool Tip --- */
+.p-toolTipList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.p-toolTip {
+  width: 20%;
+  min-height: 100px;
+  line-height: 100px;
+  background: #eee;
+  vertical-align: middle;
+  text-align: center;
+}
+.p-toolTip:hover {
+  cursor: pointer;
+}
+.p-toolTipBalloon {
+  font-size: 12px;
+  padding: 0.5em 1em;
+  color: #fff;
+  background: #333;
+  position: absolute;
+  display: none;
+}
+.p-toolTipBalloon.is-active {
+  display: block;
+}

@@ -68,7 +68,7 @@
         url: "./json/quiz.json",
         method: "GET",
       }).done(function(data){
-        _.settings.data = JSON.parse(data)[0];
+        _.settings.data = data[0];
         //_.renderQuiz(1);
       }).fail(function(){
         throw new Error("データ読み込みができませんでした");

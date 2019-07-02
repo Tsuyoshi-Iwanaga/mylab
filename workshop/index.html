@@ -169,7 +169,7 @@
     <!-- クイズ -->
     <section class="l-section">
       <div class="js-quiz">
-          <h2 class="c-title">Quiz</h2>
+          <h2 class="c-title">Quiz(Ajax)</h2>
           <ul>
             <li class="p-textArea js-quizItem">
               <p>var a = 1;</p>
@@ -189,6 +189,18 @@
           <p class="js-output"></p>
           <button class="p-execBtn js-exec">実行</button>
       </div>
+    </section>
+
+    <!-- ツールチップ -->
+    <section class="l-section">
+      <h2 class="c-title">ツールチップ</h2>
+      <ul class="p-toolTipList">
+        <li class="p-toolTip js-toolTip" data-toolTipText="ダミー01">ツールチップ01</li>
+        <li class="p-toolTip js-toolTip" data-toolTipText="ダミー02ダミー02">ツールチップ02</li>
+        <li class="p-toolTip js-toolTip" data-toolTipText="ダミー03ダミー03ダミー03">ツールチップ03</li>
+        <li class="p-toolTip js-toolTip" data-toolTipText="ダミー04ダミー04ダミー04ダミー04">ツールチップ04</li>
+      </ul>
+      </ul>
     </section>
 
   </div>
@@ -223,6 +235,7 @@
   <script src="./js/navigation.js"></script>
   <script src="./js/switchImage.js"></script>
   <script src="./js/quiz.js"></script>
+  <script src="./js/tooltip.js"></script>
   <script>
     $(function(){
       //accordion
@@ -264,7 +277,11 @@
       //   triggerEvent: 'mouseenter'
       // });
 
+      //ajax
       $('.js-quiz').quiz();
+
+      //toolTip
+      $('.js-toolTip').tooltip();
     });
   </script>
 </body>
