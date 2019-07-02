@@ -64,13 +64,26 @@
     _Quiz.prototype.getData = function () {
       var _ = this;
 
-      $.ajax({
-        url: "./json/quiz.json",
-        method: "GET",
-      }).done(function(data){
-        _.settings.data = data[0];
-        //_.renderQuiz(1);
-      }).fail(function(){
+      //jQuery
+      // $.ajax({
+      //   url: "./json/quiz.json",
+      //   method: "GET",
+      // }).done(function(data){
+      //   _.settings.data = data[0];
+      // }).fail(function(){
+      //   throw new Error("データ読み込みができませんでした");
+      // });
+
+      //fetchAPI
+      //https://developer.mozilla.org/ja/docs/Web/API/Fetch_API/Using_Fetch
+      fetch('./json/quiz.json', {method: 'GET'})
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(json){
+        _.settings.data = json[0];
+      })
+      .catch(() => {
         throw new Error("データ読み込みができませんでした");
       });
     },
