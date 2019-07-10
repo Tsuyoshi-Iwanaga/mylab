@@ -462,3 +462,14 @@ dd {
 .p-toolTipBalloon.is-active {
   display: block;
 }
+
+/* --- drag & drop --- */
+.p-drop {
+  width: 300px;
+  padding: 20px;
+  border: 3px dotted #aaa;
+  background: #eee;
+  border-radius: 5px;
+  color: #aaa;
+  margin-bottom: 20px;
+}
