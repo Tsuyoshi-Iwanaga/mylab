@@ -1,0 +1,36 @@
+body {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+}
+
+.container {
+  width: 300px;
+  margin: 0 auto;
+}
+
+#app h2 {
+  font-size: 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+#app ul {
+  padding: 0;
+  list-style: none;
+}
+
+#app li > span.done {
+  text-decoration: line-through;
+  color: #bbb;
+}
+
+.command {
+  font-size: 12px;
+  cursor: pointer;
+  color: #08c;
+}
+
+#wrap01 {
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
