@@ -1,14 +1,21 @@
 const Redux = require('redux');
 
 const initialState = {
+  task: '',
   tasks: []
 };
 
 //Reducer
 function tasksReducer(state = initialState, action) {
   switch(action.type) {
+    case 'INPUT_TASK':
+      return {
+        ...state,
+        task: action.payload.task
+      }
     case 'ADD_TASK':
       return {
+        ...state,
         tasks: state.tasks.concat([action.payload.task])
       };
     default:
@@ -19,6 +26,15 @@ function tasksReducer(state = initialState, action) {
 //ActionCreator
 const addTask = (task) => ({
   type: 'ADD_TASK',
+  error: false,
+  meta: {},
+  payload: {
+    task
+  }
+});
+
+const inputTask = (task) => ({
+  type: 'INPUT_TASK',
   error: false,
   meta: {},
   payload: {
