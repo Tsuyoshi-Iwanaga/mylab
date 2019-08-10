@@ -473,3 +473,71 @@ dd {
   color: #aaa;
   margin-bottom: 20px;
 }
+
+/* --- cssAnimation --- */
+.box01 {
+  margin-bottom: 20px;
+  width: 100px;
+  height: 100px;
+  background: lightskyblue;
+  /* transition: all 300ms 0s ease; */
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-delay: 0s;
+  transition-timing-function: ease-in;
+}
+.box01:hover {
+  background: lightpink;
+  width: 200px;
+}
+.box02 {
+  margin-bottom: 20px;
+  width: 100px;
+  height: 100px;
+  background: lightskyblue;
+  /* animation: rotation 2s ease 0s infinite alternate none running; */
+  animation-name: rotation;
+  animation-duration: 2s;
+  animation-timing-function: ease;
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: none;
+  animation-play-state: running;
+}
+@keyframes rotation {
+  0% {
+    transform: scale(.3);
+  }
+  50% {
+    transform: scale(.6) rotate(-45deg);
+    background: lightcoral;
+    border-radius: 30px;
+  }
+  100% {
+    transform: scale(1) rotate(180deg);
+    background: lightgreen;
+    border-radius: 0px;
+  }
+}
+
+.svgPath:hover {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 10s linear forwards;
+}
+@keyframes dash {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* --- canvas --- */
+#canvas-container {
+  background: #fff;
+  width: 100%;
+  height: 70vh;
+}
