@@ -3,8 +3,16 @@ require_once(dirname(__FILE__)."/../model/Counter.php");
 
 abstract class AbstractPage {
 
+  //カウンター
+  protected $counter;
+
   //データ埋め込み用の配列
   protected $data = array();
+
+  //コンストラクタ
+  public function __construct() {
+    $this->counter = new Counter;
+  }
 
   //ページ固有の処理
   abstract protected function main();
@@ -12,8 +20,7 @@ abstract class AbstractPage {
   //ページ共通の処理
   public function exec() {
     try {
-      $counter = new Counter();
-      $counter->increment();
+      $this->counter->increment();
       $this->main();
     } catch (Exception $e) {
       die('システムエラーが発生しました');
