@@ -4,7 +4,7 @@ ini_set('display_errors', "On");
 class Counter {
 
   private $counter = 0;
-  const COUNT_FILE_NAME = 'count.dat';
+  const COUNT_FILE_NAME = './classes/data/count.dat';
 
   public function __construct() {
     $cnt = $this->readFile(self::COUNT_FILE_NAME);
