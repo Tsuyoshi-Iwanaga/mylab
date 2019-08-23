@@ -1,3 +1,25 @@
 <?php
 ini_set('display_errors', "On");
+printf();
+sprintf();
+preg_match();
+preg_match_all();
+preg_quote();
+str_replace();
+strtr();
+substr();
+mb_substr();
+strtolower();
+strtoupper();
+strlen();
+mb_strlen();
+strpos();
+mb_strpos();
+stripos();
+mb_stripos();
+mb_convert_kana();
+mb_convert_encoding();
+trim();
+ltrim();
+rtrim();
 ?>
