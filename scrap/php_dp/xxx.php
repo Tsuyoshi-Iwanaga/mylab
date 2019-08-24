@@ -137,4 +137,5 @@ unset();
 mb_language();
 mb_internal_encoding();
 move_uploaded_file();
+echo();
 ?>
