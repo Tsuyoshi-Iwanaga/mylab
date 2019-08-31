@@ -26,10 +26,6 @@ abstract class ValidationHandler {
   public function validate($input) {
     $result = $this->execValidation($input);
 
-    echo($input.':'.$result.'<br>');
-    var_dump($this->getNextHandler());
-    echo('<hr>');
-
     if(!$result) {
       return $this->getErrorMessage();
     } elseif (!is_null($this->getNextHandler())) {
