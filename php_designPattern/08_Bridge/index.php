@@ -1,8 +1,12 @@
 <?php
+ini_set('display_errors', 'On');
 
-ini_set('display_errors', "On");
+//ブリッジパターン
+//機能と実装を分離して設計をする
+//実装側のインスタンスを機能側に移譲して利用する。
+//機能側からは実装側のAPIのみを知っていればよく、中身は知らなくてもOK
 
-//----------どう実装するのか----------//
+//-----実装-----//
 interface DataSource {
   public function open();
   public function read();
@@ -19,11 +23,11 @@ class FileDataSource implements DataSource {
 
   public function open() {
     if(!is_readable($this->file_name)) {
-      throw new Exception('データソースがみつかりません');
+      throw new Exception('データソースが見つかりません');
     }
     $this->handler = fopen($this->file_name, 'r');
     if(!$this->handler) {
-      throw new Exception('データソースのオープンに失敗しました。');
+      throw new Exception('データソースのオープンに失敗しました');
     }
   }
 
@@ -42,8 +46,7 @@ class FileDataSource implements DataSource {
   }
 }
 
-//----------何をするのか----------//
-
+//-----機能-----//
 class Listing {
   private $data_source;
 
@@ -70,28 +73,29 @@ class ExtendedListing extends Listing {
   }
 
   public function readWithEncode() {
-    return htmlspecialchars($this->read(), ENT_QUOTES);
+    return strtoupper($this->read());
   }
 }
 
-//clientCode
+//クライアントコード
 $list1 = new Listing(new FileDataSource('./src/data.txt'));
 $list2 = new ExtendedListing(new FileDataSource('./src/data.txt'));
 
 try {
   $list1->open();
   $list2->open();
-} catch (Exception $e) {
+} catch(Exception $e) {
   die($e->getMessage());
 }
 
-$data = $list1->read();
-echo $data;
+$data1 = $list1->read();
+echo $data1;
 
 echo '<hr>';
 
-$data = $list2->readWithEncode();
-echo $data;
+$data2 = $list2->readWithEncode();
+echo $data2;
 
 $list1->close();
 $list2->close();
+?>
