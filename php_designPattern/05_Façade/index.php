@@ -1,14 +1,16 @@
 <?php
-
 ini_set('display_errors', "On");
 
-//---------------商品と注文---------------//
+//Façadeパターン
+//Mainクラスに複雑な処理を書かなければいけない場合に、
+//一連の操作をまとめたわかりやすいAPIを用意しておく
 
+//商品クラス
 class Item {
   private $id;
   private $name;
   private $price;
-
+  
   public function __construct($id, $name, $price) {
     $this->id = $id;
     $this->name = $name;
@@ -28,6 +30,7 @@ class Item {
   }
 }
 
+//注文クラス(商品のインスタンスと数量を保持する)
 class OrderItem {
   private $item;
   private $amount;
@@ -46,43 +49,44 @@ class OrderItem {
   }
 }
 
+//注文をまとめるクラス
 class Order {
-  private $items;
+  private $orders;
 
   public function __construct() {
-    $this->items = array();
+    $this->orders = array();
   }
 
   public function addItem(OrderItem $order_item) {
-    $this->items[$order_item->getItem()->getId()] = $order_item;
+    $this->orders[$order_item->getItem()->getId()] = $order_item;
   }
 
   public function getItems() {
-    return $this->items;
+    return $this->orders;
   }
 }
 
-//---------------ItemDao---------------//
-
+//商品のDAO(Database Access Object)クラス
 class ItemDao {
   private static $instance;
   private $items;
 
   private function __construct() {
-    $fp = fopen('./src/item_data.txt', 'r');
+    $this->items = [];
 
+    $fp = fopen(dirname(__FILE__).'/src/item_data.txt', 'r');
     $dummy = fgets($fp, 4096);
 
-    $this->items = array();
-
-    while ($buffer = fgets($fp, 4096)) {
-      $item_id = trim(substr($buffer, 0, 10));
-      $item_name = trim(substr($buffer, 10, 20));
-      $item_price = trim(substr($buffer, 30));
-
+    while(($buffer = fgets($fp, 4096)) !== false) {
+      $data = explode("\t", trim($buffer));
+      if (count($data) !== 3) {
+        continue;
+      }
+      list($item_id, $item_name, $item_price) = $data;
       $item = new Item($item_id, $item_name, $item_price);
       $this->items[$item->getId()] = $item;
     }
+
     fclose($fp);
   }
 
@@ -97,61 +101,52 @@ class ItemDao {
     if(array_key_exists($item_id, $this->items)) {
       return $this->items[$item_id];
     } else {
-      return null;
+      return;
     }
   }
 
   public function setAside(OrderItem $order_item) {
-    echo $order_item->getItem()->getName() . 'の在庫引当を行いました<br>';
+    printf('%sの在庫引当をおこないました<br>', $order_item->getItem()->getName());
   }
 
-  public final function __clone() {
-    throw new RuntimeException('Clone is not allowed against'. get_class($this));
+  final public function __clone() {
+    throw new RuntimeException('Clone is not allowed aginst'.get_class($this));
   }
 }
 
-//---------------OrderDao---------------//
-
+//注文のDAO(Database Access Object)クラス
+//※本来はDBにアクセスなどするが、今回は注文内容を出力するだけ
 class OrderDao {
   public static function createOrder(Order $order) {
-    echo '以下の内容で注文データを作成しました';
-    echo '<table>';
-    echo '<tr>';
-    echo '<th>商品番号</th>';
-    echo '<th>商品名</th>';
-    echo '<th>単価</th>';
-    echo '<th>数量</th>';
-    echo '<th>金額</th>';
-    echo '</tr>';
+    echo '以下の内容で注文データを作成しました<br>';
 
+    echo '<table border=1>';
+    echo '<tr><td>商品番号</td><td>商品名</td><td>単価</td><td>数量</td><td>金額</td></tr>';
     foreach($order->getItems() as $order_item) {
-      echo '<tr>';
-      echo '<td>'. $order_item->getItem()->getId(). '</td>';
-      echo '<td>'. $order_item->getItem()->getName(). '</td>';
-      echo '<td>'. $order_item->getItem()->getPrice(). '</td>';
-      echo '<td>'. $order_item->getAmount(). '</td>';
-      echo '<td>'. ($order_item->getItem()->getPrice() * $order_item->getAmount()). '</td>';
-      echo '</tr>';
+     echo '<tr>';
+     echo '<td>'.$order_item->getItem()->getId().'</td>';
+     echo '<td>'.$order_item->getItem()->getName().'</td>';
+     echo '<td>'.$order_item->getItem()->getPrice().'</td>';
+     echo '<td>'.$order_item->getAmount().'</td>';
+     echo '<td>'.($order_item->getItem()->getPrice() * $order_item->getAmount()).'</td>';
+     echo '</tr>';
     }
     echo '</table>';
   }
 }
 
-//---------------façade---------------//
-
+//統一APIを提供するFaçadeクラス
 class OrderManager {
   public static function order(Order $order) {
     $item_dao = ItemDao::getInstance();
-
-    foreach($order->getItems() as $order_item) {
+    foreach ($order->getItems() as $order_item) {
       $item_dao->setAside($order_item);
     }
-
     OrderDao::createOrder($order);
   }
 }
 
-//---------------clientCode---------------//
+//clientCode
 $order = new Order();
 $item_dao = ItemDao::getInstance();
 
@@ -159,4 +154,5 @@ $order->addItem(new OrderItem($item_dao->findById(1), 2));
 $order->addItem(new OrderItem($item_dao->findById(2), 1));
 $order->addItem(new OrderItem($item_dao->findById(3), 3));
 
+//統一APIを利用
 OrderManager::order($order);
