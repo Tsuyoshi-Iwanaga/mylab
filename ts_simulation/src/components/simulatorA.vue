@@ -15,7 +15,7 @@
   //型定義
   enum PlanA {
     A01='A01',
-    None='なし'
+    None='none'
   }
 
   interface OptionItem {
@@ -30,7 +30,7 @@
     plan: string = 'A01'
     options: OptionItem[] =  [
       { id: 1, name: 'A01'},
-      { id: 2, name: 'なし'},
+      { id: 2, name: 'none'},
     ]
 
     //Props
@@ -38,6 +38,8 @@
     gender!: string;
     @Prop({})
     age!: string;
+    @Prop({})
+    priceTable!: object;
 
     //Emit
     @Emit('getPlan')
@@ -49,12 +51,21 @@
       }
     }
 
+    //method
+    getPrice(gender:string, age:string, type:string) {
+      let cost:number = 0
+      console.log(gender, age, type)
+      cost = this.priceTable[type][gender][age]
+      this.price = cost
+    }
+
     //LifeCycle
     mounted() {
       this.sendInfo()
     }
     updated() {
       this.sendInfo()
+      this.getPrice(this.gender, this.age, this.plan)
     }
   }
 </script>

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "watch": "webpack -w"
+    "watch": "webpack-dev-server --inline --content-base dist/"
   },
   "keywords": [],
   "author": "",
@@ -22,9 +22,11 @@
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.40.0",
-    "webpack-cli": "^3.3.8"
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "vue-property-decorator": "^8.2.2"
   }
 }

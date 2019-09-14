@@ -4,8 +4,8 @@
     <div>
       <div class="inputArea">
         <select v-model="gender">
-          <option value="男性">男性</option>
-          <option value="女性">女性</option>
+          <option value="male">男性</option>
+          <option value="female">女性</option>
         </select>
         <select v-model="age">
           <option value="0-4">0-4歳</option>
@@ -28,21 +28,23 @@
       </div>
     </div>
     <div>年齢:{{ age }}歳</div>
-    <div>性別:{{ gender }}</div>
+    <div>性別:{{ gender === 'male' ? '男性' : '女性'  }}</div>
     <div>プラン:{{PlanList}}</div>
     <div>合計金額:{{PriceSum}}</div>
-    <SimulatorA :gender="gender" :age="age" @getPlan="handler($event)"></SimulatorA>
+    <div>{{priceTable}}</div>
+    <SimulatorA :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorA>
     <button>削除</button>
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
+import fetchData from '../fetch';
 import SimulatorA from "./simulatorA.vue";
 
 enum Gender {
-  Male='男性',
-  Female='女性'
+  Male='male',
+  Female='female'
 }
 enum Age {
   T1='0-4',
@@ -79,6 +81,7 @@ export default class SimulatorWrap extends Vue {
   age: Age = Age.T7
   planList: string[] = ['A01', 'B01', 'C01', 'D01', 'E01', 'F01', 'G01', 'H01']
   planPriceList: number[] = [0, 0, 0, 0, 0, 0, 0, 0]
+  priceTable: object = {}
 
   handler(event:TypeInfo) {
     let index = event.id
@@ -94,6 +97,14 @@ export default class SimulatorWrap extends Vue {
   get PlanList() {
     const list = this.planList.map((item:string):string => { return item});
     return list.join("/");
+  }
+
+  created() {
+    fetchData('json/priceTable.json').then((response) => {
+      this.priceTable = response.data
+    }).catch((error) =>{
+      throw new Error(error);
+    })
   }
 }
 </script>
