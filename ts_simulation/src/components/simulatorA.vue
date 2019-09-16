@@ -10,23 +10,13 @@
 </template>
 
 <script lang="ts">
-  import {Component, Prop, Emit, Vue} from "vue-property-decorator";
-
-  //型定義
-  enum PlanA {
-    A01='A01',
-    None='none'
-  }
-
-  interface OptionItem {
-    id: number;
-    name: string;
-  }
+  import {Component, Prop, Emit, Watch, Vue} from "vue-property-decorator";
+  import {Gender, Age, OptionItem, PlanA} from './simulator';
 
   @Component
   export default class SimulatorA extends Vue {
     //data
-    price: number = 1000
+    price: number = 0
     plan: string = 'A01'
     options: OptionItem[] =  [
       { id: 1, name: 'A01'},
@@ -35,11 +25,11 @@
 
     //Props
     @Prop({})
-    gender!: string;
+    gender!: Gender;
     @Prop({})
-    age!: string;
+    age!: Age;
     @Prop({})
-    priceTable!: object;
+    priceTable!: any;
 
     //Emit
     @Emit('getPlan')
@@ -52,20 +42,23 @@
     }
 
     //method
-    getPrice(gender:string, age:string, type:string) {
-      let cost:number = 0
-      console.log(gender, age, type)
-      cost = this.priceTable[type][gender][age]
-      this.price = cost
+    getPrice():void {
+      this.price = this.priceTable[this.plan][this.gender][this.age]
+    }
+
+    @Watch('age')
+    @Watch('gender')
+    onAgeChanged(newAge:Age, oldAge:Age) {
+      this.getPrice();
     }
 
     //LifeCycle
-    mounted() {
-      this.sendInfo()
-    }
+    // mounted() {
+    //   this.sendInfo()
+    // }
     updated() {
       this.sendInfo()
-      this.getPrice(this.gender, this.age, this.plan)
+      this.getPrice()
     }
   }
 </script>

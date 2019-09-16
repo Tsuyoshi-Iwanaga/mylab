@@ -41,35 +41,7 @@
 import {Component, Vue} from "vue-property-decorator";
 import fetchData from '../fetch';
 import SimulatorA from "./simulatorA.vue";
-
-enum Gender {
-  Male='male',
-  Female='female'
-}
-enum Age {
-  T1='0-4',
-  T2='5-9',
-  T3='10-14',
-  T4='15-19',
-  T5='20-24',
-  T6='25-29',
-  T7='30-34',
-  T8='35-39',
-  T9='40-44',
-  T10='45-49',
-  T11='50-54',
-  T12='55-59',
-  T13='60-64',
-  T14='65-69',
-  T15='70-74',
-  T16='75-79'
-}
-
-interface TypeInfo {
-  id: number
-  plan: string
-  price: number
-}
+import {Gender, Age, TypeInfo} from './simulator';
 
 @Component({
   components: {
@@ -81,7 +53,7 @@ export default class SimulatorWrap extends Vue {
   age: Age = Age.T7
   planList: string[] = ['A01', 'B01', 'C01', 'D01', 'E01', 'F01', 'G01', 'H01']
   planPriceList: number[] = [0, 0, 0, 0, 0, 0, 0, 0]
-  priceTable: object = {}
+  priceTable: any = {}
 
   handler(event:TypeInfo) {
     let index = event.id
