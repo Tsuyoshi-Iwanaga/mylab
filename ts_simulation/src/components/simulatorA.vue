@@ -1,6 +1,6 @@
 <template>
   <div class="sim-area">
-    <h3>プランA</h3>
+    <h3>傷害保険(A)</h3>
     <p>プラン:{{plan}}</p>
     <p>値段:{{price}}</p>
     <select v-model="plan">
@@ -17,9 +17,9 @@
   export default class SimulatorA extends Vue {
     //data
     price: number = 0
-    plan: string = 'A01'
+    plan: string = '01'
     options: OptionItem[] = [
-      { id: 1, name: 'A01'},
+      { id: 1, name: '01'},
       { id: 2, name: 'none'},
     ]
 
@@ -43,19 +43,16 @@
 
     //method
     getPrice():void {
-      this.price = this.priceTable[this.plan][this.gender][this.age]
+      this.price = this.priceTable["A"][this.plan][this.gender][this.age]
     }
 
     @Watch('age')
     @Watch('gender')
+    @Watch('priceTable')
     onAgeChanged(newAge:Age, oldAge:Age) {
       this.getPrice();
     }
 
-    //LifeCycle
-    // mounted() {
-    //   this.sendInfo()
-    // }
     updated() {
       this.sendInfo()
       this.getPrice()

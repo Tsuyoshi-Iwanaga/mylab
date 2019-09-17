@@ -27,12 +27,18 @@
         </select>
       </div>
     </div>
-    <div>年齢:{{ age }}歳</div>
-    <div>性別:{{ gender === 'male' ? '男性' : '女性'  }}</div>
-    <div>プラン:{{PlanList}}</div>
-    <div>合計金額:{{PriceSum}}</div>
+    <div>年齢: {{ age }}歳</div>
+    <div>性別: {{ gender === 'male' ? '男性' : '女性'  }}</div>
+    <div>プラン: {{PlanList}}</div>
+    <div>合計金額: ￥{{PriceSum}}</div>
     <SimulatorA :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorA>
     <SimulatorB :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorB>
+    <SimulatorC :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorC>
+    <SimulatorD :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorD>
+    <SimulatorE :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorE>
+    <SimulatorF :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorF>
+    <SimulatorG :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorG>
+    <SimulatorH :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorH>
     <button v-show="!(simNum === 1)" @click="removeSimulator">削除</button>
   </div>
 </template>
@@ -42,17 +48,23 @@ import {Component, Vue, Prop, Emit} from "vue-property-decorator";
 import fetchData from '../fetch';
 import SimulatorA from "./simulatorA.vue";
 import SimulatorB from "./simulatorB.vue";
+import SimulatorC from "./simulatorC.vue";
+import SimulatorD from "./simulatorD.vue";
+import SimulatorE from "./simulatorE.vue";
+import SimulatorF from "./simulatorF.vue";
+import SimulatorG from "./simulatorG.vue";
+import SimulatorH from "./simulatorH.vue";
 import {Gender, Age, TypeInfo} from './simulator';
 
 @Component({
   components: {
-    SimulatorA,SimulatorB
+    SimulatorA, SimulatorB, SimulatorC, SimulatorD, SimulatorE, SimulatorF, SimulatorG, SimulatorH
   }
 })
 export default class SimulatorWrap extends Vue {
   gender: Gender = Gender.Male
   age: Age = Age.T7
-  planList: string[] = ['A01', 'B01', 'C01', 'D01', 'E01', 'F01', 'G01', 'H01']
+  planList: string[] = ['01', '01', '01', '01', '01', '01', '01', '01']
   planPriceList: number[] = [0, 0, 0, 0, 0, 0, 0, 0]
   priceTable: any = {}
 
@@ -61,20 +73,27 @@ export default class SimulatorWrap extends Vue {
 
   //Emit
   @Emit('removeSimulator')
-  sendInfo() {
+  removeSimulator() {
     return {
       id: this.simNum
     }
   }
+  @Emit('sumCalcPrice')
+  sumCalcPrice() {
+    return {
+      id: this.simNum,
+      price: this.PriceSum
+    }
+  }
 
-  get PriceSum() {
+  get PriceSum():number {
     const sum = this.planPriceList.reduce((a:number, b:number):number => { return a + b});
     return sum;
   }
 
-  get PlanList() {
-    const list = this.planList.map((item:string):string => { return item});
-    return list.join("/");
+  get PlanList():string {
+    const text = `A:${this.planList[0]}/B:${this.planList[1]}/C:${this.planList[2]}/D:${this.planList[3]}/E:${this.planList[4]}/F:${this.planList[5]}/G:${this.planList[6]}/H:${this.planList[7]}`
+    return text;
   }
 
   handler(event:TypeInfo) {
@@ -83,16 +102,16 @@ export default class SimulatorWrap extends Vue {
     this.$set(this.planPriceList, index, event.price);
   }
 
-  removeSimulator() {
-    this.sendInfo()
-  }
-
   created() {
     fetchData('json/priceTable.json').then((response) => {
       this.priceTable = response.data
     }).catch((error) =>{
       throw new Error(error);
     })
+  }
+
+  updated() {
+    this.sumCalcPrice();
   }
 }
 </script>

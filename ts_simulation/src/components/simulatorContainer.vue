@@ -1,6 +1,7 @@
 <template>
   <div class="p-sim_container">
-    <SimulatorWrap v-for="simulator in simulators" :key="simulator.id" :simNum="simulator.id" @removeSimulator="removeHandler($event)"></SimulatorWrap>
+    <SimulatorWrap v-for="simulator in simulators" :key="simulator.id" :simNum="simulator.id" @removeSimulator="removeHandler($event)" @sumCalcPrice="insertPrice($event)"></SimulatorWrap>
+    <p>合計値:<span class="p-sim_allPriceSum">￥{{simulatorsSumPrice}}</span>/{{simulators}}</p>
     <button v-show="this.simulators.length < 5" @click="addSimulator">シミュレータ追加</button>
   </div>
 </template>
@@ -11,7 +12,8 @@ import SimulatorWrap from "./simulatorWrap.vue";
 import {Gender, Age, TypeInfo} from './simulator';
 
 interface Simulator {
-  id: number;
+  id: number,
+  price: number
 }
 
 @Component({
@@ -20,14 +22,15 @@ interface Simulator {
   }
 })
 export default class SimulatorContainer extends Vue {
-  simulatorsLength = 1;
+  simulatorsSumPrice:number = 0;
+  simulatorsLength:number = 1;
   simulators:Simulator[] = [
-    {id: 1}
+    {id: 1, price: 0}
   ]
 
   addSimulator():void {
     if(this.simulators.length < 5) {
-      this.simulators.push({id: this.simulatorsLength + 1});
+      this.simulators.push({id: this.simulatorsLength + 1, price: 0});
       this.simulatorsLength++;
     }
   }
@@ -41,6 +44,26 @@ export default class SimulatorContainer extends Vue {
     })
     this.simulators.splice(index, 1)
   }
+
+  insertPrice(event:TypeInfo):void {
+    this.simulators.forEach((v, i):void => {
+      if(v.id === event.id) {
+        v.price = event.price
+      }
+    })
+  }
+
+  calcSumCost():void {
+    let sumCost = 0;
+    this.simulators.forEach((v, i):void => {
+      sumCost += v.price
+    });
+    this.simulatorsSumPrice = sumCost;
+  }
+
+  updated() {
+    this.calcSumCost()
+  }
 }
 </script>
 
@@ -49,5 +72,9 @@ export default class SimulatorContainer extends Vue {
   width: 100%;
   max-width: 900px;
   margin: 0 auto 20px;
+}
+.p-sim_allPriceSum {
+  font-weight: bold;
+  color: #f00;
 }
 </style>

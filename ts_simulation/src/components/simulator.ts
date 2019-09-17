@@ -1,5 +1,4 @@
 //型定義
-
 export enum Gender {
   Male='male',
   Female='female'
@@ -21,11 +20,65 @@ export enum Age {
   T13='60-64',
   T14='65-69',
   T15='70-74',
-  T16='75-79'
+  T17='75-79',
+  T18='80-84',
+  T19='85-89'
 }
 
 export enum PlanA {
   A01='A01',
+  None='none'
+}
+
+export enum PlanB {
+  B01='B01',
+  B02='B02',
+  B11='B11',
+  B12='B12',
+  B01W='B01W',
+  B02W='B02W',
+  B11W='B11W',
+  B12W='B12W',
+  None='none'
+}
+
+export enum PlanC {
+  C01='C01',
+  C02='C02',
+  C11='C11',
+  C12='C12',
+  C21='C21',
+  C22='C22',
+  None='none'
+}
+
+export enum PlanD {
+  D01='D01',
+  D02='D02',
+  D03='D03',
+  None='none'
+}
+
+export enum PlanE {
+  E01='E01',
+  E02='E01',
+  E11='E01',
+  E12='E01',
+  None='none'
+}
+
+export enum PlanF {
+  F01='F01',
+  None='none'
+}
+
+export enum PlanG {
+  G01='G01',
+  None='none'
+}
+
+export enum PlanH {
+  H01='H01',
   None='none'
 }
 

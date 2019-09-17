@@ -1,6 +1,6 @@
 <template>
   <div class="sim-area">
-    <h3>医療保険(B)</h3>
+    <h3>個人賠償責任保険(F)</h3>
     <p>プラン:{{plan}}</p>
     <p>値段:{{price}}</p>
     <select v-model="plan">
@@ -11,10 +11,10 @@
 
 <script lang="ts">
   import {Component, Prop, Emit, Watch, Vue} from "vue-property-decorator";
-  import {Gender, Age, OptionItem, PlanB} from './simulator';
+  import {Gender, Age, OptionItem, PlanF} from './simulator';
 
   @Component
-  export default class SimulatorB extends Vue {
+  export default class SimulatorF extends Vue {
     //data
     price: number = 0
     plan: string = '01'
@@ -35,7 +35,7 @@
     @Emit('getPlan')
     sendInfo() {
       return {
-        id: 1,
+        id: 5,
         plan: this.plan,
         price: this.price,
       }
@@ -43,7 +43,7 @@
 
     //method
     getPrice():void {
-      this.price = this.priceTable["B"][this.plan][this.gender][this.age]
+      this.price = this.priceTable["F"][this.plan][this.gender][this.age]
     }
 
     @Watch('age')
