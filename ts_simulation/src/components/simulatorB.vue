@@ -1,6 +1,6 @@
 <template>
   <div class="sim-area">
-    <h3>プランA商品</h3>
+    <h3>プランB商品</h3>
     <p>プラン:{{plan}}</p>
     <p>値段:{{price}}</p>
     <select v-model="plan">
@@ -14,11 +14,11 @@
   import {Gender, Age, OptionItem, PlanA} from './simulator';
 
   @Component
-  export default class SimulatorA extends Vue {
+  export default class SimulatorB extends Vue {
     //data
     price: number = 0
     plan: string = 'A01'
-    options: OptionItem[] = [
+    options: OptionItem[] =  [
       { id: 1, name: 'A01'},
       { id: 2, name: 'none'},
     ]
@@ -35,7 +35,7 @@
     @Emit('getPlan')
     sendInfo() {
       return {
-        id: 0,
+        id: 1,
         plan: this.plan,
         price: this.price,
       }

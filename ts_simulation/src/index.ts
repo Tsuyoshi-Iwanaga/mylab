@@ -1,7 +1,7 @@
 import Vue, { VNode } from 'vue';
-import SimulatorWrap from './components/simulatorWrap.vue';
+import SimulatorContainer from './components/simulatorContainer.vue';
 
 new Vue({
   el: '#app',
-  render: (h): VNode => h(SimulatorWrap),
+  render: (h): VNode => h(SimulatorContainer),
 });

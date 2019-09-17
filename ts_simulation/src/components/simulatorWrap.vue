@@ -1,6 +1,6 @@
 <template>
   <div class="p-sim_wrap">
-    <h2>Simulator</h2>
+    <h2>Simulator No.{{simNum}}</h2>
     <div>
       <div class="inputArea">
         <select v-model="gender">
@@ -31,21 +31,22 @@
     <div>性別:{{ gender === 'male' ? '男性' : '女性'  }}</div>
     <div>プラン:{{PlanList}}</div>
     <div>合計金額:{{PriceSum}}</div>
-    <div>{{priceTable}}</div>
     <SimulatorA :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorA>
-    <button>削除</button>
+    <SimulatorB :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorB>
+    <button v-show="!(simNum === 1)" @click="removeSimulator">削除</button>
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "vue-property-decorator";
+import {Component, Vue, Prop, Emit} from "vue-property-decorator";
 import fetchData from '../fetch';
 import SimulatorA from "./simulatorA.vue";
+import SimulatorB from "./simulatorB.vue";
 import {Gender, Age, TypeInfo} from './simulator';
 
 @Component({
   components: {
-    SimulatorA
+    SimulatorA,SimulatorB
   }
 })
 export default class SimulatorWrap extends Vue {
@@ -55,10 +56,15 @@ export default class SimulatorWrap extends Vue {
   planPriceList: number[] = [0, 0, 0, 0, 0, 0, 0, 0]
   priceTable: any = {}
 
-  handler(event:TypeInfo) {
-    let index = event.id
-    this.$set(this.planList, index, event.plan);
-    this.$set(this.planPriceList, index, event.price);
+  @Prop({})
+  simNum!: number;
+
+  //Emit
+  @Emit('removeSimulator')
+  sendInfo() {
+    return {
+      id: this.simNum
+    }
   }
 
   get PriceSum() {
@@ -69,6 +75,16 @@ export default class SimulatorWrap extends Vue {
   get PlanList() {
     const list = this.planList.map((item:string):string => { return item});
     return list.join("/");
+  }
+
+  handler(event:TypeInfo) {
+    let index = event.id
+    this.$set(this.planList, index, event.plan);
+    this.$set(this.planPriceList, index, event.price);
+  }
+
+  removeSimulator() {
+    this.sendInfo()
   }
 
   created() {
@@ -87,9 +103,8 @@ export default class SimulatorWrap extends Vue {
 }
 .p-sim_wrap {
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
   background: #eee;
   padding: 20px;
+  margin-bottom: 10px;
 }
 </style>
