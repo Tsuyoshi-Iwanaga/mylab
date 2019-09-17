@@ -61,9 +61,9 @@ export enum PlanD {
 
 export enum PlanE {
   E01='E01',
-  E02='E01',
-  E11='E01',
-  E12='E01',
+  E02='E02',
+  E11='E11',
+  E12='E12',
   None='none'
 }
 
@@ -91,4 +91,5 @@ export interface TypeInfo {
 export interface OptionItem {
   id: number;
   name: string;
+  show: boolean;
 }

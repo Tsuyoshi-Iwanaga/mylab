@@ -24,6 +24,8 @@
           <option value="65-69">65-69歳</option>
           <option value="70-74">70-74歳</option>
           <option value="75-79">75-79歳</option>
+          <option value="80-84">80-84歳</option>
+          <option value="85-89">85-89歳</option>
         </select>
       </div>
     </div>

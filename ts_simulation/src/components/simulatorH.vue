@@ -1,7 +1,7 @@
 <template>
   <div class="sim-area">
     <h3>ホールインワン保険(H)</h3>
-    <p>プラン:{{plan}}</p>
+    <p>プラン:H{{plan}}</p>
     <p>値段:{{price}}</p>
     <select v-model="plan">
       <option v-for="option in options" :value="option.name" :key="option.id">{{ option.name }}</option>
@@ -19,8 +19,8 @@
     price: number = 0
     plan: string = '01'
     options: OptionItem[] =  [
-      { id: 1, name: '01'},
-      { id: 2, name: 'none'},
+      { id: 1, name: '01', show: true},
+      { id: 2, name: 'none', show: true},
     ]
 
     //Props

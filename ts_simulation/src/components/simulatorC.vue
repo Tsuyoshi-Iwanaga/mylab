@@ -1,7 +1,7 @@
 <template>
   <div class="sim-area">
     <h3>がん保険(C)</h3>
-    <p>プラン:{{plan}}</p>
+    <p>プラン:C{{plan}}</p>
     <p>値段:{{price}}</p>
     <select v-model="plan">
       <option v-for="option in options" :value="option.name" :key="option.id">{{ option.name }}</option>
@@ -19,8 +19,13 @@
     price: number = 0
     plan: string = '01'
     options: OptionItem[] =  [
-      { id: 1, name: '01'},
-      { id: 2, name: 'none'},
+      { id: 1, name: '01', show: true},
+      { id: 2, name: '02', show: true},
+      { id: 3, name: '11', show: true},
+      { id: 4, name: '12', show: true},
+      { id: 5, name: '21', show: true},
+      { id: 6, name: '22', show: true},
+      { id: 7, name: 'none', show: true},
     ]
 
     //Props
