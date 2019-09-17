@@ -1,6 +1,6 @@
 <template>
   <div class="sim-area">
-    <h3>プランA商品</h3>
+    <h3>プランA</h3>
     <p>プラン:{{plan}}</p>
     <p>値段:{{price}}</p>
     <select v-model="plan">

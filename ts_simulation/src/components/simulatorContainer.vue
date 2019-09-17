@@ -1,7 +1,7 @@
 <template>
   <div class="p-sim_container">
     <SimulatorWrap v-for="simulator in simulators" :key="simulator.id" :simNum="simulator.id" @removeSimulator="removeHandler($event)"></SimulatorWrap>
-    <button @click="addSimulator">シミュレータ追加</button>
+    <button v-show="this.simulators.length < 5" @click="addSimulator">シミュレータ追加</button>
   </div>
 </template>
 
