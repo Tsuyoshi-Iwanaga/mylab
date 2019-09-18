@@ -84,7 +84,10 @@ export default class SimulatorWrap extends Vue {
   sumCalcPrice() {
     return {
       id: this.simNum,
-      price: this.PriceSum
+      price: this.PriceSum,
+      gender: this.gender,
+      age: this.age,
+      planList: this.planList
     }
   }
 

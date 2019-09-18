@@ -1,6 +1,13 @@
 <template>
   <div class="p-sim_container">
-    <SimulatorWrap v-for="simulator in simulators" :key="simulator.id" :simNum="simulator.id" @removeSimulator="removeHandler($event)" @sumCalcPrice="insertPrice($event)"></SimulatorWrap>
+    <SimulatorWrap
+      v-for="simulator in simulators"
+      :key="simulator.id"
+      :simNum="simulator.id"
+      @removeSimulator="removeHandler($event)"
+      @sumCalcPrice="insertPrice($event)"
+    >
+    </SimulatorWrap>
     <p>合計値:<span class="p-sim_allPriceSum">￥{{simulatorsSumPrice}}</span>/{{simulators}}</p>
     <button v-show="this.simulators.length < 5" @click="addSimulator">シミュレータ追加</button>
   </div>
@@ -9,11 +16,14 @@
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
 import SimulatorWrap from "./simulatorWrap.vue";
-import {Gender, Age, TypeInfo} from './simulator';
+import {Gender, Age, SimulatorInfo} from './simulator';
 
 interface Simulator {
   id: number,
   price: number
+  gender:Gender
+  age:Age
+  planList:string[]
 }
 
 @Component({
@@ -25,17 +35,31 @@ export default class SimulatorContainer extends Vue {
   simulatorsSumPrice:number = 0;
   simulatorsLength:number = 1;
   simulators:Simulator[] = [
-    {id: 1, price: 0}
+    {
+      id: 1,
+      price: 0,
+      gender: Gender.Male,
+      age: Age.T7,
+      planList: ['01', '01', '01', '01', '01', '01', '01', '01']
+    }
   ]
 
   addSimulator():void {
     if(this.simulators.length < 5) {
-      this.simulators.push({id: this.simulatorsLength + 1, price: 0});
+      this.simulators.push(
+        {
+          id: this.simulatorsLength + 1,
+          price: 0,
+          gender: Gender.Male,
+          age: Age.T7,
+          planList: ['01', '01', '01', '01', '01', '01', '01', '01']
+        }
+      );
       this.simulatorsLength++;
     }
   }
 
-  removeHandler(event:TypeInfo):void {
+  removeHandler(event: SimulatorInfo):void {
     let index:number = 0;
     this.simulators.forEach((v, i) => {
       if(v.id === event.id){
@@ -45,10 +69,13 @@ export default class SimulatorContainer extends Vue {
     this.simulators.splice(index, 1)
   }
 
-  insertPrice(event:TypeInfo):void {
+  insertPrice(event: SimulatorInfo):void {
     this.simulators.forEach((v, i):void => {
       if(v.id === event.id) {
         v.price = event.price
+        v.gender = event.gender
+        v.age = event.age
+        v.planList = event.planList
       }
     })
   }

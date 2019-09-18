@@ -88,6 +88,14 @@ export interface TypeInfo {
   price: number
 }
 
+export interface SimulatorInfo {
+  id: number
+  price: number
+  gender:Gender
+  age:Age
+  planList:string[]
+}
+
 export interface OptionItem {
   id: number;
   name: string;
