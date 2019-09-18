@@ -5,7 +5,7 @@
       :key="simulator.id"
       :simNum="simulator.id"
       @removeSimulator="removeHandler($event)"
-      @sumCalcPrice="insertPrice($event)"
+      @sumCalcPrice="updateSimulatorsInfo($event)"
     >
     </SimulatorWrap>
     <p>合計値:<span class="p-sim_allPriceSum">￥{{simulatorsSumPrice}}</span>/{{simulators}}</p>
@@ -69,7 +69,7 @@ export default class SimulatorContainer extends Vue {
     this.simulators.splice(index, 1)
   }
 
-  insertPrice(event: SimulatorInfo):void {
+  updateSimulatorsInfo(event: SimulatorInfo):void {
     this.simulators.forEach((v, i):void => {
       if(v.id === event.id) {
         v.price = event.price
