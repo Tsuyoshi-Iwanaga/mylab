@@ -88,8 +88,17 @@ export default class SimulatorContainer extends Vue {
     this.simulatorsSumPrice = sumCost;
   }
 
+  updateLocalStorage(key: string) {
+    localStorage.setItem(key, JSON.stringify(this.simulators));
+  }
+
+  mounted() {
+
+  }
+
   updated() {
-    this.calcSumCost()
+    this.calcSumCost();
+    this.updateLocalStorage('simulator');
   }
 }
 </script>
