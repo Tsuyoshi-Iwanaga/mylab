@@ -33,7 +33,6 @@ interface Simulator {
 })
 export default class SimulatorContainer extends Vue {
   simulatorsSumPrice:number = 0;
-  simulatorsLength:number = 1;
   simulators:Simulator[] = [
     {
       id: 1,
@@ -48,14 +47,13 @@ export default class SimulatorContainer extends Vue {
     if(this.simulators.length < 5) {
       this.simulators.push(
         {
-          id: this.simulatorsLength + 1,
+          id: this.simulators.length + 1,
           price: 0,
           gender: Gender.Male,
           age: Age.T7,
           planList: ['01', '01', '01', '01', '01', '01', '01', '01']
         }
       );
-      this.simulatorsLength++;
     }
   }
 
@@ -88,12 +86,19 @@ export default class SimulatorContainer extends Vue {
     this.simulatorsSumPrice = sumCost;
   }
 
-  updateLocalStorage(key: string) {
+  updateLocalStorage(key: string):void {
     localStorage.setItem(key, JSON.stringify(this.simulators));
   }
 
-  mounted() {
+  getLocalStorage(key: string):void {
+      let stringData:string | null = localStorage.getItem(key);
+      if(stringData) {
+        this.simulators = JSON.parse(stringData);
+      }
+  }
 
+  mounted() {
+    this.getLocalStorage('simulator');
   }
 
   updated() {
