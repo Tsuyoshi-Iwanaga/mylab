@@ -11,7 +11,7 @@
 
 <script lang="ts">
   import {Component, Prop, Emit, Watch, Vue} from "vue-property-decorator";
-  import {Gender, Age, OptionItem, PlanB} from './simulator';
+  import {Gender, Age, OptionItem, PlanB, priceTableJSON} from './simulator';
 
   @Component
   export default class SimulatorB extends Vue {
@@ -38,7 +38,7 @@
     @Prop({})
     propPlan!: string
     @Prop({})
-    priceTable!: any;
+    priceTable!: priceTableJSON;
 
     //Emit
     @Emit('getPlan')

@@ -109,3 +109,13 @@ export interface Simulator {
   age:Age
   planList:string[]
 }
+
+export interface priceTableJSON {
+  [key: string]: {
+    [key: string]: {
+      [key: string]: {
+        [key: string]: number
+      }
+    }
+  }
+}

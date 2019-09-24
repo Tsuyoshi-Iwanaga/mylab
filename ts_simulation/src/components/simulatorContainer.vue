@@ -18,7 +18,7 @@
 import {Component, Vue} from "vue-property-decorator";
 import fetchData from '../fetch';
 import SimulatorWrap from "./simulatorWrap.vue";
-import {Gender, Age, SimulatorInfo, Simulator} from './simulator';
+import {Gender, Age, SimulatorInfo, Simulator, priceTableJSON} from './simulator';
 
 @Component({
   components: {
@@ -28,7 +28,7 @@ import {Gender, Age, SimulatorInfo, Simulator} from './simulator';
 export default class SimulatorContainer extends Vue {
   simulatorsSumPrice:number = 0;
   simulators:Simulator[] = [];
-  priceTable: any = {}
+  priceTable: priceTableJSON | object = {}
 
   addSimulator():void {
     if(this.simulators.length < 5) {

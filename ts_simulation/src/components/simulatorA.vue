@@ -11,14 +11,13 @@
 
 <script lang="ts">
   import {Component, Prop, Emit, Watch, Vue} from "vue-property-decorator";
-  import {Gender, Age, OptionItem, PlanA} from './simulator';
+  import {Gender, Age, OptionItem, PlanA, priceTableJSON} from './simulator';
 
   @Component
   export default class SimulatorA extends Vue {
     //data
     price: number = 0
     plan: string = '01'
-    table: any = {}
     options: OptionItem[] = [
       { id: 1, name: '01', show: true},
       { id: 2, name: 'none', show: true},
@@ -32,7 +31,7 @@
     @Prop({})
     propPlan!: string
     @Prop({})
-    priceTable!: any;
+    priceTable!: priceTableJSON;
 
     //Emit
     @Emit('getPlan')

@@ -56,7 +56,7 @@ import SimulatorE from "./simulatorE.vue";
 import SimulatorF from "./simulatorF.vue";
 import SimulatorG from "./simulatorG.vue";
 import SimulatorH from "./simulatorH.vue";
-import {Gender, Age, TypeInfo, Simulator} from './simulator';
+import {Gender, Age, TypeInfo, Simulator, priceTableJSON} from './simulator';
 
 @Component({
   components: {
@@ -68,12 +68,12 @@ export default class SimulatorWrap extends Vue {
   age: Age = Age.T7
   planList: string[] = ['01', '01', '01', '01', '01', '01', '01']
   planPriceList: number[] = [0, 0, 0, 0, 0, 0, 0, 0]
-  priceTable: any = {}
+  priceTable: priceTableJSON = {}
 
   @Prop({})
   simulator!: Simulator;
   @Prop({})
-  table!: any;
+  table!: priceTableJSON;
 
   @Watch('table')
   hoge() {
