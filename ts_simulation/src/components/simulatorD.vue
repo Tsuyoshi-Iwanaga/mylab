@@ -50,7 +50,6 @@
 
     @Watch('age')
     @Watch('gender')
-    @Watch('priceTable')
     onAgeChanged(newAge:Age, oldAge:Age) {
       this.getPrice();
     }

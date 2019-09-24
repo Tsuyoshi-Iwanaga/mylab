@@ -1,6 +1,6 @@
 <template>
   <div class="p-sim_wrap">
-    <h2>Simulator No.{{simNum}}</h2>
+    <h2>Simulator No.{{simulator.id}}</h2>
     <div>
       <div class="inputArea">
         <select v-model="gender">
@@ -41,12 +41,12 @@
     <SimulatorF :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorF>
     <SimulatorG :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorG>
     <SimulatorH :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorH>
-    <button v-show="!(simNum === 1)" @click="removeSimulator">削除</button>
+    <button v-show="!(simulator.id === 1)" @click="removeSimulator">削除</button>
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Vue, Prop, Emit} from "vue-property-decorator";
+import {Component, Vue, Prop, Emit, Watch} from "vue-property-decorator";
 import fetchData from '../fetch';
 import SimulatorA from "./simulatorA.vue";
 import SimulatorB from "./simulatorB.vue";
@@ -56,7 +56,7 @@ import SimulatorE from "./simulatorE.vue";
 import SimulatorF from "./simulatorF.vue";
 import SimulatorG from "./simulatorG.vue";
 import SimulatorH from "./simulatorH.vue";
-import {Gender, Age, TypeInfo} from './simulator';
+import {Gender, Age, TypeInfo, Simulator} from './simulator';
 
 @Component({
   components: {
@@ -66,24 +66,25 @@ import {Gender, Age, TypeInfo} from './simulator';
 export default class SimulatorWrap extends Vue {
   gender: Gender = Gender.Male
   age: Age = Age.T7
-  planList: string[] = ['01', '01', '01', '01', '01', '01', '01', '01']
+  planList: string[] = ['01', '01','01','01','01','01','01']
   planPriceList: number[] = [0, 0, 0, 0, 0, 0, 0, 0]
   priceTable: any = {}
 
   @Prop({})
-  simNum!: number;
+  simulator!: Simulator;
+  table!: any;
 
   //Emit
   @Emit('removeSimulator')
   removeSimulator() {
     return {
-      id: this.simNum
+      id: this.simulator.id
     }
   }
   @Emit('sumCalcPrice')
   sumCalcPrice() {
     return {
-      id: this.simNum,
+      id: this.simulator.id,
       price: this.PriceSum,
       gender: this.gender,
       age: this.age,
@@ -107,12 +108,15 @@ export default class SimulatorWrap extends Vue {
     this.$set(this.planPriceList, index, event.price);
   }
 
+  mounted() {
+    this.gender = this.simulator.gender
+    this.age = this.simulator.age
+    this.planList = this.simulator.planList
+    this.priceTable = this.table
+  }
+
   created() {
-    fetchData('json/priceTable.json').then((response) => {
-      this.priceTable = response.data
-    }).catch((error) =>{
-      throw new Error(error);
-    })
+
   }
 
   updated() {

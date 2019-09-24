@@ -18,6 +18,7 @@
     //data
     price: number = 0
     plan: string = '01'
+    hoge: any = {}
     options: OptionItem[] = [
       { id: 1, name: '01', show: true},
       { id: 2, name: 'none', show: true},
@@ -48,9 +49,12 @@
 
     @Watch('age')
     @Watch('gender')
-    @Watch('priceTable')
     onAgeChanged(newAge:Age, oldAge:Age) {
       this.getPrice();
+    }
+
+    mounted() {
+      this.hoge = this.priceTable;
     }
 
     updated() {

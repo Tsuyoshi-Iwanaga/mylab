@@ -3,7 +3,8 @@
     <SimulatorWrap
       v-for="simulator in simulators"
       :key="simulator.id"
-      :simNum="simulator.id"
+      :simulator="simulator"
+      :table="priceTable"
       @removeSimulator="removeHandler($event)"
       @sumCalcPrice="updateSimulatorsInfo($event)"
     >
@@ -15,16 +16,9 @@
 
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
+import fetchData from '../fetch';
 import SimulatorWrap from "./simulatorWrap.vue";
-import {Gender, Age, SimulatorInfo} from './simulator';
-
-interface Simulator {
-  id: number,
-  price: number
-  gender:Gender
-  age:Age
-  planList:string[]
-}
+import {Gender, Age, SimulatorInfo, Simulator} from './simulator';
 
 @Component({
   components: {
@@ -33,40 +27,38 @@ interface Simulator {
 })
 export default class SimulatorContainer extends Vue {
   simulatorsSumPrice:number = 0;
-  simulatorsLength:number = 1;
-  simulators:Simulator[] = [
-    {
-      id: 1,
-      price: 0,
-      gender: Gender.Male,
-      age: Age.T7,
-      planList: ['01', '01', '01', '01', '01', '01', '01', '01']
-    }
-  ]
+  simulators:Simulator[] = [];
+  priceTable: any = {}
 
   addSimulator():void {
     if(this.simulators.length < 5) {
       this.simulators.push(
         {
-          id: this.simulatorsLength + 1,
+          id: this.simulators.length + 1,
           price: 0,
           gender: Gender.Male,
           age: Age.T7,
           planList: ['01', '01', '01', '01', '01', '01', '01', '01']
         }
       );
-      this.simulatorsLength++;
     }
   }
 
   removeHandler(event: SimulatorInfo):void {
     let index:number = 0;
+    let newArr: Simulator[] = [];
+
     this.simulators.forEach((v, i) => {
       if(v.id === event.id){
-        index = i;
+        return;
       }
+      newArr.push(v);
     })
-    this.simulators.splice(index, 1)
+    newArr.forEach((v, i) => {
+      v.id = i + 1;
+      console.log(v);
+    });
+    this.simulators = newArr;
   }
 
   updateSimulatorsInfo(event: SimulatorInfo):void {
@@ -88,12 +80,30 @@ export default class SimulatorContainer extends Vue {
     this.simulatorsSumPrice = sumCost;
   }
 
-  updateLocalStorage(key: string) {
+  updateLocalStorage(key: string):void {
     localStorage.setItem(key, JSON.stringify(this.simulators));
   }
 
-  mounted() {
+  getLocalStorage(key: string):void {
+    let stringData: string | null = localStorage.getItem(key);
+    if(stringData) {
+      this.simulators = JSON.parse(stringData)
+    }
+  }
 
+  getData():void {
+    fetchData('./json/priceTable.json').then((response) => {
+      this.priceTable = response.data
+    }).catch((error) =>{
+      throw new Error(error);
+    })
+  }
+
+  mounted() {
+    if(this.simulators.length === 0) {
+      this.addSimulator();
+    }
+    this.getLocalStorage('simulator');
   }
 
   updated() {

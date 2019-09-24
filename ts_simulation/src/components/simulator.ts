@@ -101,3 +101,11 @@ export interface OptionItem {
   name: string;
   show: boolean;
 }
+
+export interface Simulator {
+  id: number,
+  price: number
+  gender:Gender
+  age:Age
+  planList:string[]
+}
