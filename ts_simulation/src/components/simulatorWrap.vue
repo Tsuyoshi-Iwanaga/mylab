@@ -72,7 +72,13 @@ export default class SimulatorWrap extends Vue {
 
   @Prop({})
   simulator!: Simulator;
+  @Prop({})
   table!: any;
+
+  @Watch('table')
+  hoge() {
+    this.priceTable = this.table;
+  }
 
   //Emit
   @Emit('removeSimulator')
@@ -113,10 +119,6 @@ export default class SimulatorWrap extends Vue {
     this.age = this.simulator.age
     this.planList = this.simulator.planList
     this.priceTable = this.table
-  }
-
-  created() {
-
   }
 
   updated() {

@@ -56,7 +56,6 @@ export default class SimulatorContainer extends Vue {
     })
     newArr.forEach((v, i) => {
       v.id = i + 1;
-      console.log(v);
     });
     this.simulators = newArr;
   }
@@ -91,7 +90,7 @@ export default class SimulatorContainer extends Vue {
     }
   }
 
-  getData():void {
+  getData() {
     fetchData('./json/priceTable.json').then((response) => {
       this.priceTable = response.data
     }).catch((error) =>{
@@ -104,6 +103,7 @@ export default class SimulatorContainer extends Vue {
       this.addSimulator();
     }
     this.getLocalStorage('simulator');
+    this.getData();
   }
 
   updated() {

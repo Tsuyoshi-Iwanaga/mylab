@@ -48,11 +48,14 @@
 
     //method
     getPrice():void {
-      this.price = this.priceTable["C"][this.plan][this.gender][this.age]
+      if(this.priceTable["C"]) {
+        this.price = this.priceTable["C"][this.plan][this.gender][this.age]
+      }
     }
 
     @Watch('age')
     @Watch('gender')
+    @Watch('priceTable')
     onAgeChanged(newAge:Age, oldAge:Age) {
       this.getPrice();
     }
