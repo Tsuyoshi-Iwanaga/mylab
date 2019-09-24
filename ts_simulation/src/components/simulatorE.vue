@@ -32,6 +32,8 @@
     @Prop({})
     age!: Age;
     @Prop({})
+    propPlan!: string
+    @Prop({})
     priceTable!: any;
 
     //Emit
@@ -53,9 +55,15 @@
 
     @Watch('age')
     @Watch('gender')
+    @Watch('propPlan')
     @Watch('priceTable')
     onAgeChanged(newAge:Age, oldAge:Age) {
       this.getPrice();
+    }
+
+    mounted() {
+      this.plan = this.propPlan
+      this.getPrice()
     }
 
     updated() {

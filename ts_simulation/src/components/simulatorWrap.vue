@@ -33,14 +33,14 @@
     <div>性別: {{ gender === 'male' ? '男性' : '女性'  }}</div>
     <div>プラン: {{PlanList}}</div>
     <div>合計金額: ￥{{PriceSum}}</div>
-    <SimulatorA :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorA>
-    <SimulatorB :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorB>
-    <SimulatorC :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorC>
-    <SimulatorD :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorD>
-    <SimulatorE :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorE>
-    <SimulatorF :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorF>
-    <SimulatorG :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorG>
-    <SimulatorH :gender="gender" :age="age" :priceTable="priceTable" @getPlan="handler($event)"></SimulatorH>
+    <SimulatorA :gender="gender" :age="age" :priceTable="priceTable" :prop-plan="planList[0]" @getPlan="handler($event)"></SimulatorA>
+    <SimulatorB :gender="gender" :age="age" :priceTable="priceTable" :prop-plan="planList[1]" @getPlan="handler($event)"></SimulatorB>
+    <SimulatorC :gender="gender" :age="age" :priceTable="priceTable" :prop-plan="planList[2]" @getPlan="handler($event)"></SimulatorC>
+    <SimulatorD :gender="gender" :age="age" :priceTable="priceTable" :prop-plan="planList[3]" @getPlan="handler($event)"></SimulatorD>
+    <SimulatorE :gender="gender" :age="age" :priceTable="priceTable" :prop-plan="planList[4]" @getPlan="handler($event)"></SimulatorE>
+    <SimulatorF :gender="gender" :age="age" :priceTable="priceTable" :prop-plan="planList[5]" @getPlan="handler($event)"></SimulatorF>
+    <SimulatorG :gender="gender" :age="age" :priceTable="priceTable" :prop-plan="planList[6]" @getPlan="handler($event)"></SimulatorG>
+    <SimulatorH :gender="gender" :age="age" :priceTable="priceTable" :prop-plan="planList[7]" @getPlan="handler($event)"></SimulatorH>
     <button v-show="!(simulator.id === 1)" @click="removeSimulator">削除</button>
   </div>
 </template>
@@ -66,7 +66,7 @@ import {Gender, Age, TypeInfo, Simulator} from './simulator';
 export default class SimulatorWrap extends Vue {
   gender: Gender = Gender.Male
   age: Age = Age.T7
-  planList: string[] = ['01', '01','01','01','01','01','01']
+  planList: string[] = ['01', '01', '01', '01', '01', '01', '01']
   planPriceList: number[] = [0, 0, 0, 0, 0, 0, 0, 0]
   priceTable: any = {}
 
@@ -114,7 +114,7 @@ export default class SimulatorWrap extends Vue {
     this.$set(this.planPriceList, index, event.price);
   }
 
-  mounted() {
+  created() {
     this.gender = this.simulator.gender
     this.age = this.simulator.age
     this.planList = this.simulator.planList
