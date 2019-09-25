@@ -2,7 +2,7 @@
   <div class="p-sim_container">
     <SimulatorWrap
       v-for="simulator in simulators"
-      :key="simulator.id"
+      :key="simulator.key"
       :simulator="simulator"
       :table="priceTable"
       @removeSimulator="removeHandler($event)"
@@ -34,6 +34,7 @@ export default class SimulatorContainer extends Vue {
     if(this.simulators.length < 5) {
       this.simulators.push(
         {
+          key: String(new Date().getTime()),
           id: this.simulators.length + 1,
           price: 0,
           gender: Gender.Male,

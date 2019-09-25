@@ -103,6 +103,7 @@ export interface OptionItem {
 }
 
 export interface Simulator {
+  key: string
   id: number,
   price: number
   gender:Gender
