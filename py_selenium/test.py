@@ -4,6 +4,7 @@ import chromedriver_binary #pip install chromedriver-binary==77.0.3865.40.0
 import pandas as pd #pip install pandas
 import sys
 import re
+import urllib.request, urllib.error
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -53,8 +54,13 @@ def getReviewInfo():
 
 for asin in asinList['ASIN']:
 
-    #ページを読み込む
     url = 'https://www.amazon.co.jp/dp/' + asin + '/'
+
+    #遷移先の存在確認
+    html = urllib.request.urlopen(url=url)
+    print(html.getcode())
+
+    #ページを読み込む
     driver.get(url)
 
     #レビューを格納するobject
