@@ -1,9 +1,9 @@
 import Vue from "vue";
 import "../../assets/common/scss/global.scss";
-import SimulatorContainer from "../../components/simulators/simulatorContainer.vue";
+import Index from "../../components/simulators/index.vue";
 
 Vue.config.productionTip = false;
 
 new Vue({
-  render: h => h(SimulatorContainer)
-}).$mount("#app");
+  render: h => h(Index)
+}).$mount("#container");

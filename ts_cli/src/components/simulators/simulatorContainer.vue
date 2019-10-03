@@ -21,15 +21,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import SimulatorWrap from "./simulatorWrap.vue";
-import { Gender, Age, SimulatorInfo } from "./simulator";
-
-interface Simulator {
-  id: number;
-  price: number;
-  gender: Gender;
-  age: Age;
-  planList: string[];
-}
+import { Gender, Age, Simulator } from "./simulator";
 
 @Component({
   components: {
@@ -60,7 +52,7 @@ export default class SimulatorContainer extends Vue {
     }
   }
 
-  removeHandler(event: SimulatorInfo): void {
+  removeHandler(event: Simulator): void {
     let index: number = 0;
     this.simulators.forEach((v, i) => {
       if (v.id === event.id) {
@@ -70,7 +62,7 @@ export default class SimulatorContainer extends Vue {
     this.simulators.splice(index, 1);
   }
 
-  updateSimulatorsInfo(event: SimulatorInfo): void {
+  updateSimulatorsInfo(event: Simulator): void {
     this.simulators.forEach((v, i): void => {
       if (v.id === event.id) {
         v.price = event.price;

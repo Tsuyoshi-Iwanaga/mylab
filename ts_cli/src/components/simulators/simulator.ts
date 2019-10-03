@@ -88,7 +88,7 @@ export interface TypeInfo {
   price: number;
 }
 
-export interface SimulatorInfo {
+export interface Simulator {
   id: number;
   price: number;
   gender: Gender;
