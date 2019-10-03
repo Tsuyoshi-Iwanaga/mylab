@@ -1,4 +1,11 @@
 module.exports = {
+  css: {
+    loaderOptions: {
+      sass: {
+        data: `@import "src/assets/common/scss/abstract.scss";`
+      }
+    }
+  },
   pages: {
     top: {
       entry: "src/pages/top/top.ts",

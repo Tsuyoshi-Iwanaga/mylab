@@ -25,4 +25,8 @@ import Modal from "./modal.vue";
 export default class Index extends Vue {}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.top {
+  color: $BASECOLOR;
+}
+</style>

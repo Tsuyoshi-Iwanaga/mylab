@@ -1,5 +1,5 @@
 <template lang="pug">
-.modalOverray(v-if="show" @click="hideModal" ref="overray")
+.modalOverray(v-if="show" @click.self="hideModal" ref="overray")
   .modalContents
     .selectGender
       p Q1.性別を教えて下さい
@@ -51,9 +51,7 @@ export default class Modal extends Vue {
   ];
 
   hideModal(ev: Event) {
-    if (ev.target === this.$refs.overray) {
-      this.show = false;
-    }
+    this.show = false;
   }
 
   addSimulator(): void {
