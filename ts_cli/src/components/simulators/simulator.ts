@@ -101,3 +101,13 @@ export interface OptionItem {
   name: string;
   show: boolean;
 }
+
+export interface priceTableJSON {
+  [key: string]: {
+    [key: string]: {
+      [key: string]: {
+        [key: string]: number;
+      };
+    };
+  };
+}

@@ -36,48 +36,56 @@
     <SimulatorA
       :gender="gender"
       :age="age"
+      :propplan="planList[0]"
       :priceTable="priceTable"
       @getPlan="handler($event)"
     ></SimulatorA>
     <SimulatorB
       :gender="gender"
       :age="age"
+      :propplan="planList[1]"
       :priceTable="priceTable"
       @getPlan="handler($event)"
     ></SimulatorB>
     <SimulatorC
       :gender="gender"
       :age="age"
+      :propplan="planList[2]"
       :priceTable="priceTable"
       @getPlan="handler($event)"
     ></SimulatorC>
     <SimulatorD
       :gender="gender"
       :age="age"
+      :propplan="planList[3]"
       :priceTable="priceTable"
       @getPlan="handler($event)"
     ></SimulatorD>
     <SimulatorE
       :gender="gender"
       :age="age"
+      :propplan="planList[4]"
       :priceTable="priceTable"
       @getPlan="handler($event)"
     ></SimulatorE>
     <SimulatorF
       :gender="gender"
       :age="age"
+      :propplan="planList[5]"
       :priceTable="priceTable"
       @getPlan="handler($event)"
     ></SimulatorF>
     <SimulatorG
       :gender="gender"
       :age="age"
+      :propplan="planList[6]"
       :priceTable="priceTable"
       @getPlan="handler($event)"
     ></SimulatorG>
     <SimulatorH
       :gender="gender"
       :age="age"
+      :propplan="planList[7]"
       :priceTable="priceTable"
       @getPlan="handler($event)"
     ></SimulatorH>
@@ -96,7 +104,7 @@ import SimulatorE from "./simulatorE.vue";
 import SimulatorF from "./simulatorF.vue";
 import SimulatorG from "./simulatorG.vue";
 import SimulatorH from "./simulatorH.vue";
-import { Gender, Age, TypeInfo } from "./simulator";
+import { Gender, Age, TypeInfo, priceTableJSON, Simulator } from "./simulator";
 
 @Component({
   components: {
@@ -113,12 +121,14 @@ import { Gender, Age, TypeInfo } from "./simulator";
 export default class SimulatorWrap extends Vue {
   gender: Gender = Gender.Male;
   age: Age = Age.T7;
-  planList: string[] = ["01", "01", "01", "01", "01", "01", "01", "01"];
+  planList: string[] = [];
   planPriceList: number[] = [0, 0, 0, 0, 0, 0, 0, 0];
-  priceTable: any = {};
+  priceTable: priceTableJSON = {};
 
   @Prop({})
   simNum!: number;
+  @Prop({})
+  sim!: Simulator;
 
   //Emit
   @Emit("removeSimulator")
@@ -157,13 +167,17 @@ export default class SimulatorWrap extends Vue {
   }
 
   created() {
-    fetchData("./json/priceTable.json")
-      .then(response => {
-        this.priceTable = response.data;
-      })
-      .catch(error => {
-        throw new Error(error);
-      });
+    this.planList = this.sim.planList;
+    this.gender = this.sim.gender;
+    this.age = this.sim.age;
+
+    fetchData("../json/priceTable.json")
+    .then(response => {
+      this.priceTable = response.data as priceTableJSON;
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
   }
 
   updated() {

@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Component, Prop, Emit, Watch, Vue } from "vue-property-decorator";
-import { Gender, Age, OptionItem, PlanG } from "./simulator";
+import { Gender, Age, OptionItem, priceTableJSON, PlanG } from "./simulator";
 
 @Component
 export default class SimulatorG extends Vue {
@@ -31,7 +31,9 @@ export default class SimulatorG extends Vue {
   @Prop({})
   age!: Age;
   @Prop({})
-  priceTable!: any;
+  propplan!: string;
+  @Prop({})
+  priceTable!: priceTableJSON;
 
   //Emit
   @Emit("getPlan")
@@ -45,14 +47,21 @@ export default class SimulatorG extends Vue {
 
   //method
   getPrice(): void {
-    this.price = this.priceTable["G"][this.plan][this.gender][this.age];
+    if (this.priceTable["G"]) {
+      this.price = this.priceTable["G"][this.plan][this.gender][this.age];
+    }
   }
 
   @Watch("age")
   @Watch("gender")
+  @Watch("propplan")
   @Watch("priceTable")
   onAgeChanged(newAge: Age, oldAge: Age) {
     this.getPrice();
+  }
+
+  mounted() {
+    this.plan = this.propplan;
   }
 
   updated() {
