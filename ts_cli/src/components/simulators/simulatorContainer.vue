@@ -1,5 +1,6 @@
 <template>
   <div class="p-sim_container">
+    <a href="../">トップへ</a>
     <SimulatorWrap
       v-for="simulator in simulators"
       :key="simulator.id"
@@ -23,7 +24,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import SimulatorWrap from "./simulatorWrap.vue";
 import localStorageIO from "../../functions/localStorageIO";
-import { Gender, Age, Simulator } from "./simulator";
+import { Gender, Age, Simulator } from "../../type/simulator";
 
 @Component({
   components: {

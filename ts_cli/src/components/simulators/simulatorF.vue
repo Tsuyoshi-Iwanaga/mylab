@@ -13,7 +13,13 @@
 
 <script lang="ts">
 import { Component, Prop, Emit, Watch, Vue } from "vue-property-decorator";
-import { Gender, Age, OptionItem, priceTableJSON, PlanF } from "./simulator";
+import {
+  Gender,
+  Age,
+  OptionItem,
+  priceTableJSON,
+  PlanF
+} from "../../type/simulator";
 
 @Component
 export default class SimulatorF extends Vue {

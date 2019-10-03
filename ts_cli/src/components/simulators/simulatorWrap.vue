@@ -104,7 +104,13 @@ import SimulatorE from "./simulatorE.vue";
 import SimulatorF from "./simulatorF.vue";
 import SimulatorG from "./simulatorG.vue";
 import SimulatorH from "./simulatorH.vue";
-import { Gender, Age, TypeInfo, priceTableJSON, Simulator } from "./simulator";
+import {
+  Gender,
+  Age,
+  TypeInfo,
+  priceTableJSON,
+  Simulator
+} from "../../type/simulator";
 
 @Component({
   components: {
@@ -172,12 +178,12 @@ export default class SimulatorWrap extends Vue {
     this.age = this.sim.age;
 
     fetchData("../json/priceTable.json")
-    .then(response => {
-      this.priceTable = response.data as priceTableJSON;
-    })
-    .catch(error => {
-      throw new Error(error);
-    });
+      .then(response => {
+        this.priceTable = response.data as priceTableJSON;
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
   }
 
   updated() {
