@@ -74,12 +74,8 @@ export default class Modal extends Vue {
     }
   }
 
-  updateLocalStorage() {
-    localStorageIO.updateLocalStorage("simulator", this.simulators);
-  }
-
   updated() {
-    this.updateLocalStorage();
+    localStorageIO.updateLocalStorage("simulator", this.simulators);
   }
 }
 </script>

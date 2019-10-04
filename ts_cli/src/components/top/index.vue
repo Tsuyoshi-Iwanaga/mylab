@@ -3,7 +3,9 @@
   Header
   p トップページです。
   p
-    a(href="./simulation/") シミュレータへ
+    a(href="./simulation/") シミュレータへ &gt;&gt;
+  p
+    a(href="./product/") 商品紹介へ &gt;&gt;
   Modal
     p モーダル中身
   Footer
@@ -28,5 +30,8 @@ export default class Index extends Vue {}
 <style lang="scss" scoped>
 .top {
   color: $BASECOLOR;
+  @include DOWN() {
+    color: #f00;
+  }
 }
 </style>
