@@ -24,8 +24,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import SimulatorWrap from "./simulatorWrap.vue";
-import localStorageIO from "../../functions/localStorageIO";
-import { Gender, Age, Simulator } from "../../type/simulator";
+import localStorageIO from "../../../functions/localStorageIO";
+import { Gender, Age, Simulator } from "../../../type/simulator";
 
 @Component({
   components: {

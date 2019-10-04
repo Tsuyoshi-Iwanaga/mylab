@@ -3,9 +3,11 @@
   Header
   p トップページです。
   p
-    a(href="./simulation/") シミュレータへ &gt;&gt;
-  p
     a(href="./product/") 商品紹介へ &gt;&gt;
+  p
+    a(href="./consider/simulation/") シミュレータへ &gt;&gt;
+  p
+    a(href="./consider/lifeevent/") ライフイベントへ &gt;&gt;
   Modal
     p モーダル中身
   Footer

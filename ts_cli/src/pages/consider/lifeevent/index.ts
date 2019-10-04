@@ -1,6 +1,6 @@
 import Vue from "vue";
-import "../../assets/common/scss/global.scss";
-import Index from "../../components/simulators/index.vue";
+import "../../../assets/common/scss/global.scss";
+import Index from "../../../components/consider/lifeevent/index.vue";
 
 Vue.config.productionTip = false;
 

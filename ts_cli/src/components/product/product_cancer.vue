@@ -5,9 +5,9 @@
   p
     a(href="../") トップへ &gt;&gt;
   p
-    a(href="../product/") プロダクトトップへ &gt;&gt;
+    a(href="../consider/product/") プロダクトトップへ &gt;&gt;
   p
-    a(href="../simulation/") シミュレータへ &gt;&gt;
+    a(href="../consider/simulation/") シミュレータへ &gt;&gt;
   div.simulator(style="marginTop: 20px;") 
     p 性別
     p(style="marginBottom: 20px;") 

@@ -5,6 +5,8 @@
   p
     a(href="../") トップへ &gt;&gt;
   p
+    a(href="../consider/simulation/") シミュレーターへ &gt;&gt;
+  p
     a(href="./medical") 傷害保険(A) &gt;&gt;
   p
     span 医療保険(B)

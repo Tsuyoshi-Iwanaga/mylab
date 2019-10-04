@@ -29,7 +29,7 @@
         option(value="80-84") 80-84歳
         option(value="85-89") 85-89歳
     .button
-      a(href="./simulation/") シミュレータへ
+      a(href="./consider/simulation/") シミュレータへ
 </template>
 
 <script lang="ts">

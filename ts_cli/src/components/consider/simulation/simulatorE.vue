@@ -1,16 +1,12 @@
 <template>
   <div class="sim-area">
-    <h3>医療保険(B)</h3>
-    <p>プラン:B{{ plan }}</p>
+    <h3>就業不能保険(E)</h3>
+    <p>プラン:E{{ plan }}</p>
     <p>値段:{{ price }}</p>
     <select v-model="plan">
-      <option
-        v-show="option.show"
-        v-for="option in options"
-        :value="option.name"
-        :key="option.id"
-        >{{ option.name }}</option
-      >
+      <option v-for="option in options" :value="option.name" :key="option.id">{{
+        option.name
+      }}</option>
     </select>
   </div>
 </template>
@@ -22,8 +18,8 @@ import {
   Age,
   OptionItem,
   priceTableJSON,
-  PlanB
-} from "../../type/simulator";
+  PlanE
+} from "../../../type/simulator";
 
 @Component
 export default class SimulatorB extends Vue {
@@ -35,11 +31,7 @@ export default class SimulatorB extends Vue {
     { id: 2, name: "02", show: true },
     { id: 3, name: "11", show: true },
     { id: 4, name: "12", show: true },
-    { id: 5, name: "01W", show: true },
-    { id: 6, name: "02W", show: true },
-    { id: 7, name: "11W", show: true },
-    { id: 8, name: "12W", show: true },
-    { id: 9, name: "none", show: true }
+    { id: 5, name: "none", show: true }
   ];
 
   //Props
@@ -56,7 +48,7 @@ export default class SimulatorB extends Vue {
   @Emit("getPlan")
   sendInfo() {
     return {
-      id: 1,
+      id: 4,
       plan: this.plan,
       price: this.price
     };
@@ -64,26 +56,8 @@ export default class SimulatorB extends Vue {
 
   //method
   getPrice(): void {
-    if (this.priceTable["B"]) {
-      this.price = this.priceTable["B"][this.plan][this.gender][this.age];
-    }
-  }
-
-  updateGender(): void {
-    if (this.gender === Gender.Male) {
-      //女性のみパターンを選択時、男性に切り替える時はWを削除したプランとする
-      if (this.plan.indexOf("W") > 0) {
-        this.plan = this.plan.slice(0, -1);
-      }
-      this.options.forEach(v => {
-        if (v.name.indexOf("W") > 0) {
-          v.show = false;
-        }
-      });
-    } else {
-      this.options.forEach(v => {
-        v.show = true;
-      });
+    if (this.priceTable["E"]) {
+      this.price = this.priceTable["E"][this.plan][this.gender][this.age];
     }
   }
 
@@ -92,7 +66,6 @@ export default class SimulatorB extends Vue {
   @Watch("propplan")
   @Watch("priceTable")
   onAgeChanged(newAge: Age, oldAge: Age) {
-    this.updateGender();
     this.getPrice();
   }
 

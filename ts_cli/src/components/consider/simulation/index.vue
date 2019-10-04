@@ -7,8 +7,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Header from "../common/header.vue";
-import Footer from "../common/footer.vue";
+import Header from "../../common/header.vue";
+import Footer from "../../common/footer.vue";
 import SimulatorContainer from "./simulatorContainer.vue";
 
 @Component({

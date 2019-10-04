@@ -1,7 +1,7 @@
 <template>
   <div class="sim-area">
-    <h3>ホールインワン保険(H)</h3>
-    <p>プラン:H{{ plan }}</p>
+    <h3>がん保険(C)</h3>
+    <p>プラン:C{{ plan }}</p>
     <p>値段:{{ price }}</p>
     <select v-model="plan">
       <option v-for="option in options" :value="option.name" :key="option.id">{{
@@ -18,17 +18,22 @@ import {
   Age,
   OptionItem,
   priceTableJSON,
-  PlanH
-} from "../../type/simulator";
+  PlanC
+} from "../../../type/simulator";
 
 @Component
-export default class SimulatorH extends Vue {
+export default class SimulatorC extends Vue {
   //data
   price: number = 0;
   plan: string = "01";
   options: OptionItem[] = [
     { id: 1, name: "01", show: true },
-    { id: 2, name: "none", show: true }
+    { id: 2, name: "02", show: true },
+    { id: 3, name: "11", show: true },
+    { id: 4, name: "12", show: true },
+    { id: 5, name: "21", show: true },
+    { id: 6, name: "22", show: true },
+    { id: 7, name: "none", show: true }
   ];
 
   //Props
@@ -45,7 +50,7 @@ export default class SimulatorH extends Vue {
   @Emit("getPlan")
   sendInfo() {
     return {
-      id: 7,
+      id: 2,
       plan: this.plan,
       price: this.price
     };
@@ -53,8 +58,8 @@ export default class SimulatorH extends Vue {
 
   //method
   getPrice(): void {
-    if (this.priceTable["H"]) {
-      this.price = this.priceTable["H"][this.plan][this.gender][this.age];
+    if (this.priceTable["C"]) {
+      this.price = this.priceTable["C"][this.plan][this.gender][this.age];
     }
   }
 

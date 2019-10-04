@@ -12,11 +12,6 @@ module.exports = {
       template: "src/pages/top/index.pug",
       filename: "index.html"
     },
-    simulation: {
-      entry: "src/pages/simulation/simulation.ts",
-      template: "src/pages/simulation/index.pug",
-      filename: "simulation/index.html"
-    },
     productTop: {
       entry: "src/pages/product/index.ts",
       template: "src/pages/product/index.pug",
@@ -31,6 +26,16 @@ module.exports = {
       entry: "src/pages/product/cancer.ts",
       template: "src/pages/product/cancer.pug",
       filename: "product/cancer/index.html"
+    },
+    simulation: {
+      entry: "src/pages/consider/simulation/index.ts",
+      template: "src/pages/consider/simulation/index.pug",
+      filename: "consider/simulation/index.html"
+    },
+    life_event: {
+      entry: "src/pages/consider/lifeevent/index.ts",
+      template: "src/pages/consider/lifeevent/index.pug",
+      filename: "consider/lifeevent/index.html"
     }
   }
 };

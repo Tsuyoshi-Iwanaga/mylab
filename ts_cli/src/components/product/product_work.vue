@@ -3,7 +3,7 @@
   Header
   p プロダクト-就業不能保険(C)
   p
-    a(href="../simulation/") シミュレータへ &gt;&gt;
+    a(href="../consider/simulation/") シミュレータへ &gt;&gt;
   Footer
 </template>
 

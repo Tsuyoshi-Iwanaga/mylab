@@ -95,7 +95,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from "vue-property-decorator";
-import fetchData from "../../functions/fetch";
+import fetchData from "../../../functions/fetch";
 import SimulatorA from "./simulatorA.vue";
 import SimulatorB from "./simulatorB.vue";
 import SimulatorC from "./simulatorC.vue";
@@ -110,7 +110,7 @@ import {
   TypeInfo,
   priceTableJSON,
   Simulator
-} from "../../type/simulator";
+} from "../../../type/simulator";
 
 @Component({
   components: {
@@ -177,7 +177,7 @@ export default class SimulatorWrap extends Vue {
     this.gender = this.sim.gender;
     this.age = this.sim.age;
 
-    fetchData("../json/priceTable.json")
+    fetchData("../../json/priceTable.json")
       .then(response => {
         this.priceTable = response.data as priceTableJSON;
       })
