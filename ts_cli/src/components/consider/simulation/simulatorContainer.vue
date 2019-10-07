@@ -1,7 +1,7 @@
 <template>
   <div class="p-sim_container">
-    <p><a href="../">トップへ &gt;&gt;</a></p>
-    <p><a href="../product/">商品紹介ページへ &gt;&gt;</a></p>
+    <p><a href="../../">トップへ &gt;&gt;</a></p>
+    <p><a href="../../product/">商品紹介ページへ &gt;&gt;</a></p>
     <SimulatorWrap
       v-for="simulator in simulators"
       :key="simulator.id"

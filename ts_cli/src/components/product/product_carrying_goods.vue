@@ -3,7 +3,7 @@
   Header
   p プロダクト-携行品障害保険(G)
   p
-    a(href="../consider/simulation/") シミュレータへ &gt;&gt;
+    a(href="../../consider/simulation/") シミュレータへ &gt;&gt;
   Footer
 </template>
 

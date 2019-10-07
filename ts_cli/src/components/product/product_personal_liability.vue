@@ -3,7 +3,7 @@
   Header
   p プロダクト-個人賠償責任保険(D)
   p
-    a(href="../consider/product/") シミュレータへ &gt;&gt;
+    a(href="../../consider/product/") シミュレータへ &gt;&gt;
   Footer
 </template>
 
