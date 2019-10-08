@@ -25,6 +25,14 @@ export enum Age {
   T19 = "85-89"
 }
 
+export enum Type {
+  You = "you",
+  Spouse = "spouse",
+  Child = "child",
+  Father = "father",
+  Mother = "mother"
+}
+
 export enum PlanA {
   A01 = "A01",
   None = "none"
@@ -94,6 +102,7 @@ export interface Simulator {
   gender: Gender;
   age: Age;
   planList: string[];
+  type?: Type;
 }
 
 export interface OptionItem {
