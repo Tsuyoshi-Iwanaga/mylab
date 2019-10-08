@@ -26,11 +26,11 @@ export enum Age {
 }
 
 export enum Type {
-  You = "you",
-  Spouse = "spouse",
-  Child = "child",
-  Father = "father",
-  Mother = "mother"
+  You = "あなた",
+  Spouse = "配偶者",
+  Child = "子ども",
+  Father = "父親",
+  Mother = "母親"
 }
 
 export enum PlanA {
@@ -98,10 +98,10 @@ export interface TypeInfo {
 
 export interface Simulator {
   id: number;
-  price: number;
   gender: Gender;
   age: Age;
   planList: string[];
+  priceList: number[];
   type?: Type;
 }
 

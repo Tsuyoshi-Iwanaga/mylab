@@ -1,22 +1,18 @@
-<template>
-  <div class="sim-area">
-    <h3>介護保険(D)</h3>
-    <p>プラン:D{{ plan }}</p>
-    <p>値段:{{ price }}</p>
-    <select v-model="plan">
-      <option v-for="option in options" :value="option.name" :key="option.id">{{
-        option.name
-      }}</option>
-    </select>
-  </div>
+<template lang="pug">
+  .sim-area
+    h3 介護保険(D)
+    p プラン:D{{ plan }}
+    p 値段:{{ price }}円
+    select(v-model="plan")
+      option(v-show="option.show" v-for="option in options" :value="option.name" :key="option.id") {{ option.name }}
 </template>
 
 <script lang="ts">
 import { Component, Prop, Emit, Watch, Vue } from "vue-property-decorator";
 import {
-  Gender,
-  Age,
   OptionItem,
+  Simulator,
+  Gender,
   priceTableJSON,
   PlanD
 } from "../../../type/simulator";
@@ -35,17 +31,22 @@ export default class SimulatorD extends Vue {
 
   //Props
   @Prop({})
-  gender!: Gender;
-  @Prop({})
-  age!: Age;
-  @Prop({})
-  propplan!: string;
+  simulator!: Simulator;
   @Prop({})
   priceTable!: priceTableJSON;
 
-  //Emit
-  @Emit("getPlan")
-  sendInfo() {
+  @Watch("priceTable")
+  getPriceTable() {
+    this.getPrice();
+  }
+
+  @Watch("simulator", { deep: true })
+  getSimulator() {
+    this.getPrice();
+  }
+
+  @Emit("updatePlan")
+  updatePlan() {
     return {
       id: 3,
       plan: this.plan,
@@ -53,28 +54,21 @@ export default class SimulatorD extends Vue {
     };
   }
 
-  //method
   getPrice(): void {
     if (this.priceTable["D"]) {
-      this.price = this.priceTable["D"][this.plan][this.gender][this.age];
+      this.price = this.priceTable["D"][this.plan][this.simulator.gender][
+        this.simulator.age
+      ];
     }
   }
 
-  @Watch("age")
-  @Watch("gender")
-  @Watch("propplan")
-  @Watch("priceTable")
-  onAgeChanged(newAge: Age, oldAge: Age) {
-    this.getPrice();
-  }
-
-  mounted() {
-    this.plan = this.propplan;
+  created() {
+    this.plan = this.simulator.planList[3];
   }
 
   updated() {
-    this.sendInfo();
     this.getPrice();
+    this.updatePlan();
   }
 }
 </script>
@@ -82,7 +76,8 @@ export default class SimulatorD extends Vue {
 <style lang="scss" scoped>
 .sim-area {
   margin: 10px 0;
-  background: #fff;
+  width: 20%;
+  background: #eee;
   padding: 20px;
 }
 </style>

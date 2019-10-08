@@ -8,7 +8,7 @@
     br
     | 家族の保険プランをご案内します。
     SimulatorReview(:simulators="simulators" @removePlan="removePlan($event)")
-    SimulatorInput(@addReviewItem="addReviewItem($event)")
+    SimulatorInput(:priceTable="priceTable" @addReviewItem="addReviewItem($event)")
   Footer
 </template>
 

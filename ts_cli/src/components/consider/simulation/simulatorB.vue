@@ -1,26 +1,18 @@
-<template>
-  <div class="sim-area">
-    <h3>医療保険(B)</h3>
-    <p>プラン:B{{ plan }}</p>
-    <p>値段:{{ price }}</p>
-    <select v-model="plan">
-      <option
-        v-show="option.show"
-        v-for="option in options"
-        :value="option.name"
-        :key="option.id"
-        >{{ option.name }}</option
-      >
-    </select>
-  </div>
+<template lang="pug">
+  .sim-area
+    h3 医療保険(B)
+    p プラン:B{{ plan }}
+    p 値段:{{ price }}円
+    select(v-model="plan")
+      option(v-show="option.show" v-for="option in options" :value="option.name" :key="option.id") {{ option.name }}
 </template>
 
 <script lang="ts">
 import { Component, Prop, Emit, Watch, Vue } from "vue-property-decorator";
 import {
-  Gender,
-  Age,
   OptionItem,
+  Simulator,
+  Gender,
   priceTableJSON,
   PlanB
 } from "../../../type/simulator";
@@ -44,33 +36,12 @@ export default class SimulatorB extends Vue {
 
   //Props
   @Prop({})
-  gender!: Gender;
-  @Prop({})
-  age!: Age;
-  @Prop({})
-  propplan!: string;
+  simulator!: Simulator;
   @Prop({})
   priceTable!: priceTableJSON;
 
-  //Emit
-  @Emit("getPlan")
-  sendInfo() {
-    return {
-      id: 1,
-      plan: this.plan,
-      price: this.price
-    };
-  }
-
-  //method
-  getPrice(): void {
-    if (this.priceTable["B"]) {
-      this.price = this.priceTable["B"][this.plan][this.gender][this.age];
-    }
-  }
-
   updateGender(): void {
-    if (this.gender === Gender.Male) {
+    if (this.simulator.gender === Gender.Male) {
       //女性のみパターンを選択時、男性に切り替える時はWを削除したプランとする
       if (this.plan.indexOf("W") > 0) {
         this.plan = this.plan.slice(0, -1);
@@ -87,22 +58,41 @@ export default class SimulatorB extends Vue {
     }
   }
 
-  @Watch("age")
-  @Watch("gender")
-  @Watch("propplan")
   @Watch("priceTable")
-  onAgeChanged(newAge: Age, oldAge: Age) {
+  getPriceTable() {
+    this.getPrice();
+  }
+
+  @Watch("simulator", { deep: true })
+  getSimulator() {
     this.updateGender();
     this.getPrice();
   }
 
-  mounted() {
-    this.plan = this.propplan;
+  @Emit("updatePlan")
+  updatePlan() {
+    return {
+      id: 1,
+      plan: this.plan,
+      price: this.price
+    };
+  }
+
+  getPrice(): void {
+    if (this.priceTable["B"]) {
+      this.price = this.priceTable["B"][this.plan][this.simulator.gender][
+        this.simulator.age
+      ];
+    }
+  }
+
+  created() {
+    this.plan = this.simulator.planList[1];
   }
 
   updated() {
-    this.sendInfo();
     this.getPrice();
+    this.updatePlan();
   }
 }
 </script>
@@ -110,7 +100,8 @@ export default class SimulatorB extends Vue {
 <style lang="scss" scoped>
 .sim-area {
   margin: 10px 0;
-  background: #fff;
+  width: 20%;
+  background: #eee;
   padding: 20px;
 }
 </style>

@@ -1,28 +1,24 @@
-<template>
-  <div class="sim-area">
-    <h3>就業不能保険(E)</h3>
-    <p>プラン:E{{ plan }}</p>
-    <p>値段:{{ price }}</p>
-    <select v-model="plan">
-      <option v-for="option in options" :value="option.name" :key="option.id">{{
-        option.name
-      }}</option>
-    </select>
-  </div>
+<template lang="pug">
+  .sim-area
+    h3 就業不能保険(E)
+    p プラン:E{{ plan }}
+    p 値段:{{ price }}円
+    select(v-model="plan")
+      option(v-show="option.show" v-for="option in options" :value="option.name" :key="option.id") {{ option.name }}
 </template>
 
 <script lang="ts">
 import { Component, Prop, Emit, Watch, Vue } from "vue-property-decorator";
 import {
-  Gender,
-  Age,
   OptionItem,
+  Simulator,
+  Gender,
   priceTableJSON,
   PlanE
 } from "../../../type/simulator";
 
 @Component
-export default class SimulatorB extends Vue {
+export default class SimulatorE extends Vue {
   //data
   price: number = 0;
   plan: string = "01";
@@ -36,17 +32,22 @@ export default class SimulatorB extends Vue {
 
   //Props
   @Prop({})
-  gender!: Gender;
-  @Prop({})
-  age!: Age;
-  @Prop({})
-  propplan!: string;
+  simulator!: Simulator;
   @Prop({})
   priceTable!: priceTableJSON;
 
-  //Emit
-  @Emit("getPlan")
-  sendInfo() {
+  @Watch("priceTable")
+  getPriceTable() {
+    this.getPrice();
+  }
+
+  @Watch("simulator", { deep: true })
+  getSimulator() {
+    this.getPrice();
+  }
+
+  @Emit("updatePlan")
+  updatePlan() {
     return {
       id: 4,
       plan: this.plan,
@@ -54,28 +55,21 @@ export default class SimulatorB extends Vue {
     };
   }
 
-  //method
   getPrice(): void {
     if (this.priceTable["E"]) {
-      this.price = this.priceTable["E"][this.plan][this.gender][this.age];
+      this.price = this.priceTable["E"][this.plan][this.simulator.gender][
+        this.simulator.age
+      ];
     }
   }
 
-  @Watch("age")
-  @Watch("gender")
-  @Watch("propplan")
-  @Watch("priceTable")
-  onAgeChanged(newAge: Age, oldAge: Age) {
-    this.getPrice();
-  }
-
-  mounted() {
-    this.plan = this.propplan;
+  created() {
+    this.plan = this.simulator.planList[4];
   }
 
   updated() {
-    this.sendInfo();
     this.getPrice();
+    this.updatePlan();
   }
 }
 </script>
@@ -83,7 +77,8 @@ export default class SimulatorB extends Vue {
 <style lang="scss" scoped>
 .sim-area {
   margin: 10px 0;
-  background: #fff;
+  width: 20%;
+  background: #eee;
   padding: 20px;
 }
 </style>

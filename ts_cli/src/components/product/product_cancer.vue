@@ -67,7 +67,7 @@ export default class Cancer extends Vue {
   simulators: Simulator[] = [
     {
       id: 1,
-      price: 0,
+      priceList: [0, 0, 0, 0, 0, 0, 0, 0],
       gender: Gender.Male,
       age: Age.T7,
       planList: ["01", "01", "01", "01", "01", "01", "01", "01"]

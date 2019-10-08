@@ -1,6 +1,6 @@
 <template lang="pug">
 .reviewArea
-  h3.reviewTitle 検討中の保険プラン
+  h3.reviewTitle ●検討中の保険プラン
   p(style="margin-bottom: 10px") 選択済みの保険プランの合計保険料 {{sumAllPrice}}円
   p
     a(:href="applyUrl") この保険の検討を進める
@@ -19,7 +19,7 @@ import { Gender, Age, Simulator } from "../../../type/simulator";
     SimulatorReviewItem
   }
 })
-export default class SimulatorContainer extends Vue {
+export default class SimulatorReview extends Vue {
   applyUrl: string = "#";
 
   //Props
@@ -30,7 +30,10 @@ export default class SimulatorContainer extends Vue {
   get sumAllPrice(): number {
     let priceSum = 0;
     this.simulators.forEach((v: Simulator) => {
-      priceSum += v.price;
+      let sum = v.priceList.reduce((a, b) => {
+        return a + b;
+      });
+      priceSum += sum;
     });
     return priceSum;
   }

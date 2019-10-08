@@ -60,7 +60,7 @@ export default class Index extends Vue {
   simulators: Simulator[] = [
     {
       id: 1,
-      price: 0,
+      priceList: [0, 0, 0, 0, 0, 0, 0, 0],
       gender: Gender.Male,
       age: Age.T2,
       planList: []
@@ -70,7 +70,7 @@ export default class Index extends Vue {
   addSimulator(): void {
     this.simulators.push({
       id: this.simulators.length + 1,
-      price: 0,
+      priceList: [0, 0, 0, 0, 0, 0, 0, 0],
       gender: Gender.Male,
       age: Age.T7,
       planList: ["01", "01", "01", "01", "01", "01", "01", "01"]
