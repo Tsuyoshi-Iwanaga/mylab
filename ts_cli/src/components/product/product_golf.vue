@@ -3,7 +3,7 @@
   Header
   p プロダクト-ホールインワン保険(H)
   p
-    a(href="../../consider/simulation/") シミュレータへ &gt;&gt;
+    a(href="/consider/simulation/") シミュレータへ &gt;&gt;
   Footer
 </template>
 

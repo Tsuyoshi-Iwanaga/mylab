@@ -3,7 +3,7 @@
   Header
   p プロダクト-介護保険(F)
   p
-    a(href="../../consider/simulation/") シミュレータへ &gt;&gt;
+    a(href="/consider/simulation/") シミュレータへ &gt;&gt;
   Footer
 </template>
 

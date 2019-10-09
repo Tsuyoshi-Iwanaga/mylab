@@ -33,26 +33,49 @@
     button(@click="rewritePlan") 保証内容を編集する
   p
     button(@click="removePlan") このプランを削除する
+  Modal(v-show="rewriteMode")
+    .rewriteArea
+      SimulatorRewrite(:propSimulator="simulator" :priceTable="priceTable" @rewriteItem="rewriteItem($event)")
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from "vue-property-decorator";
-import { Gender, Age, Simulator } from "../../../type/simulator";
+import { Component, Vue, Prop, Emit, Watch } from "vue-property-decorator";
+import Modal from "../../../components/common/util/modal.vue";
+import SimulatorRewrite from "./simulatorRewrite.vue";
+import {
+  Gender,
+  Age,
+  Simulator,
+  priceTableJSON
+} from "../../../type/simulator";
 
 @Component({
-  components: {}
+  components: {
+    Modal,
+    SimulatorRewrite
+  }
 })
 export default class SimulatorContainer extends Vue {
   applyUrl: string = "#";
+  rewriteMode: boolean = false;
 
   //Props
   @Prop({})
   simulator!: Simulator;
+  @Prop({})
+  priceTable!: priceTableJSON;
 
   @Emit("removePlan")
   removePlan() {
     return this.simulator.id;
   }
+  @Emit("updatePlan")
+  rewriteItem($event: Simulator) {
+    return $event;
+  }
+
+  @Watch("priceTable")
+  getPriceTable() {}
 
   get sumPrice() {
     return this.simulator.priceList.reduce((a, b) => {
@@ -108,7 +131,7 @@ export default class SimulatorContainer extends Vue {
   }
 
   rewritePlan() {
-    console.log("modalOpen?");
+    this.rewriteMode = true;
   }
 }
 </script>

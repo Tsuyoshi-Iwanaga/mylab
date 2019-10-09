@@ -3,9 +3,9 @@
   Header
   p ライフイベント
   p
-    a(href="../../simulate/") トップ
+    a(href="/") トップ
   p
-    a(href="../simulate/") 全商品シミュレータへ
+    a(href="/consider/simulation/") 全商品シミュレータへ
   .personSec
     h2 本人
     p 年齢：35-39

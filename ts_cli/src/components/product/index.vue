@@ -3,15 +3,15 @@
   Header
   p プロダクトトップ
   p
-    a(href="../") トップへ &gt;&gt;
+    a(href="/") トップへ &gt;&gt;
   p
-    a(href="../consider/simulation/") シミュレーターへ &gt;&gt;
+    a(href="/consider/simulation/") シミュレーターへ &gt;&gt;
   p
-    a(href="./medical/") 傷害保険(A) &gt;&gt;
+    a(href="/product/medical/") 傷害保険(A) &gt;&gt;
   p
     span 医療保険(B)
   p
-    a(href="./cancer/") がん保険(C) &gt;&gt;
+    a(href="/product/cancer/") がん保険(C) &gt;&gt;
   p
     span 介護保険(D)
   p

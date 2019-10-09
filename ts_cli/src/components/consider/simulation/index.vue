@@ -7,7 +7,7 @@
   p 必要な保険、必要な補償を組み合わせて、
     br
     | 家族の保険プランをご案内します。
-    SimulatorReview(:simulators="simulators" @removePlan="removePlan($event)")
+    SimulatorReview(:priceTable="priceTable" :simulators="simulators" @removePlan="removePlan($event)" @updatePlan="updatePlan($event)")
     SimulatorInput(:priceTable="priceTable" @addReviewItem="addReviewItem($event)")
   Footer
 </template>
@@ -45,6 +45,15 @@ export default class Index extends Vue {
     this.simulators.forEach((v: Simulator, i: number, arr: Simulator[]) => {
       if (v.id === $event) {
         arr.splice(i, 1);
+      }
+    });
+  }
+
+  //検討中プラン更新
+  updatePlan($event: Simulator) {
+    this.simulators.forEach((v: Simulator, i: number, arr: Simulator[]) => {
+      if (v.id === $event.id) {
+        Vue.set(this.simulators, i, JSON.parse(JSON.stringify($event)));
       }
     });
   }

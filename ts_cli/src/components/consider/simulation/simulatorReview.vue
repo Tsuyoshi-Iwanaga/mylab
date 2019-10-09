@@ -4,7 +4,7 @@
   p(style="margin-bottom: 10px") 選択済みの保険プランの合計保険料 {{sumAllPrice}}円
   p
     a(:href="applyUrl") この保険の検討を進める
-  SimulatorReviewItem(v-for="simulator in simulators" :key="simulator.id" :simulator="simulator" @removePlan="removePlan($event)")
+  SimulatorReviewItem(v-for="simulator in simulators" :key="simulator.id" :simulator="simulator" :priceTable="priceTable" @removePlan="removePlan($event)" @updatePlan="updatePlan($event)")
   p
     a(:href="applyUrl") この保険の検討を進める
 </template>
@@ -12,7 +12,12 @@
 <script lang="ts">
 import { Component, Vue, Prop, Emit, Watch } from "vue-property-decorator";
 import SimulatorReviewItem from "./simulatorReviewItem.vue";
-import { Gender, Age, Simulator } from "../../../type/simulator";
+import {
+  Gender,
+  Age,
+  Simulator,
+  priceTableJSON
+} from "../../../type/simulator";
 
 @Component({
   components: {
@@ -26,6 +31,8 @@ export default class SimulatorReview extends Vue {
   //Props
   @Prop({})
   simulators!: Simulator[];
+  @Prop({})
+  priceTable!: priceTableJSON;
 
   //全体の合計金額
   get sumAllPrice(): number {
@@ -43,11 +50,17 @@ export default class SimulatorReview extends Vue {
   removePlan($event: number) {
     return $event;
   }
+  @Emit("updatePlan")
+  updatePlan($event: Simulator) {
+    return $event;
+  }
 
   @Watch("simulators", { deep: true })
   checkSimulator() {
     this.switchAreaShow();
   }
+  @Watch("priceTable")
+  getPriceTable() {}
 
   //エリア全体の表示切り替え
   switchAreaShow() {

@@ -86,4 +86,7 @@ export default class SimulatorF extends Vue {
   background: #eee;
   padding: 20px;
 }
+.sim-area.-rewrite {
+  width: 12.0rem;
+}
 </style>
