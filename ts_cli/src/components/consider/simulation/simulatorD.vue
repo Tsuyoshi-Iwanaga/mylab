@@ -1,7 +1,7 @@
 <template lang="pug">
   .sim-area
     h3 介護保険(D)
-    p プラン:D{{ plan }}
+    p プラン:{{ planName }}
     p 値段:{{ price }}円
     select(v-model="plan")
       option(v-show="option.show" v-for="option in options" :value="option.name" :key="option.id") {{ option.name }}
@@ -52,6 +52,14 @@ export default class SimulatorD extends Vue {
       plan: this.plan,
       price: this.price
     };
+  }
+
+  get planName(): string {
+    if (this.plan == "none") {
+      return "-";
+    } else {
+      return "D" + this.plan;
+    }
   }
 
   getPrice(): void {

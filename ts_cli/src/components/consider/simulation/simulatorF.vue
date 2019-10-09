@@ -1,7 +1,7 @@
 <template lang="pug">
   .sim-area
     h3 個人賠償責任保険(F)
-    p プラン:F{{ plan }}
+    p プラン:{{ planName }}
     p 値段:{{ price }}円
     select(v-model="plan")
       option(v-show="option.show" v-for="option in options" :value="option.name" :key="option.id") {{ option.name }}
@@ -50,6 +50,14 @@ export default class SimulatorF extends Vue {
       plan: this.plan,
       price: this.price
     };
+  }
+
+  get planName(): string {
+    if (this.plan == "none") {
+      return "-";
+    } else {
+      return "F" + this.plan;
+    }
   }
 
   getPrice(): void {

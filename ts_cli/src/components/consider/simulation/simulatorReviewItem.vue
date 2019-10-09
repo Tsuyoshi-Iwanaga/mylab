@@ -7,30 +7,30 @@
   .reviewItem
     .reviewBox.simA
       p.boxTitle 医療保険
-      p 保証タイプ:A{{simulator.planList[0]}}
+      p 保証タイプ:{{planAType}}
     .reviewBox.simB
       p.boxTitle がん保険
-      p 保証タイプ:B{{simulator.planList[1]}}
+      p 保証タイプ:{{planBType}}
     .reviewBox.simC
       p.boxTitle 就業不能保険
-      p 保証タイプ:C{{simulator.planList[2]}}
+      p 保証タイプ:{{planCType}}
     .reviewBox.simD
       p.boxTitle 個人賠償責任保険
-      p 保証タイプ:D{{simulator.planList[3]}}
+      p 保証タイプ:{{planDType}}
     .reviewBox.simE
       p.boxTitle 損害保険
-      p 保証タイプ:E{{simulator.planList[4]}}
+      p 保証タイプ:{{planEType}}
     .reviewBox.simF
       p.boxTitle 介護保険
-      p 保証タイプ:F{{simulator.planList[5]}}
+      p 保証タイプ:{{planFType}}
     .reviewBox.simG
       p.boxTitle 携行品損害保険
-      p 保証タイプ:G{{simulator.planList[6]}}
+      p 保証タイプ:{{planGType}}
     .reviewBox.simH
       p.boxTitle ホールインワン保険
-      p 保証タイプ:H{{simulator.planList[7]}}
+      p 保証タイプ:{{planHType}}
   p(style="margin-bottom:10px")
-    button 保証内容を編集する
+    button(@click="rewritePlan") 保証内容を編集する
   p
     button(@click="removePlan") このプランを削除する
 </template>
@@ -64,6 +64,51 @@ export default class SimulatorContainer extends Vue {
     if (this.simulator.gender === "male") return "男性";
     if (this.simulator.gender === "female") return "女性";
     return false;
+  }
+
+  get planAType() {
+    return this.simulator.planList[0] === "none"
+      ? "-"
+      : "A" + this.simulator.planList[0];
+  }
+  get planBType() {
+    return this.simulator.planList[1] === "none"
+      ? "-"
+      : "B" + this.simulator.planList[1];
+  }
+  get planCType() {
+    return this.simulator.planList[2] === "none"
+      ? "-"
+      : "C" + this.simulator.planList[2];
+  }
+  get planDType() {
+    return this.simulator.planList[3] === "none"
+      ? "-"
+      : "D" + this.simulator.planList[3];
+  }
+  get planEType() {
+    return this.simulator.planList[4] === "none"
+      ? "-"
+      : "E" + this.simulator.planList[4];
+  }
+  get planFType() {
+    return this.simulator.planList[5] === "none"
+      ? "-"
+      : "F" + this.simulator.planList[5];
+  }
+  get planGType() {
+    return this.simulator.planList[6] === "none"
+      ? "-"
+      : "G" + this.simulator.planList[6];
+  }
+  get planHType() {
+    return this.simulator.planList[7] === "none"
+      ? "-"
+      : "H" + this.simulator.planList[7];
+  }
+
+  rewritePlan() {
+    console.log("modalOpen?");
   }
 }
 </script>
