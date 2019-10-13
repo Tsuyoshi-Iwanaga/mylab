@@ -2,10 +2,11 @@ import {connect} from 'react-redux';
 import TodoApp from '../components/TodoApp';
 import {inputTask, addTask} from '../actions/tasks';
 
-function mapStateToProps({task, tasks}) {
+function mapStateToProps({task, tasks, data}) {
   return {
     task,
-    tasks
+    tasks,
+    data,
   };
 }
 

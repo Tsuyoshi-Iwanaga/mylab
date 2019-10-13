@@ -1,6 +1,7 @@
 const initialState = {
   task: '',
-  tasks: []
+  tasks: [],
+  data: [],
 };
 
 export default function tasksReducer(state = initialState, action) {
@@ -15,6 +16,11 @@ export default function tasksReducer(state = initialState, action) {
         ...state,
         tasks: state.tasks.concat([action.payload.task])
       };
+    case 'REGISTER_DATA':
+      return {
+        ...state,
+        data: state.data.concat(action.payload.data)
+      }
     default:
       return state;
   }

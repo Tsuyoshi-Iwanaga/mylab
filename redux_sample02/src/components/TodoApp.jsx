@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TodoApp({ task, tasks, inputTask, addTask }) {
+export default function TodoApp({ task, tasks, inputTask, addTask, data }) {
   return (
     <div>
       <input type="text" onChange={(e)=>inputTask(e.target.value)} />
@@ -14,6 +14,22 @@ export default function TodoApp({ task, tasks, inputTask, addTask }) {
           })
         }
       </ul>
+      <table>
+        <tbody>
+          {
+            data.map(function(item, i) {
+              return (
+                <tr key={i}>
+                  <th>{item.asin}</th>
+                  <td>{item.title}</td>
+                  <td>{item.price}</td>
+                  <td>{item.stock}</td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
     </div>
   );
 }

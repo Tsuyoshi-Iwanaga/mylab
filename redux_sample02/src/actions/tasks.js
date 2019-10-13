@@ -11,3 +11,10 @@ export const addTask = (task) => ({
     task
   }
 });
+
+export const registerData = (data) => ({
+  type: 'REGISTER_DATA',
+  payload: {
+    data
+  }
+});
