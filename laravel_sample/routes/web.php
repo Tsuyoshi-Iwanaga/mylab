@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
+//default Page
+Route::get('/welcome', function () {
     return view('welcome');
 });
+
+Route::get('/param/{param?}', function ($param='noParam') {
+    return $param;
+});
+
+Route::get('/hello/', 'HelloController@index');
