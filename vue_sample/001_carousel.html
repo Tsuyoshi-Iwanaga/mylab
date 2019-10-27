@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Vue Sample</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+ul, li {
+  list-style: none;
+}
+.slide-next-leave-active,
+.slide-next-enter-active, 
+.slide-prev-leave-active,
+.slide-prev-enter-active,
+.slide-next-move,
+.slide-prev-move {
+  transition: all 1s ease;
+}
+.slide-next-leave-active {
+  position: absolute;
+}
+.slide-next-enter {
+  transform: translate(100%, 0);
+}
+.slide-next-leave-to,
+.slide-prev-enter {
+  transform: translate(-100%, 0);
+}
+.carousel {
+  width: 100%;
+}
+.carousel_wrap {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  overflow-x: hidden;
+  height: 73vw;
+}
+.is-PC .carousel_wrap {
+  height: 290px;
+}
+.carousel_slider {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: -150vw;
+}
+.is-PC .carousel_slider{
+  margin-left: -720px;
+}
+.carousel_img {
+  width: 100vw;
+}
+.is-PC .carousel_img{
+  width: 400px;
+  margin-right: 20px;
+}
+.is-PC .carousel_img.is-active {
+  margin-right: 200px;
+}
+.carousel_controller {
+  text-align: center;
+}
+.carousel_dots {
+  margin: 0 auto;
+  display: flex;
+}
+.carousel_dot.is-active {
+  color: #d63200;
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+let Carousel = {
+  template: `
+    <div class="carousel" :class="{'is-PC': isPC}">
+      <div class="carousel_wrap">
+        <transition-group tag="ul" class="carousel_slider" :name="transition">
+          <li v-for="(item, i) in slider" :key="item.id">
+              <a href="#"><img :src="item.url" class="carousel_img" :class="{'is-active': i === 1}"></a>
+          </li>
+        </transition-group>
+      </div>
+      <div class="carousel_controller">
+        <button @click="prev">PREV</button>
+        <button @click="next">NEXT</button>
+      </div>
+      <div class="carousel_dots">
+          <ul class="carousel_dots">
+            <li v-for="(dot, i) in slider" :key="dot.id" class="carousel_dot" :class="{'is-active':i === current}">●</li>
+          </ul>
+      </div>
+    </div>
+  `,
+  props: {
+    images: {
+      type: Array,
+      default: []
+    }
+  },
+  data: function() {
+    return {
+      isPC: false,
+      current: 0,
+      slider: [],
+      transition: ''
+    }
+  },
+  mounted: function() {
+    let _ = this;
+
+    this.slider = Array.from(this.images);
+
+    window.addEventListener('resize', function(){
+      _.checkPC();
+    });
+    this.checkPC();
+  },
+  methods: {
+    next: function() {
+      this.transition = 'slide-next';
+      let index = 0;
+
+      if(this.current === this.images.length - 1) {
+        index = this.images.length - 1;
+        this.current = 0;
+      } else {
+        index = this.current;
+        this.current++;
+      }
+
+      let item = Object.assign({}, this.images[index], {id: new Date().getTime()});
+      this.slider.push(item);
+      this.slider.shift();
+    },
+    prev: function() {
+      this.transition = 'slide-prev';
+      let index = 0;
+
+      if(this.current === 0) {
+        index = this.images.length - 1;
+        this.current = this.images.length - 1;
+      } else {
+        index = this.current - 1;
+        this.current--;
+      }
+
+      let item = Object.assign({}, this.images[index], {id: new Date().getTime()});
+      this.slider.unshift(item);
+      this.slider.pop();
+    },
+    checkPC: function() {
+      if(window.innerWidth > 768) {
+        this.isPC = true;
+      } else {
+        this.isPC = false;
+      }
+    }
+  }
+}
+
+let Root = {
+  template: `<Carousel :images="[
+    {
+      id: 1,
+      url: './src/dummy03.jpg'
+    },
+    {
+      id: 2,
+      url: './src/dummy01.jpg'
+    },
+    {
+      id: 3,
+      url: './src/dummy02.jpg'
+    },
+    {
+      id: 4,
+      url: './src/dummy03.jpg'
+    },
+    {
+      id: 5,
+      url: './src/dummy01.jpg'
+    },
+    {
+      id: 6,
+      url: './src/dummy02.jpg'
+    }
+  ]"></Carousel>`,
+  components: {
+    Carousel
+  }
+}
+
+new Vue({
+  el: '#app',
+  render: (h) => h(Root)
+});
+
+</script>
+</html>
