@@ -6,15 +6,6 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Vue Sample</title>
 <style>
-/* .v-enter-active, .v-leave-active {
-  transition: opacity 5s ease;
-}
-.v-enter, .v-leave-to {
-  opacity: 0;
-}
-.v-enter-to, .v-leave {
-  opacity: 1.0;
-} */
 </style>
 </head>
 <body>
@@ -26,23 +17,13 @@
 let Root = {
   template: `
     <div>
-      <button @click="hoge">表示/非表示</button>
-      <transition>
-        <div id="panel" v-if="flag">
-          Wingsプロジェクトのどうこう
-        </div>
-      </transition>
+      <input type="text" v-model="data" />
+      <div>{{data}}</div>
     </div>
   `,
   data: function() {
     return {
-      name: 'Vue.js',
-      flag: true,
-    }
-  },
-  methods: {
-    hoge() {
-      this.flag = !this.flag;
+      data: ''
     }
   }
 }

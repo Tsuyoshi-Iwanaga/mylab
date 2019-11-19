@@ -1,4 +1,4 @@
-# TypeScript
+# TypeScriptまとめ
 
 **コンパイル**
 
