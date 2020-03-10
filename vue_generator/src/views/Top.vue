@@ -12,10 +12,6 @@
     />
     <input type="text" v-model="cssRaw" cols="30" rows="5" style="width:100%" />
     <input type="text" v-model="jsRaw" cols="30" rows="5" style="width:100%" />
-    <div id="htmlCode">
-      <images></images>
-      <heading></heading>
-    </div>
   </div>
 </template>
 
