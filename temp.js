@@ -1,17 +1,13 @@
-function max(x, y) {
-  return x > y ? x : y;
+function curry(f){
+  return function _curry(xs){
+      return xs.length < f.length ? function(x){ return _curry(xs.concat([x])); } : f.apply(undefined, xs);
+  }([]);
 }
 
-function _max(x) {
-  return function(y) {
-    return x > y ? x : y;
-  }
-}
+var _max = curry(Math.max);
 
-console.log(max(1, 2));
-console.log(_max(5)(2));
+var brightness = [0.2, -0.3, 1.0, -0.5];
+brightness = brightness.map(curry(Math.max)(0));
 
-const brightness = [0.2, -0.3, 1.0, -0.5];
-const hoge = brightness.map(function(x) { return max(0, x) });
+console.log(brightness);
 
-console.log(hoge);
