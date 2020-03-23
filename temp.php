@@ -1,50 +1,52 @@
 <?php
 ini_set('display_errors', 'On');
 
-abstract class ReadItemDataStrategy
-{
-  private $filename;
+abstract class AbstractDisplay {
+  private $data;
 
-  public function __construct($filename) {
-    $this->filename = $filename;
+  public function __construct($data) {
+    if(!is_array($data)) {
+      $data = array($data);
+    }
+    $this->data = $data;
   }
 
-  public function getData() {
-    return $this->readData($this->getFilename());
+  protected function getData() {
+    return $this->data;
   }
 
-  public function getFilename() {
-    return $this->filename;
-  }
+  protected abstract function displayHeader();
+  protected abstract function displayBody();
+  protected abstract function displayFooter();
 
-  abstract protected function readData($filename);
-}
-
-class ReadJsonDataStrategy extends ReadItemDataStrategy
-{
-  protected function readData($filename) {
-    return 'data';
-  }
-}
-
-class ReadTabSeparatedDataStrategy extends ReadItemDataStrategy {
-  protected function readData($filename) {
-    return 'hoge';
+  public function display() {
+    $this->displayHeader();
+    $this->displayBody();
+    $this->displayFooter();
   }
 }
 
-class ItemDateContext
-{
-  private $strategy;
-
-  public function __construct(ReadItemDataStrategy $strategy) {
-    $this->strategy = $strategy;
+class ListDisplay extends AbstractDisplay {
+  protected function displayHeader() {
+    echo '</dl>';
   }
 
-  public function getItemData() {
-    return $this->strategy->getData();
+  protected function displayBody() {
+    foreach($this->getData() as $key => $value) {
+      echo '<dt>Item'. $key. '</dt>';
+      echo '<dd>'. $value. '</dd>';
+    }
+  }
+
+  protected function displayFooter() {
+    echo '</dl>';
   }
 }
 
-$context = new ItemDateContext(new ReadTabSeparatorDataStrategy('a.txt'));
-$context->getItemData();
+$data = ['aaa', 'bbb', 'ccc', 'ddd'];
+
+$display1 = new ListDisplay($data);
+$display2 = new TableDisplay($data);
+
+$display1->display();
+$display2->display();
