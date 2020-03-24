@@ -1,52 +1,67 @@
 <?php
 ini_set('display_errors', 'On');
 
-abstract class AbstractDisplay {
-  private $data;
+interface Reader {
+  public function read();
+  public function display();
+}
 
-  public function __construct($data) {
-    if(!is_array($data)) {
-      $data = array($data);
-    }
-    $this->data = $data;
+class TextFileReader implements Reader {
+  private $filename;
+
+  public function __construct($filename) {
+    $this->filename = $filename;
   }
 
-  protected function getData() {
-    return $this->data;
-  }
+  public function read() {}
 
-  protected abstract function displayHeader();
-  protected abstract function displayBody();
-  protected abstract function displayFooter();
+  public function display() {}
 
-  public function display() {
-    $this->displayHeader();
-    $this->displayBody();
-    $this->displayFooter();
+  private function displayDetail() {
   }
 }
 
-class ListDisplay extends AbstractDisplay {
-  protected function displayHeader() {
-    echo '</dl>';
+class XMLFileReader implements Reader {
+  private $filename;
+  private $handler;
+
+  public function __construct($filename) {
+    $this->filename = $filename;
   }
 
-  protected function displayBody() {
-    foreach($this->getData() as $key => $value) {
-      echo '<dt>Item'. $key. '</dt>';
-      echo '<dd>'. $value. '</dd>';
+  public function read() {}
+
+  public function display() {}
+}
+
+class ReaderFactory {
+  private static $instance;
+
+  private function __construct() {}
+
+  public static function getInstance() {
+    if(!isset(self::$instance)) {
+      self::$instance = new ReaderFactory();
     }
+    return self::$instance;
   }
 
-  protected function displayFooter() {
-    echo '</dl>';
+  public function createReader($filename) {
+    $postxt = stripos($filename, '.txt');
+    $posxml = stripos($filename, '.xml');
+
+    if($postxt !== false) {
+      return new TextFileReader($filename);
+    } elseif($posxml !== false) {
+      return new XMLFileReader($filename);
+    } else {
+      die("This filename is not supported: $filename")
+    }
   }
 }
 
-$data = ['aaa', 'bbb', 'ccc', 'ddd'];
-
-$display1 = new ListDisplay($data);
-$display2 = new TableDisplay($data);
-
-$display1->display();
-$display2->display();
+$filename = __DIR__.'/src/music.txt';
+$factory = ReaderFactory::getInstance();
+$reader = $factory->createReader($filename);
+$reader->read();
+$reader->display();
