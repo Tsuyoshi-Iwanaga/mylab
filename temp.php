@@ -1,67 +1,32 @@
 <?php
 ini_set('display_errors', 'On');
 
-interface Reader {
-  public function read();
-  public function display();
-}
-
-class TextFileReader implements Reader {
-  private $filename;
-
-  public function __construct($filename) {
-    $this->filename = $filename;
-  }
-
-  public function read() {}
-
-  public function display() {}
-
-  private function displayDetail() {
-  }
-}
-
-class XMLFileReader implements Reader {
-  private $filename;
-  private $handler;
-
-  public function __construct($filename) {
-    $this->filename = $filename;
-  }
-
-  public function read() {}
-
-  public function display() {}
-}
-
-class ReaderFactory {
+class Singleton {
+  private $id;
   private static $instance;
 
-  private function __construct() {}
+  private function __construct() {
+    $this->id = md5(date('r').mt_rand());
+  }
 
   public static function getInstance() {
     if(!isset(self::$instance)) {
-      self::$instance = new ReaderFactory();
+      self::$instance = new Singleton();
     }
-    return self::$instance;
+    return self::$instande;
   }
 
-  public function createReader($filename) {
-    $postxt = stripos($filename, '.txt');
-    $posxml = stripos($filename, '.xml');
+  public function getId() {
+    return $this->id;
+  }
 
-    if($postxt !== false) {
-      return new TextFileReader($filename);
-    } elseif($posxml !== false) {
-      return new XMLFileReader($filename);
-    } else {
-      die("This filename is not supported: $filename")
-    }
+  public final function __clone() {
+    throw new RuntimeException('Clone is not allowed aginst'.get_class($this));
   }
 }
 
-$filename = __DIR__.'/src/music.txt';
-$factory = ReaderFactory::getInstance();
-$reader = $factory->createReader($filename);
-$reader->read();
-$reader->display();
+$instance01 = Singleton::getInstance();
+$instande02 = Singleton::getInstance();
+
+$instance01->getId();
+$instance02->getId();
