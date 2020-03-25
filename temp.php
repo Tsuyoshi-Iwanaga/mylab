@@ -1,90 +1,153 @@
 <?php
 ini_set('display_errors', 'On');
 
-abstract class ValidationHandler {
-  private $next_handler;
+//====== Factory =====//
+interface DaoFactory {
+  public function createItemDao();
+  public function createOrderDao();
+}
 
+class DbFactory implements DaoFactory {
+  private static $instance;
+
+  private function __construct() {}
+
+  public static function getInstance() {
+    if(!isset(self::$instance)) {
+      self::$instance = new DbFactory();
+    }
+    return self::$instance;
+  }
+
+  public function createItemDao() {
+    return new DbItemDao();
+  }
+
+  public function createOrderDao() {
+    return new DbOrderDao($this->createItemDao());
+  }
+}
+
+class MockFactory implements DaoFactory {
+  private static $instance;
+
+  private function __coustruct() {}
+
+  public static function getInstance() {
+    return self::$instance;
+  }
+
+  public function createItemDao() {
+    return new MockItemDao();
+  }
+
+  public function createOrderDao() {
+    return new MockOrderDao();
+  }
+}
+
+//====== ItemDao =====//
+interface ItemDao {
+  public function findById($item_id);
+}
+
+class DbItemDao implements ItemDao {
   public function __construct() {
-    $this->next_handler = null;
+    //fileread,
+    //Search on id
+  }
+}
+
+class MockItemDao implements ItemDao {
+  public function findById($item_id) {
+    $item = new Item('99', 'ダミー商品');
+    return $itme;
+  }
+}
+
+//====== OrderDao =====//
+interface OrderDao {
+  public function findById($order_id);
+}
+
+class DbOrderDao implements OrderDao {
+  private $orders;
+
+  public function __construct(ItemDao $item_dao) {
+    //fileRead
   }
 
-  public function setHandler(ValidationHandler $handler) {
-    $this->next_handler = $handler;
-    return $this;
-  }
-
-  public function getNextHandler() {
-    return $this->next_handler;
-  }
-
-  public function validate($input) {
-    $result = $this->execValidation($input);
-
-    if(!$result) {
-      return $this->getErrorMessage();
-    } elseif (!is_null($this->getNextHandler())) {
-      return $this->getNextHandler()->validate($input);
+  public function findById($order_id) {
+    if(array_key_exists($order_id, $this->orders)) {
+      return $this->orders[$order_id];
     } else {
-      return true;
+      return 
     }
   }
-
-  abstract protected function execValidation($input);
-
-  abstract protected function getErrorMessage();
 }
 
-class NotNullValidationHandler extends ValidationHander {
+class MockOrderDao implements OrderDao {
+  public function findById($order_id) {
+    $order = new Order('999');
+    $order->addItem(new Item('99', 'ダミー商品'));
+    $order->addItem(new Item('99', 'ダミー商品'));
+    $order->addItem(new item('99', 'ダミー商品'));
 
-  protected function execValidation($input) {
-    return (is_string($input) && $input !== '');
-  }
-
-  protected function getErrorMessage() {
-    return '入力されていません';
+    return $order;
   }
 }
 
-class MaxLengthValidationHandler extends ValidationHandler {
-  
-  private $max_length;
+class Item {
+  private $id;
+  private $name;
 
-  public function __construct($max_length = 10) {
-    parent::__construct();
+  public function __construct($id, $name) {
+    $this->id = $id;
+    $this->name = $name;
+  }
 
-    if(preg_match('/^[0-9]{,2}$/', $max_length)) {
-      throw new RuntimeException('max length is invalid!');
+  public function getId() {
+    return $this->id;
+  }
+
+  public function getName() {
+    return $this->name;
+  }
+}
+
+class Order {
+  private $id;
+  private $items;
+
+  public function __construct(Item $item) {
+    $id = $item->getId();
+
+    if(!array_key_exists($id, $this->items)) {
+      $this->items[$id]['object'] = $item;
+      $this->items[$id]['amount'] = 0;
     }
-    $this->max_length = (int)$max_length;
+    $this->items[$id]['amount']++;
   }
 
-  protected function execValidation($input) {
-    return (mb_strlen($input) <= $this->max_length);
+  public function getItems() {
+    return $this->items;
   }
 
-  protected function getErrorMessage() {
-    return $this->max_length.'文字以内で入力してください';
-  }
-}
-
-class AlphabetValidationHandler extends ValidationHander {
-
-  protected function execValidation($input) {
-    return preg_match('/^[a-z]*$/i', $input);
-  }
-
-  protected function getErrorMessage() {
-    return '半角英字で入力してください';
+  public function getId() {
+    return $this->id;
   }
 }
 
-$input = 'hogehoge';
+$factory = DbFactory::getInstance();
+// $factory = MockFactory::getInstane();
 
-$handler01 = new NotNullValidationHandler();
-$handler02 = new MaxLengthValidationHandler(8);
-$handler03 = new AlphabetValidationHandler();
+$item_id = 1;
+$item_dao = $factory->createItemDao();
+$item = $item_dao->findById($item_id);
 
-$handler01->setHandler($handler02);
-$handler02->setHandler($handler03);
-
-$result = $handler01->validate($input);
+$order_id = 3;
+$order_dao = $factory->createOrderDao();
+$order = $order_dao->findById($order_id);
+foreach($order->getItems() as $item) {
+  printf("%s<br>", $item['object']->getName());
+}
