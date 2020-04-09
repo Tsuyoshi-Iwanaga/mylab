@@ -2,15 +2,16 @@
 ini_set('display_errors', 'On');
 
 //Builder
+
 class News {
   private $title;
   private $url;
-  private $target_date;
+  private $target_data;
 
   public function __construct($title, $url, $target_date) {
-    $this->title = $title,
+    $this->title = $title;
     $this->url = $url;
-    $this->target_date = $target_date
+    $this->target_date = $target_date;
   }
 
   public function getTitle() {
@@ -26,14 +27,14 @@ class News {
   }
 }
 
+//Builder
 interface NewsBuilder {
   public function parse($url);
 }
 
-class RssNewsBuilder implements NewsBuilder {
+class newsBuilder implements NewsBuilder {
   public function parse($url) {
-    $data = simple_load_file($url);
-
+    $data = simplexml_load_file($url);
     if($data === false) {
       throw new Exception('reading data is failed!');
     }
@@ -41,9 +42,10 @@ class RssNewsBuilder implements NewsBuilder {
     $list = array();
 
     foreach($data->item as $item) {
-      $dc = $item->children('http://purl.org/dc/elemetns/1.2');
+      $dc = $item->children('http://purl.org/dc/elements/1.1');
       $list[] = new News($item->title, $item->link, $dc->date);
     }
+
     return $list;
   }
 }
@@ -63,10 +65,10 @@ class NewsDirector {
   }
 }
 
-//client
-$builder = new RssBuilder();
-$director = new NewsDirector($builder, 'http://www.php.net/news.rss');
+$builder = new RssNewsBuilder();
+$director = new NewsDirector($builder, 'http://www.php.net/news.php');
 
 foreach($director->getNews() as $article) {
   printf('[%s] %s<br>', $article->getData(), $article->getTitle());
 }
+
