@@ -1,74 +1,122 @@
 <?php
-ini_set('display_errors', 'On');
 
-//Builder
+abstract class Application
+{
+  protected $debug = false;
+  protected $request;
+  protected $response;
+  protected $session;
+  protected $db_manager;
 
-class News {
-  private $title;
-  private $url;
-  private $target_data;
-
-  public function __construct($title, $url, $target_date) {
-    $this->title = $title;
-    $this->url = $url;
-    $this->target_date = $target_date;
+  public function __construct($debug = false)
+  {
+    $this->setDebugMode($debug);
+    $this->initialize();
+    $this->configure();
   }
 
-  public function getTitle() {
-    return $this->title;
+  public function setDebugMode($debug) {
+    if($debug) {
+      $this->debug = true;
+      ini_set('display_errors', 1);
+      error_reporting(-1);
+    } else {
+      $this->debug = false;
+      ini_set('display_errors', 0);
+    }
   }
 
-  public function getUrl() {
-    return $this->url;
+  public function initialize()
+  {
+    $this->request = new Request();
+    $this->response = new Response();
+    $this->session = new Session();
+    $this->db_manager = new Db_manager();
+    $this->router = new Router($this->registerRoutes());
   }
 
-  public function getData() {
-    return $this->target_date;
+  protected function configure() {}
+
+  abstract public function getRootDir();
+
+  abstract protected function registerRoutes();
+
+  public function isDebugMode()
+  {
+    return $this->debug;
   }
-}
 
-//Builder
-interface NewsBuilder {
-  public function parse($url);
-}
+  public function getRequest()
+  {
+    return $this->request;
+  }
 
-class newsBuilder implements NewsBuilder {
-  public function parse($url) {
-    $data = simplexml_load_file($url);
-    if($data === false) {
-      throw new Exception('reading data is failed!');
+  public function getResponse()
+  {
+    return $this->response;
+  }
+
+  public function getSession()
+  {
+    return $this->session;
+  }
+
+  public function getDbManager()
+  {
+    return $this->db_manager;
+  }
+
+  public function getControllerDir()
+  {
+    return $this->getRootDir(). '/controllers';
+  }
+
+  public function getViewDir()
+  {
+    return $this->getRootDir(). '/views';
+  }
+
+  public function getModelDir()
+  {
+    return $this->getRootDir(). '/models';
+  }
+
+  public function getWebDir()
+  {
+    return $this->getRootDir(). '/web';
+  }
+
+  public function run()
+  {
+    $params = $this->router->resolve($this->request->getPathInfo());
+    if($params === false) {
+      //todo-A
     }
 
-    $list = array();
+    $controller = $params['controller'];
+    $action = $params['action'];
 
-    foreach($data->item as $item) {
-      $dc = $item->children('http://purl.org/dc/elements/1.1');
-      $list[] = new News($item->title, $item->link, $dc->date);
+    $this->runAction($controller, $action, $params);
+
+    $this->response->send();
+  }
+
+  public function runAction($controller_name, $action, $params = []) {
+    $controller_class = ucfirst($controller_name). 'Controller';
+
+    $controller = $this->findController($controller_name);
+    if($controller === false) {
+      //todo-B
     }
 
-    return $list;
-  }
-}
+    $content = $controller->run($action, $params);
 
-class NewsDirector {
-  private $builder;
-  private $url;
-
-  public function __construct(NewsBuilder $builder, $url) {
-    $this->builder = $builder;
-    $this->url = $url;
+    $this->response->setContent($content);
   }
 
-  public function getNews() {
-    $news_list = $this->builder->parse($this->url);
-    return $news_list;
+  protected function findControllers($controller_class) {
+    if(!class_exists($controller_class)) {
+      $controller_file = $this->getControllerDir(). '/'. $controller_class. '.php';
+    }
   }
 }
-
-$builder = new RssNewsBuilder();
-$director = new NewsDirector($builder, 'http://www.php.net/news.php');
-
-foreach($director->getNews() as $article) {
-  printf('[%s] %s<br>', $article->getData(), $article->getTitle());
-}
-
