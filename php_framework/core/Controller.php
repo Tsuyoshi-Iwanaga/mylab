@@ -7,7 +7,6 @@ abstract class Controller
   protected $application;
   protected $request;
   protected $response;
-  protected $session;
   protected $db_manager;
   protected $auth_actions = [];
 
@@ -22,7 +21,7 @@ abstract class Controller
     $this->db_manager = $application->getDbManager();
   }
 
-  public function run($action, $params = [])
+  public function run($action, $params)
   {
     $this->action_name = $action;
 
@@ -43,11 +42,11 @@ abstract class Controller
 
   protected function render($variables = [], $template = null, $layout = 'layout')
   {
-    $defaults = [
+    $defaults = array(
       'request' => $this->request,
       'base_url' => $this->request->getBaseUrl(),
       'session' => $this->session,
-    ];
+    );
 
     $view = new View($this->application->getViewDir(), $defaults);
 
@@ -60,9 +59,9 @@ abstract class Controller
     return $view->render($path, $variables, $layout);
   }
 
-  protected function forword404()
+  protected function forward404()
   {
-    throw new HttpNotFoundException('Forward 404 page from '. $this->controller_name. '/'. $this->action_name);
+    throw new HttpNotFoundException('Forward 404 page from'. $this->controller_name. '/'. $this->action_name);
   }
 
   protected function redirect($url)
@@ -83,7 +82,7 @@ abstract class Controller
   {
     $key = 'csrf_tokens/'. $form_name;
     $tokens = $this->session->get($key, []);
-    if(count($token) >= 10) {
+    if(count($tokens) >= 10) {
       array_shift($tokens);
     }
 
@@ -100,22 +99,23 @@ abstract class Controller
     $key = 'csrf_tokens/'. $form_name;
     $tokens = $this->session->get($key, []);
 
-    if(($pos = array_search($token, $tokens, true)) !== false) {
+    if(($pos = array_searc($token, $tokens, true) !== false))
+    {
       unset($tokens[$pos]);
       $this->session->set($key, $tokens);
 
       return true;
     }
+
     return false;
   }
 
   protected function needsAuthentication($action)
   {
-    if($this->auth_actions === true
-    || (is_array($this->auth_actions) && in_array($action, $this->auth_actions)))
-    {
+    if($this->auth_actions === true || (is_array($this->auth_actions) && in_array($action, $this->auth_actions))) {
       return true;
     }
+
     return false;
   }
 }

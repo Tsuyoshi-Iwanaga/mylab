@@ -19,7 +19,7 @@ class ClassLoader
   //クラスの読み込み処理
   public function loadClass($class)
   {
-    foreach($dirs as $dir) {
+    foreach($this->dirs as $dir) {
       $file = $dir. '/'. $class. '.php';
       if(is_readable($file)) {
         require_once $file;

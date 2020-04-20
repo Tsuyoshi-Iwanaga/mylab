@@ -1,8 +1,14 @@
 <?php
 //アプリケーション実行
 
-require_once '../bootstrap.php';
-require_once '../MiniBlogApplication.php';
+ini_set('display_errors', 'On');
 
-$app = new MiniBlogApplication(false);
-$app->run();
+require_once '../bootstrap.php';
+// require_once '../MiniBlogApplication.php';
+
+// $app = new MiniBlogApplication(false);
+// $app->run();
+
+$rec = new Session();
+var_dump($_SERVER);
+print('hoge');
