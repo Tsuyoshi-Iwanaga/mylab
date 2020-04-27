@@ -1,155 +1,34 @@
 <?php
 
-abstract class Application
+class Response
 {
-  protected $debug = false;
-  protected $request;
-  protected $response;
-  protected $session;
-  protected $db_manager;
+  protected $content;
+  protected $status_code = 200;
+  protected $status_text = 'OK';
+  protected $http_headers = [];
 
-  public __construct($debug = false)
+  public function send()
   {
-    $this->setDebugMode($debug);
-    $this->initialize();
-    $this->configure();
-  }
-
-  protected function setDebugMode($debug)
-  {
-    if($debug) {
-      $this->debug = true;
-      ini_set('display_errors', 1);
-      error_reporting(-1);
-    } else {
-      $this->debug = false;
-      ini_set('display_errors', 0);
+    header('HTTP/1.1 '. $this->status_code. ' '. $this->status_text);
+    foreach($this->http_headers as $name => $value) {
+      header($name. ': '. $value);
     }
+    echo $this->content;
   }
 
-  protected function initialize()
+  public function setContent($content)
   {
-    $this->request = new Request();
-    $this->response = new Response();
-    $this->session = new Session();
-    $this->db_manager = new DbManager();
-    $this->router = new Router($this->registerRoutes());
+    $this->content = $content;
   }
 
-  protected function configure()
+  public function setStatusCode($status_code, $status_text = '')
   {
+    $this->status_code = $status_code;
+    $this->status_text = $status_text;
   }
 
-  abstract public function getRootDir();
-
-  abstract protected function registerRoutes();
-
-  public function isDebugMode()
+  public function setHttpHeader($name, $value)
   {
-    return $this->debug;
-  }
-
-  public function getRequest()
-  {
-    return $this->request;
-  }
-
-  public function getResponse()
-  {
-    return $this->response;
-  }
-
-  public function getSession()
-  {
-    return $this->session;
-  }
-
-  public function getDbManager()
-  {
-    return $this->db_manager;
-  }
-
-  public function getControllerDir()
-  {
-    return $this->getRootDir(). '/controllers';
-  }
-
-  public function getViewDir()
-  {
-    return $this->getRootDir(). '/views';
-  }
-
-  public function getModelDir()
-  {
-    return $this->getRootDir(). '/models';
-  }
-
-  public function getWebDir()
-  {
-    return $this->getRootDir(). '/web';
-  }
-
-  public function run()
-  {
-    try {
-      $params = $this->router->resolve($this->request->getPathInfo());
-      if($params === false) {
-        throw new HttpNotFoundException('No route found for '. $this->request->getPathInfo());
-      }
-
-      $controller = $params['controller'];
-      $action = $params['action'];
-
-      $this->runAction($controller, $action, $params);
-
-    } catch (HttpNotFoundException $e) {
-      $this->render404Page($e);
-    } catch (UnauthorizedActionException $e) {
-      list($controller, $action) = $this->login_action;
-      $this->runAction($controller, $action);
-    }
-    $this->response->send();
-  }
-
-  public function runAction($controller_name, $action)
-  {
-    $controller_class = ucfirst($controller_name). 'Controller';
-
-    $controller = $this->findController($controller_class);
-    if($controller === false) {
-      throw new HttpNotFoundException($controller_class . 'controller is not found');
-    }
-
-    $content = $controller->run($action, $params);
-    $this->response->setContent($content);
-  }
-
-  protected function findController($controller_class)
-  {
-    if(!class_exists($controller_class))
-    {
-      $controller_file = $this->getControllerDir(). '/'. $controller_class. '.php';
-      if(!is_readable($controller_file)) {
-        return false;
-      } else {
-        require_once $controller_file;
-
-        if(!class_exists($controller_class)) {
-          return false;
-        }
-      }
-    }
-    return new $controller_class($this);
-  }
-
-  protected function render404Page($e)
-  {
-    $this->response->setStatusCode(404, 'NotFound');
-    $message = $this->isDebugMode() ? $e->getMessage() : 'Page not found.';
-    $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
-
-    $this->response->setContent(<<<EOF
-    <body>{$message}</body>
-  EOF);
+    $this->http_headers[$name] = $value;
   }
 }
