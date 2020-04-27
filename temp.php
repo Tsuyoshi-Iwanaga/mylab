@@ -1,34 +1,57 @@
 <?php
 
-class Response
+class Session
 {
-  protected $content;
-  protected $status_code = 200;
-  protected $status_text = 'OK';
-  protected $http_headers = [];
+  protected static $sessionStarted = false;
+  protected static $sessionIdRegenerated = false;
 
-  public function send()
+  public function __construct()
   {
-    header('HTTP/1.1 '. $this->status_code. ' '. $this->status_text);
-    foreach($this->http_headers as $name => $value) {
-      header($name. ': '. $value);
+    if(!self::$sessionStarted) {
+      session_start();
+      self::$sessionStarted = true;
     }
-    echo $this->content;
   }
 
-  public function setContent($content)
+  public function set($name, $value)
   {
-    $this->content = $content;
+    $_SESSION[$name] = $value;
   }
 
-  public function setStatusCode($status_code, $status_text = '')
+  public function get($name, $default = null)
   {
-    $this->status_code = $status_code;
-    $this->status_text = $status_text;
+    if(isset($_SESSION[$name])) {
+      return $_SESSION[$name];
+    }
+    return $default;
   }
 
-  public function setHttpHeader($name, $value)
+  public function remove($name)
   {
-    $this->http_headers[$name] = $value;
+    unset($_SESSION[$name]);
+  }
+
+  public function clear()
+  {
+    $_SESSION = [];
+  }
+
+  public function regenerate($destroy = true)
+  {
+    if(!self::$sessionIdRegenerated) {
+      session_regenerate_id($destroy);
+      self::$sessionIdRegenerated = true;
+    }
+  }
+
+  public function setAuthenticated($bool)
+  {
+    $this->set('_authenticated', (bool)$bool);
+    $this->regenerate();
+  }
+
+  public function isAuthenticated()
+  {
+    return $this->get('_authenticated', false);
   }
 }
