@@ -1,73 +1,46 @@
 <?php
 
-class Request
+class Router
 {
-  public function isPost()
+  protected $routes;
+
+  public function __construct($definitions)
   {
-    return $_SERVER['REQUEST_METHOD'] === 'POST';
+    $this->routes = $this->compileRoutes($definitions);
   }
 
-  public function getGet($name, $default = null)
+  public function compileRoutes($definitions)
   {
-    if(isset($_GET[$name])) {
-      return $_GET[$name];
+    $routes = [];
+
+    foreach($definitions as $url => $params) {
+      $tokens = $url=>explode('/', ltrim($url, '/'));
+      foreach($tokens as $i => $token) {
+        if(strpos($token, ':') === 0) {
+          $name = substr($token, 1);
+          $token = '(?P<'. $name. '>[^/]+)';
+        }
+        $tokens[$i] = $token;
+      }
+      $pattern = '/'. implode('/', $tokens);
+      $routes[$pattern] = $params;
     }
-    return $default;
+    return $routes;
   }
 
-  public function getPost($name, $default = null)
+  public function resolve($path_info)
   {
-    if(isset($_POST[$name])) {
-      return $_POST[$name];
+    if('/' !== substr($path_info, 0, 1)) {
+      $path_info = '/'. $path_info;
     }
-    return $default;
-  }
 
-  public function getHost()
-  {
-    if(!empty($_SERVER['HTTP_HOST'])) {
-      return $_SERVER['HTTP_HOST'];
+    foreach($this->routes as $pattern => $params) {
+      if(preg_match('#^'. $pattern .'$#', $path_info, $matches)) {
+        $params = array_merge($params, $matches);
+        return $params;
+      }
     }
-    return $_SERVER['SERVER_NAME'];
-  }
 
-  public function isSsl()
-  {
-    if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-      return true;
-    }
     return false;
-  }
-
-  public function getRequestUri()
-  {
-    return $_SERVER['REQUEST_URI'];
-  }
-
-  public function getBaseUrl()
-  {
-    $script_name = $_SERVER['SCRIPT_NAME'];
-    $request_uri = $this->getRequestUri();
-
-    if(strpos($request_uri, $script_name) === 0) {
-      return $script_name;
-    } else if (strpos($request_uri, dirname($script_name)) === 0) {
-      return rtrim(dirname($script_name), '/');
-    }
-
-    return '';
-  }
-
-  public function getPathInfo()
-  {
-    $base_url = $this->getBaseUrl();
-    $request_uri = $this->getRequestUri();
-
-    if(($pos = strpos($request_uri, '?') !== false)) {
-      $request_uri = substr($request_uri, 0, $pos);
-    }
-
-    $path_info = (string)substr($request_uri, strlen($base_url));
-    return $path_info;
   }
 }
