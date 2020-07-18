@@ -1,71 +1,33 @@
 <?php
 ini_set('display_errors', 'On');
 
-abstract class AbstractDisplay {
-  private $data;
+class Sigleton {
+  private $id;
+  private static $instance;
 
-  public function __counstruct($data) {
-    if(!is_array($data)) {
-      $data = array($data);
+  private function __construct() {
+    $this->id = md5(date('r').mt_rand());
+  }
+
+  public static function getInstance() {
+    if(!isset(self::$instance)) {
+      self::$instance = new Singleton();
     }
-    $this->data = $data;
+    return self::$instance;
   }
 
-  protected function getData() {
-    return $this->data;
+  public function getId() {
+    return $this->id;
   }
 
-  protected abstract function displayHeader();
-  protected abstract function displayBody();
-  protected abstract function displayFooter();
-
-  public function display() {
-    $this->displayHeader();
-    $this->displayBody();
-    $this->displayFooter();
+  public final function __clone() {
+    throw new RuntimeException('Clone is not allowed against'. get_class($this));
   }
 }
 
-class ListDisplay extends AbstractDisplay {
-  protected function displayHeader() {
-    echo '</dl>';
-  }
-
-  protected function displayBody() {
-    foreach($this->getData() as $key => $value) {
-      echo '<dt>Item'. $key. '</dt>';
-      echo '<dd>'. $value. '<dd>';
-    }
-  }
-
-  protected function displayFooter() {
-    echo '</dl>';
-  }
-}
-
-class TableDisplay extends AbstractDisplay {
-  protected function displayHeader() {
-    echo '<table>';
-  }
-
-  protected function displayBody() {
-    foreach($this->getData() as $key => $value) {
-      echo '<tr>';
-      echo '<td>Item'. $key. $value. '</td>';
-      echo '<td>'. $value. '</td>';
-      echo '</tr>';
-    }
-  }
-
-  protected function displayFooter() {
-    echo '</table>';
-  }
-}
-
-$data = ['Design Pattern', 'Gang of four', 'Template Method1', 'TemplateMethod2'];
-
-$display1->display();
+$instance01 = Singleton::getInstance();
+$instance02 = Singleton::getInstance();
 echo '<hr>';
-$display2->display();
 
-?>
+echo $instance01->getId(). '<br>';
+echo $instance02->getId(). '<br>';
