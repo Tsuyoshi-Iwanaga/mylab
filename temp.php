@@ -1,57 +1,33 @@
 <?php
+ini_set('display_errors', 'On');
 
-class Session
-{
-  protected static $sessionStarted = false;
-  protected static $sessionIdRegenerated = false;
+class Sigleton {
+  private $id;
+  private static $instance;
 
-  public function __construct()
-  {
-    if(!self::$sessionStarted) {
-      session_start();
-      self::$sessionStarted = true;
+  private function __construct() {
+    $this->id = md5(date('r').mt_rand());
+  }
+
+  public static function getInstance() {
+    if(!isset(self::$instance)) {
+      self::$instance = new Singleton();
     }
+    return self::$instance;
   }
 
-  public function set($name, $value)
-  {
-    $_SESSION[$name] = $value;
+  public function getId() {
+    return $this->id;
   }
 
-  public function get($name, $default = null)
-  {
-    if(isset($_SESSION[$name])) {
-      return $_SESSION[$name];
-    }
-    return $default;
-  }
-
-  public function remove($name)
-  {
-    unset($_SESSION[$name]);
-  }
-
-  public function clear()
-  {
-    $_SESSION = [];
-  }
-
-  public function regenerate($destroy = true)
-  {
-    if(!self::$sessionIdRegenerated) {
-      session_regenerate_id($destroy);
-      self::$sessionIdRegenerated = true;
-    }
-  }
-
-  public function setAuthenticated($bool)
-  {
-    $this->set('_authenticated', (bool)$bool);
-    $this->regenerate();
-  }
-
-  public function isAuthenticated()
-  {
-    return $this->get('_authenticated', false);
+  public final function __clone() {
+    throw new RuntimeException('Clone is not allowed against'. get_class($this));
   }
 }
+
+$instance01 = Singleton::getInstance();
+$instance02 = Singleton::getInstance();
+echo '<hr>';
+
+echo $instance01->getId(). '<br>';
+echo $instance02->getId(). '<br>';
