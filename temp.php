@@ -22,9 +22,50 @@ class Cart {
     }
     $this->notify();
   }
+}
 
+<<<<<<< HEAD
+class Employee extents OrganizationEntry {
+  public function __construct($code, $name) {
+    parent::__construct($code, $name);
+  }
+
+  public function add(OrganizationEntry $entry) {
+    throw new Exception('method not allowed');
+  }
+}
+
+<<<<<<< HEAD
   public function getItems() {
     return $this->items;
+=======
+$root_entry = new Group('001', '本社');
+$root_entry->add(new Emploee("00101", "CEO"));
+$root_entry->add(new Emploee("00102", "CTO"));
+
+$group1 = new Group("010", "〇〇支店");
+$group1->add(new Employee("01001", "支店長"));
+$group1->add(new Employee("01002", "佐々木"));
+$group1->add(new Employee("01003", "鈴木"));
+$group1->add(new Employee("01003", "吉田"));
+
+$group2 = new Group("110", "▲▲営業所");
+$group2->add(new Employee("11001", "川村"));
+
+$group1->add($group2);
+$root_entry->add($group1);
+
+$group3 = new Group("020", "××支店");
+$group3->add(new Employee("02001", "荻原"));
+$group3->add(new Employee("02002", "田島"));
+$group3->add(new Employee("02002", "白井"));
+$root_entry->add($group3);
+
+$root_entry->dump();
+=======
+  public function getFilename() {
+    return $this->filename;
+>>>>>>> c45c1a9736ad42f7b8f2819d35a363208baf6926
   }
 
   public function hasItem($item_cd) {
@@ -93,6 +134,7 @@ class LoggingLIstener implements CartListener {
   }
 }
 
+<<<<<<< HEAD
 //client
 $cart = new Cart();
 $cart->addListener(new PresentListener());
@@ -108,3 +150,9 @@ $cart->removeItem("クッキーセット");
 $cart->removeItem("クッキーセット");
 $cart->removeItem("クッキーセット");
 $cart->show();
+=======
+echo 'JSON';
+$context = new ItemDataContext(new ReadJSONDataStrategy(__DIR__.'item_data.json'));
+dumpData($context->getItemData());
+>>>>>>> 6b53fdd2e74a580608b1ad804f763c959c9e34ed
+>>>>>>> c45c1a9736ad42f7b8f2819d35a363208baf6926
