@@ -1,47 +1,26 @@
 <?php
-ini_set('display_errors', 'On');
 
-abstract class OrganizationEntry {
-  private $code;
-  private $name;
+//Subject
+class Cart {
+  private $items;
+  private $listeners;
 
-  public function __construct($code, $name) {
-    $this->code = $code;
-    $this->name = $name;
+  public function __construct() {
+    $this->items = array();
+    $this->listners = array();
   }
 
-  public function getCode() {
-    return $this->code;
+  public function addItem($item_cd) {
+    $this->items[$item_cd] = (isset($this->items[$item_cd]) ? ++ $this->items[$item_cd] : 1);
+    $this->notify();
   }
 
-  public function getName() {
-    return $this->name;
-  }
-
-  abstract public function add(OrganizationEntry $entry);
-
-  public function dump() {
-    printf('%s:%s<br>', $this->code, $this->name);
-  }
-}
-
-class Group extends OrganizationEntry {
-  private $entries;
-
-  public function __construct($code, $name) {
-    parent::__construct($code, $name);
-    $this->entries = array();
-  }
-
-  public function add(OrganizationEntry $entry) {
-    array_push($this->entries, $entries);
-  }
-
-  public function dump() {
-    parent::dump();
-    foreach($this->entries as $entry) {
-      $entry->dump();
+  public function emoveItem($item_cd) {
+    $this->items[$item_cd] = (isset($this->items[$item_cd]) ? -- $this->items[$item_cd] : 0);
+    if($this->items[$item_cd] <= 0) {
+      unset($this->items[$item_cd]);
     }
+    $this->notify();
   }
 }
 
@@ -56,6 +35,10 @@ class Employee extents OrganizationEntry {
   }
 }
 
+<<<<<<< HEAD
+  public function getItems() {
+    return $this->items;
+=======
 $root_entry = new Group('001', '本社');
 $root_entry->add(new Emploee("00101", "CEO"));
 $root_entry->add(new Emploee("00102", "CTO"));
@@ -82,86 +65,94 @@ $root_entry->dump();
 =======
   public function getFilename() {
     return $this->filename;
+>>>>>>> c45c1a9736ad42f7b8f2819d35a363208baf6926
   }
 
-  abstract protected function readData($filename);
-}
+  public function hasItem($item_cd) {
+    return array_key_exists($item_cd, $this->items);
+  }
 
-class ReadJSONDataStrategy extends ReadItemDataStrategy
-{
-  protected function readData($filename) {
-    $data = json_decode(file_get_contents($filename));
+  //Observer登録
+  public function addListener(CartListner $listener) {
+    $this->listeners[get_class($listener)] = $listener;
+  }
 
-    foreach($data as $line) {
-      $obj = new stdClass();
-      $obj->item_name = $line->item_name;
-      $obj->item_id = $line->item_id;
-      $obj->price = $line->price;
-      $obj->release_date = new DateTime($line->release_date);
+  //Observer削除
+  public function removeListener(CartListner $listener) {
+    unset($this->listeners[get_class($listener)]);
+  }
 
-      $return_value[] = $obj;
+  //Observerへ変更を通知
+  public function notify() {
+    foreach($this->listerner as $listener) {
+      $listerner->update($this);
     }
-    return $return_value;
   }
-}
 
-class ReadTabSeparatedDataStrategy extends ReadItemDataStrategy
-{
-  protected function readData($filename) {
-    $fp = fopen($filename, 'r');
-    $dummy = fgets($fp, 4096);
-    $return_value = array();
-
-    while(($buffer = fgets($fp, 4096)) !== false) {
-      $data = explode("\t", trim($buffer));
-
-      if(count($data) !== 4) {
-        continue;
-      }
-
-      list($item_id, $item_name, $price, $release_date) = $data;
-
-      $obj = new \stdClass();
-      $obj->item_name = $item_name;
-      $obj->item_id = $item_id;
-      $obj->price = $price;
-      $obj->release_date = new DateTime($release_date);
-
-      $return_value[] = $obj;
+  public function show() {
+    $line = str_repeat('-', 40).'<br>';
+    echo $line;
+    echo "商品名\t個数".'<br>';
+    echo $line;
+    foreach($this->getItems() as $item_name => $quantity) {
+      echo $item_name."\t".$quantity.'<br>';
     }
-    fclose($fp);
-    return $return_value;
+    echo $line;
   }
 }
 
-class ItemDataContext
-{
-  private $strategy;
+//Observer
+interface CartListener {
+  public function update(Cart $cart);
+}
 
-  public function __construct(ReadItemDataStrategy $strategy) {
-    $this->strategy = $strategy;
+//ConcreteObserver01
+class PresentListener implements CartListener {
+  const PRESENT_TARGET_ITEM = 'クッキーセット';
+  const PRESENT_ITEM = 'プレゼント';
+
+  public function __construct() {
   }
 
-  public function getItemData() {
-    return $this->strategy->getData();
+  public function update(Cart $cart) {
+    if($cart->hasItem(self::PRESENT_TARGET_ITEM) && !$cart->hasItem(self::PRESENT_ITEM)) {
+      $cart->addItem(self::PRESENT_ITEM);
+    }
+    if(!$cart->hasItem(self::PRESENT_TARGET_ITEM) && $cart->hasItem(self::PRESENT_ITEM)) {
+      $cart->removeItem(self::PRESENT_ITEM);
+    }
   }
 }
 
-function dumpData($data)
-{
-  foreach($data as $object) {
-    echo $object->item_name;
-    echo $object->item_id;
-    echo number_format($object->price);
-    echo $object->release_date->format('Y/m/d');
+//ConcreteObserver02
+class LoggingLIstener implements CartListener {
+  public function __construct() {
+  }
+
+  public function update(Cart $cart) {
+    echo var_export($cart->getItems(), true).'<br>';
   }
 }
 
-echo 'Tab';
-$context = new ItemDataContext(new ReadTabSeparateDataStrategy(__DIR__.'item_data.txt'));
-dumpData($context->getItemData());
+<<<<<<< HEAD
+//client
+$cart = new Cart();
+$cart->addListener(new PresentListener());
+$cart->addListener(new LoggingListener());
 
+$cart->addItem("Tシャツ");
+$cart->addItem("ぬいぐるみ");
+$cart->addItem("ぬいぐるみ");
+$cart->addItem("クッキーセット");
+$cart->addItem("クッキーセット");
+$cart->addItem("クッキーセット");
+$cart->removeItem("クッキーセット");
+$cart->removeItem("クッキーセット");
+$cart->removeItem("クッキーセット");
+$cart->show();
+=======
 echo 'JSON';
 $context = new ItemDataContext(new ReadJSONDataStrategy(__DIR__.'item_data.json'));
 dumpData($context->getItemData());
 >>>>>>> 6b53fdd2e74a580608b1ad804f763c959c9e34ed
+>>>>>>> c45c1a9736ad42f7b8f2819d35a363208baf6926
