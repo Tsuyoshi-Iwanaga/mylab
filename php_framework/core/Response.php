@@ -5,35 +5,31 @@ class Response
   protected $content;
   protected $status_code = 200;
   protected $status_text = 'OK';
-  protected $http_header = [];
+  protected $http_headers = [];
 
-  //レスポンス送信
   public function send()
   {
-    header('HTTP/1.1 '.$this->status_code. ' '. $this->status_text);
+    header('HTTP/1.1 '. $this->status_code. ' ' .$this->status_text);
 
     foreach($this->http_headers as $name => $value) {
       header($name. ': '. $value);
     }
+
     echo $this->content;
   }
 
-  //コンテンツ設定
-  public function setContent($content)
-  {
+  public function setContent($content) {
     $this->content = $content;
   }
 
-  //ステータスコード設定
-  public function setStatusCode($status_code, $status_text = '')
+  public function setStatusCode($status_code, $status_text='')
   {
     $this->status_code = $status_code;
     $this->status_text = $status_text;
   }
 
-  //HTTPレスポンスヘッダを設定
   public function setHttpHeader($name, $value)
   {
-    $this->http_header[$name] = $value;
+    $this->http_headers[$name] = $value;
   }
 }

@@ -7,13 +7,13 @@ abstract class Controller
   protected $application;
   protected $request;
   protected $response;
+  protected $session;
   protected $db_manager;
   protected $auth_actions = [];
 
   public function __construct($application)
   {
     $this->controller_name = strtolower(substr(get_class($this), 0, -10));
-
     $this->application = $application;
     $this->request = $application->getRequest();
     $this->response = $application->getResponse();
@@ -21,32 +21,38 @@ abstract class Controller
     $this->db_manager = $application->getDbManager();
   }
 
-  public function run($action, $params)
+  public function run($action, $params=[])
   {
     $this->action_name = $action;
-
     $action_method = $action. 'Action';
     if(!method_exists($this, $action_method)) {
       $this->forward404();
     }
 
-    if($this->needsAuthentication($action) &&
-    !$this->session->isAuthenticated()) {
+    //ログイン判定
+    if($this->needsAuthentication($action) && !$this->session->isAuthenticated()) {
       throw new UnauthorizedActionException();
     }
 
     $content = $this->$action_method($params);
-
     return $content;
   }
 
-  protected function render($variables = [], $template = null, $layout = 'layout')
+  protected function needsAuthentication($action)
   {
-    $defaults = array(
+    //auth_actionsがtrueの時は全てのアクションがログイン必須
+    if($this->auth_actions === true || (is_array($this->auth_actions) && in_array($action, $this->auth_actions))) {
+      return true;
+    }
+    return false;
+  }
+
+  protected function render($variables=[], $template=null, $layout='layout') {
+    $defaults = [
       'request' => $this->request,
       'base_url' => $this->request->getBaseUrl(),
       'session' => $this->session,
-    );
+    ];
 
     $view = new View($this->application->getViewDir(), $defaults);
 
@@ -55,13 +61,14 @@ abstract class Controller
     }
 
     $path = $this->controller_name. '/'. $template;
-
     return $view->render($path, $variables, $layout);
   }
 
   protected function forward404()
   {
-    throw new HttpNotFoundException('Forward 404 page from'. $this->controller_name. '/'. $this->action_name);
+    throw new HttpNotFoundException(
+      'Forwarded 404 page from '. $this->controller_name. '/'. $this->action_name
+    );
   }
 
   protected function redirect($url)
@@ -73,11 +80,11 @@ abstract class Controller
 
       $url = $protocol. $host. $base_url. $url;
     }
-
     $this->response->setStatusCode(302, 'Found');
     $this->response->setHttpHeader('Location', $url);
   }
 
+  //CSRF対策
   protected function generateCsrfToken($form_name)
   {
     $key = 'csrf_tokens/'. $form_name;
@@ -86,36 +93,25 @@ abstract class Controller
       array_shift($tokens);
     }
 
+    //トークン生成
     $token = sha1($form_name. session_id(). microtime());
     $tokens[] = $token;
 
-    $this->session->set($key, $token);
-
+    $this->session->set($key, $tokens);
     return $token;
   }
 
+  //CSRF対策(トークンのチェック)
   protected function checkCsrfToken($form_name, $token)
   {
     $key = 'csrf_tokens/'. $form_name;
     $tokens = $this->session->get($key, []);
 
-    if(($pos = array_searc($token, $tokens, true) !== false))
-    {
+    if(($pos = array_search($token, $tokens, true)) !== false) {
       unset($tokens[$pos]);
       $this->session->set($key, $tokens);
-
       return true;
     }
-
-    return false;
-  }
-
-  protected function needsAuthentication($action)
-  {
-    if($this->auth_actions === true || (is_array($this->auth_actions) && in_array($action, $this->auth_actions))) {
-      return true;
-    }
-
     return false;
   }
 }

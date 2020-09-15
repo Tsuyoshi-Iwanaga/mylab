@@ -2,21 +2,18 @@
 
 class ClassLoader
 {
-  protected $dirs;
+  public $dirs;
 
-  //自身をAutoloadスタックに登録
   public function register()
   {
     spl_autoload_register([$this, 'loadClass']);
   }
 
-  //Autoload対象となるディレクトリを登録
   public function registerDir($dir)
   {
     $this->dirs[] = $dir;
   }
 
-  //クラスの読み込み処理
   public function loadClass($class)
   {
     foreach($this->dirs as $dir) {
