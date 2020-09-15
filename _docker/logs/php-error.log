@@ -1,0 +1,90 @@
+[15-Sep-2020 14:36:26 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'mysqli' (tried: /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli (Error loading shared library /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli: No such file or directory), /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli.so (Error loading shared library /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli.so: No such file or directory)) in Unknown on line 0
+[15-Sep-2020 23:41:21 Asia/Tokyo] PHP Warning:  session_start(): Cannot start session when headers already sent in /php_framework/core/Session.php on line 11
+[15-Sep-2020 23:41:21 Asia/Tokyo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1044] Access denied for user 'homestead'@'%' to database 'mini_blog' in /php_framework/core/DbManager.php:21
+Stack trace:
+#0 /php_framework/core/DbManager.php(21): PDO->__construct('mysql:dbname=mi...', 'homestead', 'secret', Array)
+#1 /php_framework/MiniBlogApplication.php(30): DbManager->connect('master', Array)
+#2 /php_framework/core/Application.php(16): MiniBlogApplication->configure()
+#3 /php_framework/public/index.php(49): Application->__construct(true)
+#4 {main}
+  thrown in /php_framework/core/DbManager.php on line 21
+[15-Sep-2020 23:41:39 Asia/Tokyo] PHP Warning:  Cannot modify header information - headers already sent by (output started at /php_chat/dbconnect.php:5) in /php_chat/index.php on line 15
+[15-Sep-2020 23:41:40 Asia/Tokyo] PHP Warning:  Cannot modify header information - headers already sent by (output started at /php_chat/dbconnect.php:5) in /php_chat/index.php on line 15
+[15-Sep-2020 23:42:27 Asia/Tokyo] PHP Warning:  Cannot modify header information - headers already sent by (output started at /php_chat/dbconnect.php:5) in /php_chat/index.php on line 15
+[15-Sep-2020 23:42:43 Asia/Tokyo] PHP Warning:  session_start(): Cannot start session when headers already sent in /php_framework/core/Session.php on line 11
+[15-Sep-2020 23:42:43 Asia/Tokyo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1044] Access denied for user 'homestead'@'%' to database 'mini_blog' in /php_framework/core/DbManager.php:21
+Stack trace:
+#0 /php_framework/core/DbManager.php(21): PDO->__construct('mysql:dbname=mi...', 'homestead', 'secret', Array)
+#1 /php_framework/MiniBlogApplication.php(30): DbManager->connect('master', Array)
+#2 /php_framework/core/Application.php(16): MiniBlogApplication->configure()
+#3 /php_framework/public/index.php(49): Application->__construct(true)
+#4 {main}
+  thrown in /php_framework/core/DbManager.php on line 21
+[15-Sep-2020 23:43:09 Asia/Tokyo] PHP Warning:  Cannot modify header information - headers already sent by (output started at /php_chat/dbconnect.php:5) in /php_chat/index.php on line 15
+[15-Sep-2020 23:43:09 Asia/Tokyo] PHP Warning:  Cannot modify header information - headers already sent by (output started at /php_chat/dbconnect.php:5) in /php_chat/index.php on line 15
+[15-Sep-2020 23:46:16 Asia/Tokyo] PHP Warning:  session_start(): Cannot start session when headers already sent in /php_framework/core/Session.php on line 11
+[15-Sep-2020 23:46:16 Asia/Tokyo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1044] Access denied for user 'homestead'@'%' to database 'mini_blog' in /php_framework/core/DbManager.php:21
+Stack trace:
+#0 /php_framework/core/DbManager.php(21): PDO->__construct('mysql:dbname=mi...', 'homestead', 'secret', Array)
+#1 /php_framework/MiniBlogApplication.php(30): DbManager->connect('master', Array)
+#2 /php_framework/core/Application.php(16): MiniBlogApplication->configure()
+#3 /php_framework/public/index.php(49): Application->__construct(true)
+#4 {main}
+  thrown in /php_framework/core/DbManager.php on line 21
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Undefined index: email in /php_chat/login.php on line 5
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Undefined index: email in /php_chat/login.php on line 50
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Undefined variable: error in /php_chat/login.php on line 51
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Trying to access array offset on value of type null in /php_chat/login.php on line 51
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Undefined variable: error in /php_chat/login.php on line 54
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Trying to access array offset on value of type null in /php_chat/login.php on line 54
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Undefined index: password in /php_chat/login.php on line 60
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Undefined index: email in /php_chat/login.php on line 5
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Undefined index: email in /php_chat/login.php on line 50
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Undefined variable: error in /php_chat/login.php on line 51
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Trying to access array offset on value of type null in /php_chat/login.php on line 51
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Undefined variable: error in /php_chat/login.php on line 54
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Trying to access array offset on value of type null in /php_chat/login.php on line 54
+[15-Sep-2020 23:46:19 Asia/Tokyo] PHP Notice:  Undefined index: password in /php_chat/login.php on line 60
+[15-Sep-2020 23:53:37 Asia/Tokyo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1044] Access denied for user 'homestead'@'%' to database 'mini_blog' in /php_framework/core/DbManager.php:21
+Stack trace:
+#0 /php_framework/core/DbManager.php(21): PDO->__construct('mysql:dbname=mi...', 'homestead', 'secret', Array)
+#1 /php_framework/MiniBlogApplication.php(30): DbManager->connect('master', Array)
+#2 /php_framework/core/Application.php(16): MiniBlogApplication->configure()
+#3 /php_framework/public/index.php(47): Application->__construct(true)
+#4 {main}
+  thrown in /php_framework/core/DbManager.php on line 21
+[15-Sep-2020 23:53:37 Asia/Tokyo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1044] Access denied for user 'homestead'@'%' to database 'mini_blog' in /php_framework/core/DbManager.php:21
+Stack trace:
+#0 /php_framework/core/DbManager.php(21): PDO->__construct('mysql:dbname=mi...', 'homestead', 'secret', Array)
+#1 /php_framework/MiniBlogApplication.php(30): DbManager->connect('master', Array)
+#2 /php_framework/core/Application.php(16): MiniBlogApplication->configure()
+#3 /php_framework/public/index.php(47): Application->__construct(true)
+#4 {main}
+  thrown in /php_framework/core/DbManager.php on line 21
+[15-Sep-2020 23:53:49 Asia/Tokyo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1044] Access denied for user 'homestead'@'%' to database 'mini_blog' in /php_framework/core/DbManager.php:21
+Stack trace:
+#0 /php_framework/core/DbManager.php(21): PDO->__construct('mysql:dbname=mi...', 'homestead', 'secret', Array)
+#1 /php_framework/MiniBlogApplication.php(30): DbManager->connect('master', Array)
+#2 /php_framework/core/Application.php(16): MiniBlogApplication->configure()
+#3 /php_framework/public/index.php(47): Application->__construct(true)
+#4 {main}
+  thrown in /php_framework/core/DbManager.php on line 21
+[15-Sep-2020 23:53:50 Asia/Tokyo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1044] Access denied for user 'homestead'@'%' to database 'mini_blog' in /php_framework/core/DbManager.php:21
+Stack trace:
+#0 /php_framework/core/DbManager.php(21): PDO->__construct('mysql:dbname=mi...', 'homestead', 'secret', Array)
+#1 /php_framework/MiniBlogApplication.php(30): DbManager->connect('master', Array)
+#2 /php_framework/core/Application.php(16): MiniBlogApplication->configure()
+#3 /php_framework/public/index.php(47): Application->__construct(true)
+#4 {main}
+  thrown in /php_framework/core/DbManager.php on line 21
+[16-Sep-2020 00:08:09 Asia/Tokyo] PHP Fatal error:  Uncaught UnauthorizedActionException in /php_framework/core/Controller.php:34
+Stack trace:
+#0 /php_framework/core/Application.php(122): Controller->run('index', Array)
+#1 /php_framework/core/Application.php(105): Application->runAction('status', 'index', Array)
+#2 /php_framework/public/index.php(48): Application->run()
+#3 {main}
+  thrown in /php_framework/core/Controller.php on line 34
+[15-Sep-2020 15:13:53 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'mysqli' (tried: /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli (Error loading shared library /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli: No such file or directory), /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli.so (Error loading shared library /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli.so: No such file or directory)) in Unknown on line 0
+[15-Sep-2020 15:14:09 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'mysqli' (tried: /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli (Error loading shared library /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli: No such file or directory), /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli.so (Error loading shared library /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli.so: No such file or directory)) in Unknown on line 0
+[15-Sep-2020 15:15:23 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'mysqli' (tried: /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli (Error loading shared library /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli: No such file or directory), /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli.so (Error loading shared library /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli.so: No such file or directory)) in Unknown on line 0
+[15-Sep-2020 15:17:53 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'mysqli' (tried: /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli (Error loading shared library /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli: No such file or directory), /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli.so (Error loading shared library /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mysqli.so: No such file or directory)) in Unknown on line 0

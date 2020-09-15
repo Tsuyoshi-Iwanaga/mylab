@@ -2,8 +2,6 @@
 require_once '../bootstrap.php';
 require_once '../MiniBlogApplication.php';
 
-echo 'sample';
-
 // $session = new Session();
 // $session->setAuthenticated(true);
 // $session->clear();
@@ -47,4 +45,4 @@ echo 'sample';
 // print("<hr>");
 
 $app = new MiniBlogApplication(true);
-// $app->run();
+$app->run();
