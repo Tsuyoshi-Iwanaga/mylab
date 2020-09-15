@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 services:
   https-portal:
     image: steveltn/https-portal:1
@@ -10,7 +10,7 @@ services:
       DOMAINS: "\
         sample01.com -> http://172.30.0.3:8000,\
         sample02.com -> http://172.30.0.3:8001"
-      STAGE: 'staging'
+      STAGE: 'local'
       #FORCE_RENEW: 'true'
     networks:
       app_net:
@@ -31,7 +31,7 @@ services:
       app_net:
         ipv4_address: 172.30.0.3
 
-  mysql:
+  db:
     build:
       context: "."
       dockerfile: ./Dockerfile-mysql
@@ -56,11 +56,11 @@ services:
       args:
         - TZ=${TZ}
     volumes:
-      - ../php_framework:/php_framework
-      - ../php_designPattern:/php_designPattern
+      - ../php_framework:/works/php_framework
+      - ../laravel:/works/laravel
       - ./logs:/var/log/php
       - ./php/php.ini:/usr/local/etc/php/php.ini
-    #working_dir: /work
+    working_dir: /works
     environment:
       - DB_CONNECTION=mysql
       - DB_HOST=db
