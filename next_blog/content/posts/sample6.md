@@ -16,7 +16,7 @@ class Hoge {
 <?php
 echo "hoge";
 
-class SampleClass($param) {
+class SampleClass {
   public $hoge = 'aaa';
 
   private function alert() {
