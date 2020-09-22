@@ -24,7 +24,8 @@ services:
     volumes:
       - ./logs:/var/log/nginx
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ../php_framework:/var/www/html
+      - ../php_framework:/var/www/html/php_framework
+      - ../lara6.0:/var/www/html/lara6.0
     environment:
       - TZ=${TZ}
     networks:
