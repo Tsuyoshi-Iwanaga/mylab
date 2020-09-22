@@ -57,7 +57,7 @@ services:
         - TZ=${TZ}
     volumes:
       - ../php_framework:/works/php_framework
-      - ../laravel:/works/laravel
+      - ../lara6.0:/works/lara6.0
       - ./logs:/var/log/php
       - ./php/php.ini:/usr/local/etc/php/php.ini
     working_dir: /works
