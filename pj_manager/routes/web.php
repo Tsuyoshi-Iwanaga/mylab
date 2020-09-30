@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () { return redirect('project'); });
+
+Route::get('/project', 'ProjectController@index')->name('project');
+Route::post('/project', 'ProjectController@store')->name('project/store');
+Route::get('/project/create', 'ProjectController@create')->name('project/create');
+
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
