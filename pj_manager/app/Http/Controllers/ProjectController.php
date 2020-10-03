@@ -16,7 +16,7 @@ class ProjectController extends Controller
     public function index(Request $request) {
         $user = Auth::user();
         $data = ['user' => $user];
-        $projects = DB::select('select * from projects');
+        $projects = DB::table('projects')->get();
         return view('project.index', ['user' => $user, 'projects' => $projects]);
     }
 
@@ -44,7 +44,7 @@ class ProjectController extends Controller
             'amount'=>$request->amount ,
             'estimatedTime'=>$request->estimatedTime,
         ];
-        DB::insert('insert into projects(projectCode, jobCode, name, client, director, assigner, worker, amount, estimatedTime) values (:projectCode, :jobCode, :name, :client, :director, :assigner, :worker, :amount, :estimatedTime)', $params);
+        DB::table('projects')->insert($params);
         return redirect('project');
     }
 
