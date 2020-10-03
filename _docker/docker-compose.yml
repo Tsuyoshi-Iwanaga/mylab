@@ -10,7 +10,7 @@ services:
       DOMAINS: "\
         dev.ray-beams.xyz -> http://172.30.0.3:8000,\
         techblog.ray-beams.xyz -> http://172.30.0.3:8001"
-      STAGE: 'production'
+      STAGE: ${STAGE}
       # FORCE_RENEW: 'true'
     networks:
       app_net:
