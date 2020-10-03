@@ -11,6 +11,11 @@
 |
 */
 
+//SSL
+if(config('app.env') === 'production') {
+    URL::forceScheme('https');
+}
+
 Route::get('/', function () { return redirect('project'); });
 
 Route::get('/project', 'ProjectController@index')->name('project');
