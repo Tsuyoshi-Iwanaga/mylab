@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Project;
 
 class ProjectController extends Controller
 {
@@ -16,29 +17,18 @@ class ProjectController extends Controller
     public function index(Request $request) {
         $user = Auth::user();
         $data = ['user' => $user];
-        $projects = DB::table('projects')->get();
+        $projects = Project::all();
         return view('project.index', ['user' => $user, 'projects' => $projects]);
     }
 
     public function store(Request $request) {
-        $validate_rule = [
-            'projectCode'=>'required',
-            'jobCode'=>'required',
-            'name'=>'required',
-            'client'=>'required',
-            'director'=>'required',
-            'assigner'=>'required',
-        ];
-        $this->validate($request, $validate_rule);
-        $params = [
-            'projectCode'=>$request->projectCode,
-            'jobCode'=>$request->jobCode,
-            'name'=>$request->name,
-            'client'=>$request->client,
-            'director'=>$request->director,
-            'assigner'=>$request->assigner,
-        ];
-        DB::table('projects')->insert($params);
+        $this->validate($request, Project::$validate_rules);
+
+        $project = new Project();
+        $form = $request->all();
+        unset($form['_token']);
+        $project->fill($form)->save();
+
         return redirect('project');
     }
 
@@ -47,8 +37,7 @@ class ProjectController extends Controller
     }
 
     public function edit(Request $request) {
-        $id = $request->id;
-        $item = DB::table('projects')->where('id', $id)->first();
+        $item = Project::find($request->id);
         if(!isset($item)) {
             return redirect('project');
         }
@@ -56,32 +45,18 @@ class ProjectController extends Controller
     }
 
     public function update(Request $request) {
-        $id = $request->id;
-        $validate_rule = [
-            'id' => 'required',
-            'projectCode'=>'required',
-            'jobCode'=>'required',
-            'name'=>'required',
-            'client'=>'required',
-            'director'=>'required',
-            'assigner'=>'required',
-        ];
-        $this->validate($request, $validate_rule);
-        $params = [
-            'projectCode'=>$request->projectCode,
-            'jobCode'=>$request->jobCode,
-            'name'=>$request->name,
-            'client'=>$request->client,
-            'director'=>$request->director,
-            'assigner'=>$request->assigner,
-        ];
-        DB::table('projects')->where('id', $id)->update($params);
+        $this->validate($request, Project::$validate_rules);
+
+        $project = Project::find($request->id);
+        $form = $request->all();
+        unset($form['_token']);
+        $project->fill($form)->save();
+
         return redirect('project');
     }
 
     public function delete(Request $request) {
-        $id = $request->id;
-        DB::table('projects')->where('id', $id)->delete();
+        $project = Project::find($request->id)->delete();
         return redirect('project');
     }
 }
