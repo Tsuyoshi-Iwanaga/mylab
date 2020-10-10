@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAsignTable extends Migration
+class CreateAsignsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAsignTable extends Migration
      */
     public function up()
     {
-        Schema::create('asign', function (Blueprint $table) {
+        Schema::create('asigns', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('asigner');
             $table->integer('projectId');

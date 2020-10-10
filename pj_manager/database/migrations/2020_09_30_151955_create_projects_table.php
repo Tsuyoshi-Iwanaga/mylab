@@ -18,13 +18,9 @@ class CreateProjectsTable extends Migration
             $table->string('projectCode')->unique();
             $table->integer('jobCode')->nullable();;
             $table->string('name');
-            $table->string('client');
+            $table->integer('client');
             $table->string('director')->nullable();;
             $table->string('assigner');
-            $table->string('worker')->nullable();;
-            $table->integer('amount')->nullable();;
-            $table->datetime('estimatedTime')->nullable();;
-            $table->datetime('actualTime')->nullable();;
             $table->timestamps();
         });
     }
