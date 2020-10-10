@@ -18,7 +18,6 @@
                           <th scope="col">クライアント名</th>
                           <th scope="col">依頼元</th>
                           <th scope="col">アサイナー</th>
-                          <th>削除</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -30,7 +29,6 @@
                           <td>{{$project->client}}</td>
                           <td>{{$project->director}}</td>
                           <td>{{$project->assigner}}</td>
-                          <td><a href="">削除</a></td>
                         </tr>
                         @endforeach
                       </tbody>
