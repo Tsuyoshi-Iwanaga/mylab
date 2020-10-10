@@ -16,4 +16,8 @@ class Project extends Model
         'director'=>'required',
         'assigner'=>'required',
     ];
+
+    public function clients() {
+        return $this->belongsTo(Client::class ,'client');
+    }
 }

@@ -52,7 +52,12 @@
                         <div class="form-group row">
                             <label for="client" class="col-md-4 col-form-label text-md-right">クライアント名</label>
                             <div class="col-md-6">
-                                <input id="client" type="text" class="form-control @error('client') is-invalid @enderror" name="client" value="{{ old('client') }}" required autocomplete="client" autofocus>
+                                <select class="form-control @error('client') is-invalid @enderror" name="client" value="{{ old('client') }}" required autocomplete="client" autofocus>
+                                    <option value=""></option>
+                                    @foreach($clients as $client)
+                                        <option value="{{$client->id}}">{{$client->name}}</option>
+                                    @endforeach
+                                <select>
                                 @error('client')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -78,7 +83,7 @@
                         <div class="form-group row">
                             <label for="assigner" class="col-md-4 col-form-label text-md-right">アサイナー</label>
                             <div class="col-md-6">
-                                <input id="assigner" type="text" class="form-control @error('assigner') is-invalid @enderror" name="assigner" value="{{ old('assigner') }}" required autocomplete="assigner" autofocus>
+                                <input id="assigner" type="text" class="form-control @error('assigner') is-invalid @enderror" name="assigner" value="{{ $user->name }}" required autocomplete="assigner" autofocus>
                                 @error('assigner')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

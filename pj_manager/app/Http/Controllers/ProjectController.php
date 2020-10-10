@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Project;
+use App\Client;
 
 class ProjectController extends Controller
 {
@@ -15,7 +16,6 @@ class ProjectController extends Controller
 
     public function index(Request $request) {
         $user = Auth::user();
-        $data = ['user' => $user];
         $projects = Project::all();
         return view('project.index', ['user' => $user, 'projects' => $projects]);
     }
@@ -32,15 +32,18 @@ class ProjectController extends Controller
     }
 
     public function create(Request $request) {
-        return view('project.create');
+        $user = Auth::user();
+        $clients = Client::all();
+        return view('project.create', ['user' => $user, 'clients' => $clients]);
     }
 
     public function edit(Request $request) {
         $item = Project::find($request->id);
+        $clients = Client::all();
         if(!isset($item)) {
             return redirect('project');
         }
-        return view('project.edit', ['item' => $item]);
+        return view('project.edit', ['item' => $item, 'clients' => $clients]);
     }
 
     public function update(Request $request) {

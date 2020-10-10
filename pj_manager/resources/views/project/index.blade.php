@@ -26,7 +26,7 @@
                           <th scope="row"><a href="{{route('project/edit', ['id' => $project->id])}}">{{$project->projectCode}}</a></th>
                           <td>{{$project->jobCode}}</td>
                           <td>{{$project->name}}</td>
-                          <td>{{$project->client}}</td>
+                          <td>{{$project->clients->name}}</td>
                           <td>{{$project->director}}</td>
                           <td>{{$project->assigner}}</td>
                         </tr>
