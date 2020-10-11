@@ -35,6 +35,7 @@
                     </table>
                   </div>
                   <p><a href="{{route('project/create')}}">案件登録→</a></p>
+                  <p><a href="{{route('client')}}">クライアント一覧→</a></p>
                 </div>
             </div>
         </div>

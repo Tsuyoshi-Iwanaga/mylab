@@ -9,6 +9,6 @@ class Client extends Model
     protected $guarded = ['id'];
 
     public static $validate_rules = [
-        'name'=>'required|unique',
+        'name'=>'required|unique:clients',
     ];
 }
