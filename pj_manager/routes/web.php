@@ -22,6 +22,7 @@ Route::get('/', function () { return redirect('project'); });
 Route::get('/project', 'ProjectController@index')->name('project');
 Route::post('/project', 'ProjectController@store')->name('project/store');
 Route::get('/project/create', 'ProjectController@create')->name('project/create');
+Route::get('/project/show', 'ProjectController@show')->name('project/show');
 Route::get('/project/edit', 'ProjectController@edit')->name('project/edit');
 Route::post('/project/update', 'ProjectController@update')->name('project/update');
 Route::post('/project/delete', 'ProjectController@delete')->name('project/delete');
@@ -30,6 +31,10 @@ Route::post('/project/delete', 'ProjectController@delete')->name('project/delete
 Route::get('/client', 'ClientController@index')->name('client');
 Route::post('/client/store', 'ClientController@store')->name('client/store');
 Route::post('/client/delete', 'ClientController@delete')->name('client/delete');
+
+//asign
+Route::get('/asign', 'AsignController@index')->name('asign');
+Route::post('/asign/store', 'AsignController@store')->name('asign/store');
 
 //Auth
 Auth::routes();

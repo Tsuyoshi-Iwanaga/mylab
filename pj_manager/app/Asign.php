@@ -21,15 +21,15 @@ class Asign extends Model
     ];
 
     public function project() {
-        return $this->belongTo(Project::class, 'project_id');
+        return $this->belongsTo(Project::class, 'project_id');
     }
 
     public function grade() {
-        return $this->belongTo(Grade::class, 'grade_id');
+        return $this->belongsTo(Grade::class, 'grade_id');
     }
 
     public function worker() {
-        return $this->belongTo(User::class, 'worker_id');
+        return $this->belongsTo(User::class, 'worker_id');
     }
 
     public function office() {
@@ -47,6 +47,28 @@ class Asign extends Model
             case '4':
                 return 'TCV';
                 break;
+            default:
+                return 'ERROR!';
+                break;
         }
+    }
+
+    public function billing() {
+        $billing_id = $this->billing_id;
+        switch($billing_id) {
+            case '1':
+                return 'S';
+                break;
+            case '2':
+                return 'R';
+                break;
+            default:
+                return 'ERROR!';
+                break;
+        }
+    }
+
+    public function manhours_defined() {
+        return boolval($this->is_manhours_defined) ? '済' : '未';
     }
 }

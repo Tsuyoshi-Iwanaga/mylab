@@ -8,11 +8,12 @@
         <div class="card-header">案件一覧</div>
         <div class="card-body">
           <p>{{$user->name. ' <'. $user->email. '>'}}</p>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm table-bordered" style="width: 1600px;">
+          <div class="table-responsive small">
+            <table class="table table-striped table-sm table-bordered" style="width: 1200px;">
               <thead class="thead-dark">
               <tr>
                 <th scope="col">案件コード</th>
+                <th scope="col">編集</th>
                 <th scope="col">記入日</th>
                 <th scope="col">更新日</th>
                 <th scope="col">計上月</th>
@@ -30,7 +31,8 @@
               <tbody>
               @foreach($projects as $project)
               <tr>
-                <th scope="row"><a href="{{route('project/edit', ['id' => $project->id])}}">FUK-{{$project->group->name}}-{{$project->projectCode()}}</a></th>
+                <th scope="row"><a href="{{route('project/show', ['id' => $project->id])}}">FUK-{{$project->group->name}}-{{$project->projectCode()}}</a></th>
+                <td><a href="{{route('project/edit', ['id' => $project->id])}}">■</a></td>
                 <td>{{date('Y/m/d', strtotime($project->created_at))}}</td>
                 <td>{{date('Y/m/d', strtotime($project->updated_at))}}</td>
                 <td>{{$project->period->name}}</td>
@@ -48,6 +50,7 @@
               </tbody>
             </table>
           </div>
+          <p><a href="{{route('asign')}}">アサイン一覧→</a></p>
           <p><a href="{{route('project/create')}}">案件登録→</a></p>
           <p><a href="{{route('client')}}">クライアント一覧→</a></p>
         </div>

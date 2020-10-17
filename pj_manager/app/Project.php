@@ -43,6 +43,6 @@ class Project extends Model
     }
 
     public function projectCode() {
-        return sprintf('%03d', $this->id);
+        return sprintf('%05d', $this->id);
     }
 }

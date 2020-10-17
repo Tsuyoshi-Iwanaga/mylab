@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 use App\Project;
 use App\Branch;
 use App\Client;
 use App\Group;
 use App\Period;
 use App\Status;
+use App\Grade;
 
 class ProjectController extends Controller
 {
@@ -72,6 +74,20 @@ class ProjectController extends Controller
             'groups' => $groups,
             'periods' => $periods,
             'statuses' => $statuses,
+        ]);
+    }
+
+    public function show(Request $request) {
+        $item = Project::find($request->id);
+        $users = User::all();
+        $grades = Grade::all();
+        if(!isset($item)) {
+            return redirect('project');
+        }
+        return view('project.show', [
+            'item' => $item,
+            'users' => $users,
+            'grades' => $grades,
         ]);
     }
 
