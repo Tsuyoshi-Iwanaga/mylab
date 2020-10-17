@@ -11,19 +11,19 @@ class PeriodTableSeeder extends Seeder
      */
     public function run()
     {
-        App\Group::create(['name' => '確認中']);
-        App\Group::create(['name' => '2020-03']);
-        App\Group::create(['name' => '2020-04']);
-        App\Group::create(['name' => '2020-05']);
-        App\Group::create(['name' => '2020-06']);
-        App\Group::create(['name' => '2020-07']);
-        App\Group::create(['name' => '2020-08']);
-        App\Group::create(['name' => '2020-09']);
-        App\Group::create(['name' => '2020-10']);
-        App\Group::create(['name' => '2020-11']);
-        App\Group::create(['name' => '2020-12']);
-        App\Group::create(['name' => '2021-01']);
-        App\Group::create(['name' => '2021-02']);
-        App\Group::create(['name' => '2021-03']);
+        App\Period::create(['name' => '確認中']);
+        App\Period::create(['name' => '2020-03']);
+        App\Period::create(['name' => '2020-04']);
+        App\Period::create(['name' => '2020-05']);
+        App\Period::create(['name' => '2020-06']);
+        App\Period::create(['name' => '2020-07']);
+        App\Period::create(['name' => '2020-08']);
+        App\Period::create(['name' => '2020-09']);
+        App\Period::create(['name' => '2020-10']);
+        App\Period::create(['name' => '2020-11']);
+        App\Period::create(['name' => '2020-12']);
+        App\Period::create(['name' => '2021-01']);
+        App\Period::create(['name' => '2021-02']);
+        App\Period::create(['name' => '2021-03']);
     }
 }

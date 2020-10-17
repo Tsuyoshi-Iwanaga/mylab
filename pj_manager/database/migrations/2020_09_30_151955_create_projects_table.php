@@ -15,12 +15,17 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function(BluePrint $table) {
             $table->increments('id');
-            $table->string('projectCode')->unique();
             $table->integer('jobCode')->nullable();;
             $table->string('name');
-            $table->integer('client');
-            $table->string('director')->nullable();;
+            $table->integer('period_id');
+            $table->integer('group_id');
+            $table->integer('client_id');
+            $table->integer('branch_id');
+            $table->integer('status_id');
+            $table->string('director')->nullable();
+            $table->string('director_email')->nullable();;
             $table->string('assigner');
+            $table->text('note');
             $table->timestamps();
         });
     }

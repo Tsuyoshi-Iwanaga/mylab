@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Project;
+use App\Branch;
 use App\Client;
+use App\Group;
+use App\Period;
+use App\Status;
 
 class ProjectController extends Controller
 {
@@ -33,17 +37,42 @@ class ProjectController extends Controller
 
     public function create(Request $request) {
         $user = Auth::user();
+        $branches = Branch::all();
         $clients = Client::all();
-        return view('project.create', ['user' => $user, 'clients' => $clients]);
+        $groups = Group::all();
+        $periods = Period::all();
+        $statuses = Status::all();
+        return view('project.create', [
+            'user' => $user,
+            'branches' => $branches,
+            'clients' => $clients,
+            'groups' => $groups,
+            'periods' => $periods,
+            'statuses' => $statuses,
+        ]);
     }
 
     public function edit(Request $request) {
         $item = Project::find($request->id);
+        $user = Auth::user();
+        $branches = Branch::all();
         $clients = Client::all();
+        $groups = Group::all();
+        $periods = Period::all();
+        $statuses = Status::all();
         if(!isset($item)) {
             return redirect('project');
         }
-        return view('project.edit', ['item' => $item, 'clients' => $clients]);
+        return view('project.edit', [
+            'item' => $item,
+            'clients' => $clients,
+            'user' => $user,
+            'branches' => $branches,
+            'clients' => $clients,
+            'groups' => $groups,
+            'periods' => $periods,
+            'statuses' => $statuses,
+        ]);
     }
 
     public function update(Request $request) {
