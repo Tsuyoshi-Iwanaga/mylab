@@ -7,6 +7,11 @@ use App\Client;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index() {
         $clients = Client::all();
         return view('client.index', ['clients' => $clients]);
