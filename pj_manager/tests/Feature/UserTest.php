@@ -21,4 +21,10 @@ class UserTest extends TestCase
         $response = $this->get('/register');
         $response->assertStatus(200);
     }
+
+    public function testAccess()
+    {
+        $response = $this->get('/password/reset');
+        $response->assertStatus(200);
+    }
 }
