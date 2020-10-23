@@ -22,4 +22,10 @@ class Project extends TestCase
         $response = $this->actingAs($user)->get('/project');
         $response->assertStatus(200);
     }
+
+    public function testPostProjectCreateWithoutCSRF()
+    {
+        $response = $this->post('/project', []);
+        $response->assertStatus(419);
+    }
 }
