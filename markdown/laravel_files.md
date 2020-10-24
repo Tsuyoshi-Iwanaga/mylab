@@ -1,16 +1,17 @@
-## Laravel6.0 初期構築時生成
+# Laravelファイル一覧
 
-### app
-/app/User.php
+## インストール直後の状態(86ファイル)
+
+### appフォルダ
 /app/Console/Kernel.php
 /app/Exceptions/Handler.php
-/app/Http/Kernel.php
-/app/Http/Controllers/Controller.php
 /app/Http/Controllers/Auth/ForgotPasswordController.php
 /app/Http/Controllers/Auth/LoginController.php
 /app/Http/Controllers/Auth/RegisterController.php
 /app/Http/Controllers/Auth/ResetPasswordController.php
 /app/Http/Controllers/Auth/VerificationController.php
+/app/Http/Controllers/Controller.php
+/app/Http/Kernel.php
 /app/Http/Middleware/Authenticate.php
 /app/Http/Middleware/CheckForMaintenanceMode.php
 /app/Http/Middleware/EncryptCookies.php
@@ -23,11 +24,13 @@
 /app/Providers/BroadcastServiceProvider.php
 /app/Providers/EventServiceProvider.php
 /app/Providers/RouteServiceProvider.php
+/app/User.php
 
-### bootstrap
+### bootstrapフォルダ
 /bootstrap/app.php
+/bootstrap/cache/.gitignore
 
-### config
+### configフォルダ
 /config/app.php
 /config/auth.php
 /config/broadcasting.php
@@ -42,21 +45,22 @@
 /config/session.php
 /config/view.php
 
-### database
+### databaseフォルダ
+/database/.gitignore
 /database/factories/UserFactory.php
 /database/migrations/2014_10_12_000000_create_users_table.php
 /database/migrations/2014_10_12_100000_create_password_resets_table.php
 /database/migrations/2019_08_19_000000_create_failed_jobs_table.php
 /database/seeds/DatabaseSeeder.php
 
-### public
+### publicフォルダ
 /public/.htaccess
 /public/favicon.ico
 /public/index.php
 /public/robots.txt
 /public/web.config
 
-### resources
+### resourcesフォルダ
 /resources/js/app.js
 /resources/js/bootstrap.js
 /resources/lang/en/auth.php
@@ -66,18 +70,40 @@
 /resources/sass/app.scss
 /resources/views/welcome.blade.php
 
-### routes
+### routeフォルダ
 /routes/api.php
 /routes/channels.php
 /routes/console.php
 /routes/web.php
 
-### tests
-/tests/bootstrap.php
-/tests/CreatesApplication.php
-/tests/TestCase.php
-/tests/Feature/ExampleTest.php
-/tests/Unit/ExampleTest.php
+### storageフォルダ
+/storage/app/.gitignore
+/storage/app/public/.gitignore
+/storage/framework/.gitignore
+/storage/framework/cache/.gitignore
+/storage/framework/cache/data/.gitignore
+/storage/framework/sessions/.gitignore
+/storage/framework/testing/.gitignore
+/storage/framework/views/.gitignore
 
-### others
+### testフォルダ
+/tests/CreatesApplication.php
+/tests/Feature/ExampleTest.php
+/tests/TestCase.php
+/tests/Unit/ExampleTest.php
+/tests/bootstrap.php
+
+### 直下の設定ファイルなど
+/readme.md
+/package.json
+/phpunit.xml
+/composer.json
+/composer.lock
 /server.php
+/artisan
+/webpack.mix.js
+/.editorconfig
+/.env.example
+/.gitattributes
+/.gitignore
+/.styleci.yml
