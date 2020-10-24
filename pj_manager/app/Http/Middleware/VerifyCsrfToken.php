@@ -6,6 +6,15 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 
 class VerifyCsrfToken extends Middleware
 {
+
+    public function handle($request, \Closure $next)
+    {
+        if(env('APP_ENV') !== 'testing') {
+            return parent::handle($request, $next);
+        }
+        return $next($request);
+    }
+
     /**
      * Indicates whether the XSRF-TOKEN cookie should be set on the response.
      *
