@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Sample</title>
+<style>
+body {
+  min-height: 100vh;
+}
+.calWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  padding: 15px;
+  font-size: 12px;
+  background-color: #fff;
+}
+.calMonth_cal {
+  width: 100%;
+  max-width: 203px;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+.calMonth_row {
+  font-size: 0;
+
+}
+.calMonth_date {
+  display: inline-block;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  padding: 5px;
+  text-align: right;
+  margin: 0;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.calMonth_date.-label {
+  background: #e6e6e6;
+  font-weight: bold;
+  color: #666;
+}
+.calMonth_date.-select {
+  background: #f6f6f6;
+}
+.calMonth_date.is-disabled {
+  background: #e6e6e6;
+}
+.calMonth_date.is-excluded {
+  background: #666;
+}
+.calMonth_date.-select:hover {
+  cursor: pointer;
+}
+.calMonth_date.is-active {
+  background: pink;
+}
+.calTime {
+  width: 100%;
+  max-width: 50px;
+  background: #e6e6e6;
+}
+.calTime_row {
+  border-top: 1px solid #ccc;
+}
+.calTime_time {
+  margin: 0;
+  height: 14px;
+  padding: 5px;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.calTime_time:hover {
+  cursor: pointer;
+}
+.calTime_time.is-active {
+  background: pink;
+}
+.calMonth_switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.calMonth_switcher {
+  margin: 0;
+  cursor: pointer;
+}
+.calMonth_title {
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<p><input type="text" class="js-dateTime01" style="margin-bottom: 30px;"></p>
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="./jquery.caltimepicker.js"></script>
+<script>
+  $('.js-dateTime01').calTimePicker();
+</script>
+</body>
+</html>
