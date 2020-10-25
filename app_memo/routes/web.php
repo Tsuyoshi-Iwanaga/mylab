@@ -18,3 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/create_token', function() {
+    $user = \App\User::find(1);
+    $token = $user->createToken('my-api-token');
+    echo $token->plainTextToken;
+});
+
+Route::get('/spa', function() {
+    return view('spa');
+});
