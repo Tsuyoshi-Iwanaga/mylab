@@ -75,7 +75,6 @@
         <main class="py-4">
             @yield('content')
         </main>
-        <div id="example"></div>
     </div>
 </body>
 </html>
