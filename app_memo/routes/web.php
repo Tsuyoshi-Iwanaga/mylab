@@ -17,11 +17,17 @@ if(config('app.env') === 'production') {
 }
 
 Route::get('/', function () {
-    redirect('home');
-});
+    return 'topページ';
+})->name('top');
+
+Route::get('/home', function () {
+    return 'homeページ';
+})->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/memo', 'MemoController@index')->name('memo');
 Route::post('/memo', 'MemoController@store')->name('memo.store');
+
+Route::get('/todo', 'TodoController@index')->name('todo');
+Route::post('/todo', 'TodoController@store')->name('todo.store');

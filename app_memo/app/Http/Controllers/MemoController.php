@@ -8,6 +8,12 @@ use \App\Memo;
 
 class MemoController extends Controller
 {
+    public function index()
+    {
+        $memos = \App\Memo::orderBy('id', 'desc')->get();
+        return view('home', ['memos' => $memos]);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, Memo::$rules);
@@ -20,16 +26,16 @@ class MemoController extends Controller
         $memo['body'] = $request->body;
 
         $memo->save();
-        return redirect('home');
+        return redirect('memo');
     }
 
     public function update(Request $request, $id)
     {
-        return redirect('home');
+        return redirect('memo');
     }
 
     public function destroy($id)
     {
-        return redirect('home');
+        return redirect('memo');
     }
 }

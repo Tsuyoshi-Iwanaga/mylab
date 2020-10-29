@@ -91,7 +91,8 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-header">サイドバー</div>
-                <div class="card-body">コンテンツ</div>
+                <div class="card-body"><a href="{{ route('memo') }}">メモ</a></div>
+                <div class="card-body"><a href="{{ route('todo') }}">ToDo</a></div>
             </div>
         </div>
     </div>
