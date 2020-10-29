@@ -17,7 +17,7 @@ if(config('app.env') === 'production') {
 }
 
 Route::get('/', function () {
-    return view('welcome');
+    redirect('home');
 });
 
 Auth::routes();
