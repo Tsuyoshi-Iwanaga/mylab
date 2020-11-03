@@ -1,9 +1,7 @@
 import React from 'react';
 
-function XXX() {
-  return (
-    <div className="XXX">
-    </div>
-  );
-}
+const XXX:React.FC = () => (
+  <div className="XXX">
+  </div>
+)
 export default XXX;

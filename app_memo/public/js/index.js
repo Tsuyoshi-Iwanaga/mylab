@@ -69816,7 +69816,7 @@ var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_mod
 var Memo_1 = __importDefault(__webpack_require__(/*! ./pages/Memo */ "./resources/ts/pages/Memo.tsx"));
 var Todo_1 = __importDefault(__webpack_require__(/*! ./pages/Todo */ "./resources/ts/pages/Todo.tsx"));
 function App() {
-    return (react_1.default.createElement(react_router_dom_1.Switch, null,
+    return (react_1.default.createElement(react_router_dom_1.BrowserRouter, null,
         react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/memo", component: Memo_1.default }),
         react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/todo", component: Todo_1.default })));
 }
@@ -69935,13 +69935,92 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-function Main() {
+var PostList_1 = __importDefault(__webpack_require__(/*! ./PostList */ "./resources/ts/components/PostList.tsx"));
+var Main = function () {
+    var info = [
+        {
+            item: {
+                author_id: "001",
+                status: "001",
+                deadline: "001",
+                planed_time: "001",
+                actual_time: "001",
+                body: "001",
+                updated_at: "001",
+                created_at: "001",
+            }
+        },
+        {
+            item: {
+                author_id: "001",
+                status: "001",
+                deadline: "001",
+                planed_time: "001",
+                actual_time: "001",
+                body: "001",
+                updated_at: "001",
+                created_at: "001",
+            }
+        }
+    ];
     return (react_1.default.createElement("div", { className: "col-md-9" },
         react_1.default.createElement("div", { className: "card" },
             react_1.default.createElement("div", { className: "card-header" }, "\u30E1\u30A4\u30F3"),
-            react_1.default.createElement("div", { className: "card-body" }, "hoge"))));
-}
+            react_1.default.createElement("div", { className: "card-body" },
+                react_1.default.createElement(PostList_1.default, { items: info })))));
+};
 exports.default = Main;
+
+
+/***/ }),
+
+/***/ "./resources/ts/components/PostItem.tsx":
+/*!**********************************************!*\
+  !*** ./resources/ts/components/PostItem.tsx ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var PostItem = function (props) { return (react_1.default.createElement("li", null,
+    react_1.default.createElement("span", null, props.item.author_id),
+    react_1.default.createElement("span", null, props.item.status),
+    react_1.default.createElement("span", null, props.item.deadline),
+    react_1.default.createElement("span", null, props.item.planed_time),
+    react_1.default.createElement("span", null, props.item.actual_time),
+    react_1.default.createElement("span", null, props.item.body),
+    react_1.default.createElement("span", null, props.item.updated_at),
+    react_1.default.createElement("span", null, props.item.created_at))); };
+exports.default = PostItem;
+
+
+/***/ }),
+
+/***/ "./resources/ts/components/PostList.tsx":
+/*!**********************************************!*\
+  !*** ./resources/ts/components/PostList.tsx ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var PostItem_1 = __importDefault(__webpack_require__(/*! ./PostItem */ "./resources/ts/components/PostItem.tsx"));
+var PostList = function (props) { return (react_1.default.createElement("ul", { className: "postList" }, props.items.map(function (v) {
+    return react_1.default.createElement(PostItem_1.default, { item: v.item });
+}))); };
+exports.default = PostList;
 
 
 /***/ }),
@@ -69960,14 +70039,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function SideNav() {
     return (react_1.default.createElement("div", { className: "col-md-3" },
         react_1.default.createElement("div", { className: "card" },
             react_1.default.createElement("div", { className: "card-header" }, "\u30B5\u30A4\u30C9\u30D0\u30FC"),
             react_1.default.createElement("div", { className: "card-body" },
-                react_1.default.createElement("a", { href: "{{ route('memo') }}" }, "\u30E1\u30E2")),
-            react_1.default.createElement("div", { className: "card-body" },
-                react_1.default.createElement("a", { href: "{{ route('todo') }}" }, "ToDo")))));
+                react_1.default.createElement("p", null,
+                    react_1.default.createElement(react_router_dom_1.Link, { to: "/memo" }, "\u30E1\u30E2")),
+                react_1.default.createElement("p", null,
+                    react_1.default.createElement(react_router_dom_1.Link, { to: "/todo" }, "Todo"))))));
 }
 exports.default = SideNav;
 
@@ -70017,17 +70098,18 @@ var Header_1 = __importDefault(__webpack_require__(/*! ../components/Header */ "
 var Main_1 = __importDefault(__webpack_require__(/*! ../components/Main */ "./resources/ts/components/Main.tsx"));
 var SideNav_1 = __importDefault(__webpack_require__(/*! ../components/SideNav */ "./resources/ts/components/SideNav.tsx"));
 var Footer_1 = __importDefault(__webpack_require__(/*! ../components/Footer */ "./resources/ts/components/Footer.tsx"));
-function XXX() {
+function Memo() {
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement(Header_1.default, null),
         react_1.default.createElement("main", { className: "py-4" },
             react_1.default.createElement("div", { className: "container" },
+                react_1.default.createElement("h2", null, "\u30E1\u30E2"),
                 react_1.default.createElement("div", { className: "row justify-content-center" },
                     react_1.default.createElement(Main_1.default, null),
                     react_1.default.createElement(SideNav_1.default, null)))),
         react_1.default.createElement(Footer_1.default, null)));
 }
-exports.default = XXX;
+exports.default = Memo;
 
 
 /***/ }),
@@ -70055,6 +70137,7 @@ function Todo() {
         react_1.default.createElement(Header_1.default, null),
         react_1.default.createElement("main", { className: "py-4" },
             react_1.default.createElement("div", { className: "container" },
+                react_1.default.createElement("h2", null, "Todo"),
                 react_1.default.createElement("div", { className: "row justify-content-center" },
                     react_1.default.createElement(Main_1.default, null),
                     react_1.default.createElement(SideNav_1.default, null)))),
