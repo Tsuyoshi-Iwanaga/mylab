@@ -8,7 +8,7 @@ type PostItemListProps = {
 const PostList: React.FC<PostItemListProps> = (props) => {
   if (props.items.length > 0) {
     return (
-      <ul className="postList">
+      <ul className="postList" style={{paddingLeft: 0}}>
         {props.items.map((v) => 
           <PostItem item={v} key={v.id} />
         )}
