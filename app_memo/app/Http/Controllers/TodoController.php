@@ -14,6 +14,11 @@ class TodoController extends Controller
         return view('todo', ['todos' => $todos]);
     }
 
+    public function get()
+    {
+        return \App\Todo::orderBy('id', 'desc')->get();
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, Todo::$rules);

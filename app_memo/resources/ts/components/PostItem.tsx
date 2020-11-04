@@ -1,6 +1,7 @@
 import React from 'react';
 
 type PostItem = {
+  id: number,
   author_id?: string,
   status?: string,
   deadline?: string,

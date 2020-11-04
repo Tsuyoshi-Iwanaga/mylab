@@ -1,19 +1,21 @@
 import React from 'react';
 import PostItem from './PostItem';
 
-type PostItemProps = {
-  item: PostItem
-}
-
 type PostItemListProps = {
-  items: Array<PostItemProps>
+  items: Array<PostItem>
 }
 
-const PostList: React.FC<PostItemListProps> = (props) => (
-  <ul className="postList">
-    {props.items.map((v) => 
-      <PostItem item={v.item} />
-    )}
-  </ul>
-);
+const PostList: React.FC<PostItemListProps> = (props) => {
+  if (props.items.length > 0) {
+    return (
+      <ul className="postList">
+        {props.items.map((v) => 
+          <PostItem item={v} key={v.id} />
+        )}
+      </ul>
+    )
+  } else {
+    return <p>No Item...</p>
+  }
+};
 export default PostList;

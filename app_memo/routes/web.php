@@ -31,3 +31,4 @@ Route::post('/memo', 'MemoController@store')->name('memo.store');
 
 Route::get('/todo', 'TodoController@index')->name('todo');
 Route::post('/todo', 'TodoController@store')->name('todo.store');
+Route::get('/todo/get', 'TodoController@get')->name('todo.get');
