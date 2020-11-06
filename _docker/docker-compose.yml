@@ -17,7 +17,9 @@ services:
         ipv4_address: 172.30.0.2
 
   nginx:
-    image: nginx:1.17-alpine
+    build:
+      context: "."
+      dockerfile: ./Dockerfile-nginx
     ports:
       - '8000:8000'
       - '8001:8001'
@@ -28,6 +30,7 @@ services:
       - ../lara6:/var/www/html/lara6
       - ../pj_manager:/var/www/html/pj_manager
       - ../app_memo:/var/www/html/app_memo
+    working_dir: /var/www/html
     environment:
       - TZ=${TZ}
     networks:
