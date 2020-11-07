@@ -47,8 +47,9 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
     color: #fff;
     text-align: center;
     ${status === 1 ? 'background: #6cbde6;': undefined}
-    ${status === 2 ? 'background: #8fbc8f': undefined}
-    ${status === 3 ? 'background: #ccc': undefined}
+    ${status === 2 ? 'background: #ebc0af': undefined}
+    ${status === 3 ? 'background: #8fbc8f': undefined}
+    ${status === 4 ? 'background: #ccc': undefined}
   `;
   const DeadLine = styled.span`
     display: inline-block;
@@ -76,7 +77,7 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
   `;
 
   const changeStatus = () => {
-    if(status > 0 && status < 3) {
+    if(status > 0 && status < 4) {
       setStatus(status + 1);
     } else {
       setStatus(1);
@@ -88,8 +89,10 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
       case 1:
         return '未着手';
       case 2:
-        return '確認中';
+        return '対応中';
       case 3:
+        return '確認中';
+      case 4:
         return '完了';
       default:
         return '-';
