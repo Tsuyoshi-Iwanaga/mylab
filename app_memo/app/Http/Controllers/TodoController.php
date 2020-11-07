@@ -33,6 +33,23 @@ class TodoController extends Controller
         $todo['body'] = $request->body;
 
         $todo->save();
-        return redirect('todo');
+        return $todo;
+    }
+
+    public function update(Request $request)
+    {
+        $this->validate($request, Todo::$rules);
+
+        $todo = Todo::find($request->id);
+
+        $todo['author_id'] = $request->id;
+        $todo['status'] = $request->status;
+        $todo['deadline'] = $request->deadline;
+        $todo['planed_time'] = $request->planed_time;
+        $todo['actual_time'] = $request->actual_time;
+        $todo['body'] = $request->body;
+
+        $todo->save();
+        return $todo;
     }
 }

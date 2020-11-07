@@ -1,6 +1,6 @@
 import Axios, { AxiosInstance, AxiosResponse } from 'axios'
 
-type PostItem = {
+type TodoItem = {
   id: number,
   author_id?: string,
   status?: string,
@@ -19,6 +19,31 @@ const instance: AxiosInstance = Axios.create({
   timeout: 10000,
 })
 
-export const fetchPosts = ():Promise<AxiosResponse<Array<PostItem>>> => {
-  return instance.get('/todo/get');
+//全てのTodoを取得
+export const fetchTodos = (): Promise<AxiosResponse<Array<TodoItem>>> => {
+  return instance.get('/todo/get')
+}
+
+//Todoを追加
+export const addTodo = (body: string, planed_time: number): void => {
+  instance.post('/todo', {
+    author_id: 1,
+    status: 1,
+    deadline: '2020-11-30 12:15:30',
+    actual_time: 0,
+    planed_time,
+    body,
+  })
+}
+
+//指定のTodoを更新
+export const updateTodo = (todo: TodoItem):void => {
+  instance.put(`/todo/${todo.id}`, {
+    author_id: todo.author_id,
+    status: todo.status,
+    deadline: todo.deadline,
+    planed_time: todo.planed_time,
+    actual_time: todo.actual_time,
+    body: todo.body,
+  })
 }

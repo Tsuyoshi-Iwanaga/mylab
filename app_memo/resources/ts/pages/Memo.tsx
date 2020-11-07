@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 function Memo() {
   return (
     <>
-    <Header />
+    {/* <Header /> */}
     <main className="py-4">
         <div className="container">
             <h2>メモ</h2>

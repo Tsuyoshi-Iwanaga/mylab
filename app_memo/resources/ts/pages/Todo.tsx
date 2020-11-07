@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 function Todo() {
   return (
     <>
-    <Header />
+    {/* <Header /> */}
     <main className="py-4">
         <div className="container">
           <h2>Todo</h2>

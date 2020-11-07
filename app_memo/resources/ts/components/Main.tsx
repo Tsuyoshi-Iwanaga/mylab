@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import PostList from './PostList';
-import { fetchPosts } from '../functions/client';
+import TodoList from './TodoList';
+import TodoInput from './TodoInput';
+import { fetchTodos } from '../functions/client';
 
-type PostItem = {
+type TodoItem = {
   id: number,
   author_id?: string,
   status?: string,
@@ -16,13 +17,12 @@ type PostItem = {
 
 const Main:React.FC = () => {
 
-  const iniPostItems: Array<PostItem>|null = [];
+  const iniPostItems: Array<TodoItem>|null = [];
   const [items, setItems] = useState(iniPostItems);
 
   useEffect(() => {
-    fetchPosts()
+    fetchTodos()
       .then((res) => {
-        console.log(res.data);
         setItems(res.data);
       });
   }, []);
@@ -32,7 +32,8 @@ const Main:React.FC = () => {
       <div className="card">
         <div className="card-header">メイン</div>
         <div className="card-body">
-          <PostList items={items} />
+          <TodoInput />
+          <TodoList items={items} />
         </div>
       </div>
     </div>

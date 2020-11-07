@@ -58,7 +58,7 @@
                         <div class="form-group row">
                             <label for="body" class="col-md-12 col-form-label text-md-left">本文</label>
                             <div class="col-md-12">
-                                <textarea id="body" type="body" class="form-control @error('body') is-invalid @enderror" name="body" value="{{ old('body') }}" required autocomplete="body" autofocus style="height: 20em;"></textarea>
+                                <textarea id="body" type="body" class="form-control @error('body') is-invalid @enderror" name="body" value="{{ old('body') }}" required autocomplete="body" autofocus style="height: 13em;"></textarea>
                                 @error('body')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
