@@ -11,13 +11,25 @@ const TodoList: React.FC<TodoItemListProps> = (props) => {
       <>
       <ul className="todoList" style={{paddingLeft: 0}}>
         {props.items.map((v) => 
-          (Number(v.status) !== 4) ? <TodoItem item={v} key={v.id} /> : undefined
+          (Number(v.status) < 3) ? <TodoItem item={v} key={v.id} /> : undefined
+        )}
+      </ul>
+      <p className="small mb-1">確認中</p>
+      <ul className="todoList" style={{paddingLeft: 0}}>
+        {props.items.map((v) => 
+          (Number(v.status) == 3) ? <TodoItem item={v} key={v.id} /> : undefined
+        )}
+      </ul>
+      <p className="small mb-1">保留中</p>
+      <ul className="todoList" style={{paddingLeft: 0}}>
+        {props.items.map((v) => 
+          (Number(v.status) == 4) ? <TodoItem item={v} key={v.id} /> : undefined
         )}
       </ul>
       <p className="small mb-1">完了済</p>
       <ul className="todoList" style={{paddingLeft: 0}}>
         {props.items.map((v) => 
-          (Number(v.status) == 4) ? <TodoItem item={v} key={v.id} /> : undefined
+          (Number(v.status) == 5) ? <TodoItem item={v} key={v.id} /> : undefined
         )}
       </ul>
       </>
