@@ -14,6 +14,12 @@ class MemoController extends Controller
         return view('home', ['memos' => $memos]);
     }
 
+    public function get()
+    {
+        $memos = \App\Memo::orderBy('id', 'desc')->get();
+        return $memos;
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, Memo::$rules);
