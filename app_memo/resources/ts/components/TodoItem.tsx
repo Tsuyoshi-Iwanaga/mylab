@@ -80,7 +80,7 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
   const [editActualTime, setEditActualTime] = useState(false);
   const [editBody, setEditBody] = useState(false);
 
-  const changeStatus = ():void => {
+  const changeStatus = () => {
     if(status > 0 && status < 5) {
       setStatus(status + 1);
     } else {
