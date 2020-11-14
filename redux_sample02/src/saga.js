@@ -1,6 +1,6 @@
 import { fork, call, take, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import fetchData from './fetch';
-  import { registerData } from './actions/tasks';
+import { registerData } from './actions/tasks';
 
 export function* sendRequest() {
   const payload = yield call(fetchData);
