@@ -10,8 +10,7 @@ class TodoController extends Controller
 {
     public function index()
     {
-        $todos = \App\Todo::orderBy('id', 'desc')->get();
-        return view('todo', ['todos' => $todos]);
+        return view('home');
     }
 
     public function get()
