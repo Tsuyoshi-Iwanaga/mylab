@@ -7,16 +7,6 @@ import MemoInput from '../components/MemoInput';
 import MemoList from '../components/MemoList';
 import { getMemos } from '../functions/client';
 
-type MemoItem = {
-  id: number,
-  author_id?: number,
-  category_id?: number,
-  title?: string,
-  body?: string,
-  updated_at?: string,
-  created_at?: string,
-}
-
 const Memo:React.FC = () => {
 
   const iniPostItems: Array<MemoItem>|null = [];
@@ -33,16 +23,16 @@ const Memo:React.FC = () => {
     <>
     {/* <Header /> */}
     <main className="py-4">
-        <div className="container">
-            <h2>メモ</h2>
-            <div className="row justify-content-center">
-                <Main>
-                  <MemoInput />
-                  <MemoList items={items} />
-                </Main>
-                <SideNav />
-            </div>
+      <div className="container">
+        <h2>メモ</h2>
+        <div className="row justify-content-center">
+          <Main>
+            <MemoInput />
+            <MemoList items={items} />
+          </Main>
+          <SideNav />
         </div>
+      </div>
     </main>
     <Footer />
     </>
