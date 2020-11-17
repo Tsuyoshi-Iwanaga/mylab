@@ -1,18 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { SubComponent } from "./sub-component";
+import { Sub01 } from "./sub01";
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <img src="logo.svg" alt="" />
-        </div>
-
         <h1>Hello React!</h1>
-        <SubComponent name="My Counter for Babel" />
+        <Sub01 />
       </div>
     );
   }
