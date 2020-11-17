@@ -6,15 +6,15 @@ import Memo from './pages/Memo';
 import Todo from './pages/Todo';
 
 function App() {
-    return (
-        <Router>
-            <Route exact path="/memo" component={Memo}></Route>
-            <Route exact path="/todo" component={Todo}></Route>
-        </Router>
-    );
+  return (
+    <Router>
+      <Route exact path="/memo" component={Memo}></Route>
+      <Route exact path="/todo" component={Todo}></Route>
+    </Router>
+  );
 }
 export default App;
 
 if (document.getElementById('app')) {
-    ReactDOM.render(<App />, document.getElementById('app'));
+  ReactDOM.render(<App />, document.getElementById('app'));
 }

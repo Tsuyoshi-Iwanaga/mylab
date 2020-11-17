@@ -10,8 +10,13 @@ class MemoController extends Controller
 {
     public function index()
     {
+        return view('home');
+    }
+
+    public function get()
+    {
         $memos = \App\Memo::orderBy('id', 'desc')->get();
-        return view('home', ['memos' => $memos]);
+        return $memos;
     }
 
     public function store(Request $request)

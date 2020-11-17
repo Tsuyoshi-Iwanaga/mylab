@@ -2,21 +2,59 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { updateTodo } from '../functions/client'
 
-type TodoItem = {
-  id: number,
-  author_id?: string,
-  status?: string,
-  deadline?: string,
-  planed_time?: string,
-  actual_time?: string,
-  body?: string,
-  updated_at?: string,
-  created_at?: string,
-}
-
 type TodoItemProps = {
   item: TodoItem
 }
+
+const Item = styled.li`
+margin-bottom: 5px;
+`;
+const ItemBody = styled.div`
+padding-bottom: 5px;
+padding-top: 5px;
+`;
+interface statusProps {
+  status: number
+}
+const Status = styled.span<statusProps>`
+display: inline-block;
+line-height: 1;
+border-radius: 3px;
+font-size: 12px;
+margin-right: 5px;
+padding: 3px;
+color: #fff;
+text-align: center;
+${props =>props.status === 1 ? 'background: #6cbde6;': undefined}
+${props =>props.status === 2 ? 'background: #ebc0af': undefined}
+${props =>props.status === 3 ? 'background: #8fbc8f': undefined}
+${props =>props.status === 4 ? 'background: #bfadeb': undefined}
+${props =>props.status === 5 ? 'background: #ccc': undefined}
+`;
+const DeadLine = styled.span`
+display: inline-block;
+font-size: 12px;
+margin-right: 5px;
+`;
+const Time = styled.span`
+font-size: 12px;
+`;
+const Body = styled.span`
+display: inline-block;
+margin-left: 10px;
+`;
+const Input = styled.input`
+line-height: 1;
+font-size: 12px;
+`;
+const Update = styled.span`
+display: inline-block;
+margin-left: 10px;
+color: #3490dc;
+cursor: pointer;
+text-decoration: underline;
+font-size: 12px;
+`;
 
 const TodoItem: React.FC<TodoItemProps> = (props) => {
   const [status, setStatus] = useState(Number(props.item.status));
@@ -29,53 +67,6 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
   const [editPlanedTime, setEditPlanedTime] = useState(false);
   const [editActualTime, setEditActualTime] = useState(false);
   const [editBody, setEditBody] = useState(false);
-  
-  const Item = styled.li`
-    margin-bottom: 5px;
-  `;
-  const ItemBody = styled.div`
-    padding-bottom: 5px;
-    padding-top: 5px;
-  `;
-  const Status = styled.span`
-    display: inline-block;
-    line-height: 1;
-    border-radius: 3px;
-    font-size: 12px;
-    margin-right: 5px;
-    padding: 3px;
-    color: #fff;
-    text-align: center;
-    ${status === 1 ? 'background: #6cbde6;': undefined}
-    ${status === 2 ? 'background: #ebc0af': undefined}
-    ${status === 3 ? 'background: #8fbc8f': undefined}
-    ${status === 4 ? 'background: #bfadeb': undefined}
-    ${status === 5 ? 'background: #ccc': undefined}
-  `;
-  const DeadLine = styled.span`
-    display: inline-block;
-    font-size: 12px;
-    margin-right: 5px;
-  `;
-  const Time = styled.span`
-    font-size: 12px;
-  `;
-  const Body = styled.span`
-    display: inline-block;
-    margin-left: 10px;
-  `;
-  const Input = styled.input`
-    line-height: 1;
-    font-size: 12px;
-  `;
-  const Update = styled.span`
-    display: inline-block;
-    margin-left: 10px;
-    color: #3490dc;
-    cursor: pointer;
-    text-decoration: underline;
-    font-size: 12px;
-  `;
 
   const changeStatus = () => {
     if(status > 0 && status < 5) {
@@ -114,7 +105,7 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
   return (<Item className="card">
     <ItemBody className="card-body pt-1 pb-1">
       {/* <span>{props.item.author_id}</span> */}
-      <Status onClick={changeStatus}>{statusText(status)}</Status>
+      <Status onClick={changeStatus} status={status}>{statusText(status)}</Status>
       
       {!editDeadLine && <DeadLine onClick={() => setEditDeadLine(true)}>{trimDeadLine(deadLine)}</DeadLine>}
       {editDeadLine && <Input

@@ -23,7 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $memos = \App\Memo::orderBy('id', 'desc')->get();
-        return view('home', ['memos' => $memos]);
+        return view('home');
     }
 }

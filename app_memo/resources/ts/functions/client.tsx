@@ -12,6 +12,12 @@ type TodoItem = {
   created_at?: string,
 }
 
+type MemoItem = {
+  id: number,
+  category: number,
+  body: string,
+}
+
 const baseURL = '/'
 
 const instance: AxiosInstance = Axios.create({
@@ -45,5 +51,19 @@ export const updateTodo = (todo: TodoItem):void => {
     planed_time: todo.planed_time,
     actual_time: todo.actual_time,
     body: todo.body,
+  })
+}
+
+//全てのMemoを取得
+export const getMemos = (): Promise<AxiosResponse<Array<MemoItem>>> => {
+  return instance.get('/memo/get')
+}
+
+//Todoを追加
+export const addMemo = (category_id: number, title: string, body: string): void => {
+  instance.post('/memo', {
+    category_id,
+    title,
+    body,
   })
 }
