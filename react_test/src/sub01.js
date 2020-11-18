@@ -16,3 +16,25 @@ export const Sub01 = () => {
     </div>
   );
 }
+
+function useFriendStatus(friendID) {
+  const [isOnline, setIsOnline] = useState(null)
+
+  function handleStatusChange(status) {
+    setIsOnline(status.isOnline)
+  }
+
+  useEffect(() => {
+    
+  })
+  return isOnline
+}
+
+function FriendStatus(props) {
+  const isOnline = useFriendStatus(props.friend.id)
+
+  if(isOnline === null) {
+    return 'Loading'
+  }
+  return isOnline ? 'Online' : 'Offline';
+}
