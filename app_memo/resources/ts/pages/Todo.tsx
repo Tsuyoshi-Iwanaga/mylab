@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllTodosAsync } from '../store/todoSlice';
+import { fetchAll } from '../store/todoSlice';
 import { RootState } from '../store'
+import { fetchTodos } from '../functions/client'
 import Header from '../components/Header';
 import Main from '../components/Main';
 import SideNav from '../components/SideNav';
@@ -15,7 +16,10 @@ const Todo:React.FC = () => {
   const todos = useSelector((state: RootState) => state.todos)
 
   useEffect(() => {
-    fetchAllTodosAsync(dispatch)
+    fetchTodos()
+    .then((res) => {
+        dispatch(fetchAll(res.data))
+    })
   }, [dispatch])
 
   return (
