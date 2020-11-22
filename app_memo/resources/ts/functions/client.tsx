@@ -31,8 +31,8 @@ export const fetchTodos = (): Promise<AxiosResponse<Array<TodoItem>>> => {
 }
 
 //Todoを追加
-export const addTodo = (body: string, planed_time: number): void => {
-  instance.post('/todo', {
+export const addTodo = (body: string, planed_time: number): Promise<AxiosResponse<TodoItem>> => {
+  return instance.post('/todo', {
     author_id: 1,
     status: 1,
     deadline: '2020-11-30 12:15:30',

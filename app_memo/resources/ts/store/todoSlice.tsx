@@ -8,12 +8,15 @@ export const todoSlice = createSlice({
     reducers: {
         fetchAll(state, action) {
             return [...state, ...action.payload]
+        },
+        add(state, action) {
+            return [...state, action.payload]
         }
     }
 })
 
 //actions
-export const { fetchAll } = todoSlice.actions
+export const { fetchAll, add } = todoSlice.actions
 
 //Reducer
 export default todoSlice.reducer;

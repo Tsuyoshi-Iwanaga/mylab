@@ -1,6 +1,9 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { addTodo } from '../functions/client'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../store'
+import { add } from '../store/todoSlice'
 
 const BodyInput = styled.input`
 `;
@@ -9,13 +12,18 @@ const PlanedTimeInput = styled.input`
 const Button = styled.button`
 `;
 
-const postTodo = (body: string, planedTime:number) => {
-  addTodo(body, planedTime)
-}
-
 const TodoInput: React.FC = () => {
   const [body, setBody] = useState("")
   const [planedTime, setplanedTime] = useState(0.5)
+  const dispatch:AppDispatch = useDispatch()
+
+  const postTodo = (body: string, planedTime:number) => {
+    addTodo(body, planedTime)
+    .then((res) => {
+      console.log(res.data);
+      dispatch(add(res.data))
+    })
+  }
 
   return (
     <div className="form-group row">
