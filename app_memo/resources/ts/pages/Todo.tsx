@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllTodosAsync } from '../store/todoSlice';
+import { RootState } from '../store'
 import Header from '../components/Header';
 import Main from '../components/Main';
 import SideNav from '../components/SideNav';
 import Footer from '../components/Footer';
 import TodoList from '../components/TodoList';
 import TodoInput from '../components/TodoInput';
-import { fetchTodos } from '../functions/client';
 
 const Todo:React.FC = () => {
 
-  const iniPostItems: Array<TodoItem>|null = [];
-  const [items, setItems] = useState(iniPostItems);
+  const dispatch = useDispatch();
+  const todos = useSelector((state: RootState) => state.todos)
 
   useEffect(() => {
-    fetchTodos()
-      .then((res) => {
-        setItems(res.data);
-      });
-  }, []);
+    fetchAllTodosAsync(dispatch)
+  }, [dispatch])
 
   return (
     <>
@@ -28,7 +27,7 @@ const Todo:React.FC = () => {
         <div className="row justify-content-center">
           <Main>
             <TodoInput />
-            <TodoList items={items} />
+            <TodoList items={todos} />
           </Main>
           <SideNav />
         </div>
