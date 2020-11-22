@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store/';
+import { update } from '../store/todoSlice';
+import { updateTodo } from '../functions/client';
 import styled from 'styled-components';
-import { updateTodo } from '../functions/client'
 
 type TodoItemProps = {
   item: TodoItem
@@ -62,11 +65,12 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
   const [planedTime, setPlanedTime] = useState(props.item.planed_time);
   const [actualTime, setActualTime] = useState(props.item.actual_time);
   const [body, setBody] = useState(props.item.body);
-
   const [editDeadLine, setEditDeadLine] = useState(false);
   const [editPlanedTime, setEditPlanedTime] = useState(false);
   const [editActualTime, setEditActualTime] = useState(false);
   const [editBody, setEditBody] = useState(false);
+
+  const dispatch: AppDispatch = useDispatch()
 
   const changeStatus = () => {
     if(status > 0 && status < 5) {
@@ -98,13 +102,17 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
     return deadLine.replace(/^(\d{4}-\d{1,2}-\d{1,2}).+$/, "$1" );
   }
 
-  const update = (data: TodoItem):void => {
-    updateTodo(data);
+  const updateItem = (data: TodoItem):void => {
+    updateTodo(data)
+    .then((res) => {
+      console.log(res.data);
+      dispatch(update(res.data));
+    });
   }
 
   return (<Item className="card">
     <ItemBody className="card-body pt-1 pb-1">
-      {/* <span>{props.item.author_id}</span> */}
+
       <Status onClick={changeStatus} status={status}>{statusText(status)}</Status>
       
       {!editDeadLine && <DeadLine onClick={() => setEditDeadLine(true)}>{trimDeadLine(deadLine)}</DeadLine>}
@@ -145,7 +153,7 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
         autoFocus
       />}
 
-      <Update onClick={() => { update(
+      <Update onClick={() => { updateItem(
         {
           id: props.item.id,
           author_id: props.item.author_id,
@@ -156,9 +164,7 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
           body: body,
         }
       )}}>更新</Update>
-      
-      {/* <span>{props.item.updated_at}</span> */}
-      {/* <span>{props.item.created_at}</span> */}
+
     </ItemBody>
   </Item>)
 };

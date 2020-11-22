@@ -11,12 +11,15 @@ export const todoSlice = createSlice({
         },
         add(state, action) {
             return [...state, action.payload]
+        },
+        update(state, action) {
+            return state.map(v => v.id === action.payload.id ? action.payload : v)
         }
     }
 })
 
 //actions
-export const { fetchAll, add } = todoSlice.actions
+export const { fetchAll, add, update} = todoSlice.actions
 
 //Reducer
 export default todoSlice.reducer;

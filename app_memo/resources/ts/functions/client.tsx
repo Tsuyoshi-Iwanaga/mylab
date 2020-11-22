@@ -36,15 +36,15 @@ export const addTodo = (body: string, planed_time: number): Promise<AxiosRespons
     author_id: 1,
     status: 1,
     deadline: '2020-11-30 12:15:30',
-    actual_time: 0,
     planed_time,
+    actual_time: 0,
     body,
   })
 }
 
 //指定のTodoを更新
-export const updateTodo = (todo: TodoItem):void => {
-  instance.put(`/todo/${todo.id}`, {
+export const updateTodo = (todo: TodoItem): Promise<AxiosResponse<TodoItem>> => {
+  return instance.put(`/todo/${todo.id}`, {
     author_id: todo.author_id,
     status: todo.status,
     deadline: todo.deadline,
