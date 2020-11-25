@@ -7,7 +7,7 @@ export const todoSlice = createSlice({
     initialState,
     reducers: {
         fetchAll(state, action) {
-            return [...state, ...action.payload]
+            return [...action.payload]
         },
         add(state, action) {
             return [...state, action.payload]
