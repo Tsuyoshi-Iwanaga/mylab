@@ -9,7 +9,7 @@ class ExampleTest extends TestCase
     //データ型のチェック
     public function testassertType()
     {
-        $this->assertIsString('hgoe');
+        $this->assertIsString('hoge');
         $this->assertIsBool(true);
         $this->assertIsInt(5);
         $this->assertIsFloat(1.5);
