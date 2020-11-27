@@ -15,8 +15,7 @@ class MemoController extends Controller
 
     public function get()
     {
-        $memos = \App\Memo::orderBy('id', 'desc')->get();
-        return $memos;
+        return \App\Memo::orderBy('id', 'desc')->get();
     }
 
     public function store(Request $request)
@@ -31,16 +30,6 @@ class MemoController extends Controller
         $memo['body'] = $request->body;
 
         $memo->save();
-        return redirect('memo');
-    }
-
-    public function update(Request $request, $id)
-    {
-        return redirect('memo');
-    }
-
-    public function destroy($id)
-    {
-        return redirect('memo');
+        return $memo;
     }
 }

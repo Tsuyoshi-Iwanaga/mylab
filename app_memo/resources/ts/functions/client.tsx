@@ -60,8 +60,8 @@ export const getMemos = (): Promise<AxiosResponse<Array<MemoItem>>> => {
 }
 
 //Todoを追加
-export const addMemo = (category_id: number, title: string, body: string): void => {
-  instance.post('/memo', {
+export const addMemo = (category_id: number, title: string, body: string): Promise<AxiosResponse<MemoItem>> => {
+  return instance.post('/memo', {
     category_id,
     title,
     body,

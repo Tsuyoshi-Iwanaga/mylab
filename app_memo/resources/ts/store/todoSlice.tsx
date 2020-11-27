@@ -10,7 +10,7 @@ export const todoSlice = createSlice({
             return [...action.payload]
         },
         add(state, action) {
-            return [...state, action.payload]
+            return [action.payload, ...state]
         },
         update(state, action) {
             return state.map(v => v.id === action.payload.id ? action.payload : v)

@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../store'
+import { add } from '../store/memoSlice'
 import styled from 'styled-components'
 import { addMemo } from '../functions/client'
 
@@ -11,9 +14,14 @@ const MemoInput:React.FC = () => {
   const [category, setCategory] = useState(1)
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
+  const dispatch:AppDispatch = useDispatch()
 
-  const postMemo = ():void => {
+  const postMemo = (category: number, title: string, body: string) => {
     addMemo(category, title, body)
+    .then(res => {
+      console.log(res.data)
+      dispatch(add(res.data))
+    })
   }
 
   return (
@@ -103,7 +111,7 @@ const MemoInput:React.FC = () => {
       </div>
       <div className="form-group row mb-0">
         <div className="col-md-12 text-md-left">
-          <button className="btn btn-primary" onClick={postMemo}>メモを書き込む</button>
+          <button className="btn btn-primary" onClick={() => postMemo(category, title, body)}>メモを書き込む</button>
         </div>
       </div>
     </div>

@@ -20,7 +20,6 @@ const TodoInput: React.FC = () => {
   const postTodo = (body: string, planedTime:number) => {
     addTodo(body, planedTime)
     .then((res) => {
-      console.log(res.data);
       dispatch(add(res.data))
     })
   }
