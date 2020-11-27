@@ -1,23 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAll } from '../store/memoSlice';
+import { RootState } from '../store';
+import { getMemos } from '../functions/client';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import SideNav from '../components/SideNav';
 import Footer from '../components/Footer';
 import MemoInput from '../components/MemoInput';
 import MemoList from '../components/MemoList';
-import { getMemos } from '../functions/client';
 
 const Memo:React.FC = () => {
 
-  const iniPostItems: Array<MemoItem>|null = [];
-  const [items, setItems] = useState(iniPostItems);
+  const dispatch = useDispatch();
+  const memos = useSelector((state: RootState) => state.memos );
 
   useEffect(() => {
     getMemos()
-      .then((res) => {
-        setItems(res.data);
-      });
-  }, []);
+    .then((res) => {
+      dispatch(fetchAll(res.data));
+    });
+  }, [dispatch]);
 
   return (
     <>
@@ -28,7 +31,7 @@ const Memo:React.FC = () => {
         <div className="row justify-content-center">
           <Main>
             <MemoInput />
-            <MemoList items={items} />
+            <MemoList items={memos} />
           </Main>
           <SideNav />
         </div>

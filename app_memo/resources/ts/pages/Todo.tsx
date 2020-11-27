@@ -18,7 +18,7 @@ const Todo:React.FC = () => {
   useEffect(() => {
     fetchTodos()
     .then((res) => {
-        dispatch(fetchAll(res.data))
+      dispatch(fetchAll(res.data))
     })
   }, [dispatch])
 
