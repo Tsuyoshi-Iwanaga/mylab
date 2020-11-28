@@ -15,7 +15,9 @@ class MemoController extends Controller
 
     public function get()
     {
-        return \App\Memo::orderBy('id', 'desc')->get();
+        return \App\Memo::orderBy('id', 'desc')
+            ->where('author_id', '=', Auth::id())
+            ->get();
     }
 
     public function store(Request $request)
