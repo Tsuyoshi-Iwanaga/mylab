@@ -28,9 +28,9 @@ Auth::routes();
 
 Route::get('/memo', 'MemoController@index')->name('memo');
 Route::post('/memo', 'MemoController@store')->name('memo.store');
-Route::get('/memo/get', 'MemoController@get')->name('memo.get');//後で修正?
+Route::get('/memo/get', 'MemoController@get')->name('memo.get');
 
 Route::get('/todo', 'TodoController@index')->name('todo');
 Route::post('/todo', 'TodoController@store')->name('todo.store');
-Route::get('/todo/get', 'TodoController@get')->name('todo.get');//後で修正?
+Route::get('/todo/get', 'TodoController@get')->name('todo.get');
 Route::put('/todo/{id}', 'TodoController@update')->name('todo.update');
