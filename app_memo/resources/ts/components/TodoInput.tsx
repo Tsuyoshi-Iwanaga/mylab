@@ -21,6 +21,8 @@ const TodoInput: React.FC = () => {
     addTodo(body, planedTime)
     .then((res) => {
       dispatch(add(res.data))
+      setBody("")
+      setplanedTime(0.5)
     })
   }
 
