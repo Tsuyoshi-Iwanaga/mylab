@@ -19,8 +19,10 @@ const MemoInput:React.FC = () => {
   const postMemo = (category: number, title: string, body: string) => {
     addMemo(category, title, body)
     .then(res => {
-      console.log(res.data)
       dispatch(add(res.data))
+      setCategory(1)
+      setTitle("")
+      setBody("")
     })
   }
 
