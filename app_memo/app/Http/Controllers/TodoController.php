@@ -16,7 +16,7 @@ class TodoController extends Controller
     public function get()
     {
         return \App\Todo::orderBy('id', 'desc')
-            ->where('author_id', '=', Auth::id())
+            //->where('author_id', '=', Auth::id())
             ->get();
     }
 
