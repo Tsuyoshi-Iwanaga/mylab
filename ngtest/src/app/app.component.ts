@@ -6,6 +6,12 @@ import { Component } from '@angular/core'
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'ngtest';
-  hoge = {pe: 'aaa'};
+  time = '---'
+  myName = 'スタート！'
+  buttonFire(e: MouseEvent) {
+    this.myName = 'クリックされた'
+  }
+  show(e: any) {
+    this.time = e
+  }
 }
