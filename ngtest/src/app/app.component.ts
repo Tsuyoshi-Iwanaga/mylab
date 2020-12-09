@@ -1,17 +1,19 @@
 import { Component } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss'], 
 })
 export class AppComponent {
-  time = '---'
-  myName = 'スタート！'
-  buttonFire(e: MouseEvent) {
-    this.myName = 'クリックされた'
+  myName = ['hoge', 'mote']
+
+  buttonFire(e: MouseEvent):void {
+    this.myName.push('aaaa')
   }
-  show(e: any) {
-    this.time = e
+
+  handler(e: MouseEvent):void {
+    alert(new Date().toLocaleString())
   }
 }
