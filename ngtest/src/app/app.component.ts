@@ -1,5 +1,4 @@
 import { Component } from '@angular/core'
-import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-root',
@@ -7,13 +6,18 @@ import { DomSanitizer } from '@angular/platform-browser'
   styleUrls: ['./app.component.scss'], 
 })
 export class AppComponent {
-  myName = ['hoge', 'mote']
+
+  deposit = 'abc'
+
+  user = {
+    name: 'tarou',
+    age: 15,
+    mori: 150
+  }
 
   buttonFire(e: MouseEvent):void {
-    this.myName.push('aaaa')
+    this.deposit += 'a'
   }
 
-  handler(e: MouseEvent):void {
-    alert(new Date().toLocaleString())
-  }
+  show = false
 }
