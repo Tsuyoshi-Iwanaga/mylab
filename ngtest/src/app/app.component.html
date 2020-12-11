@@ -307,6 +307,23 @@
     <ng-template #trueContent><div>表示された</div></ng-template>
     <ng-template #elseContent><div>表示されなかった</div></ng-template>
   </form>
+
+  <form>
+    <select name="season" [(ngModel)]="season">
+      <option value="">四季を選択</option>
+      <option value="spring">春</option>
+      <option value="summer">夏</option>
+      <option value="autumn">秋</option>
+      <option value="winter">冬</option>
+    </select>
+    <div [(ngSwitch)]="season">
+      <span *ngSwitchCase="'spring'">春はあけぼの</span>
+      <span *ngSwitchCase="'summer'">夏は夜</span>
+      <span *ngSwitchCase="'autumn'">秋は夕暮れ</span>
+      <span *ngSwitchCase="'winter'">冬は努めて</span>
+      <span *ngSwitchDefault>未選択</span>
+    </div>
+  </form>
 </div>
 
 <router-outlet></router-outlet>
