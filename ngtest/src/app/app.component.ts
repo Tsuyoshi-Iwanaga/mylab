@@ -32,10 +32,10 @@ export class AppComponent {
       publisher: '秀和システム',
     }
   ]
-  onclick(book: Book) {
+  public onclick(book: Book) {
     this.selected = book;
   }
-  onedited(book: Book) {
+  public onedited(book: Book) {
     for(let item of this.books) {
       if (item.isbn === book.isbn) {
         if(book.title) item.title = book.title;
@@ -46,4 +46,3 @@ export class AppComponent {
     this.selected = undefined;
   }
 }
-
