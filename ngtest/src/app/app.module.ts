@@ -4,20 +4,20 @@ import { FormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module'
-import { CoopModule } from './coop/coop.module'
 import { AppComponent } from './app.component';
-import { ErrorComponent } from './error/error.component'
+import { HomeComponent } from './home/home.component'
+import { Cmp201219Component } from './cmp201219/cmp201219.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorComponent,
+    HomeComponent,
+    Cmp201219Component,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    CoopModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
