@@ -7,27 +7,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
-  h1, h2, h3, h4, h5, h6 {
-    margin: 8px 0;
-  }
-
-  .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-  }
-
-  .toolbar img {
-    margin: 0 16px;
-  }
 </style>
 
 <!-- Toolbar -->
@@ -38,19 +17,6 @@
   />
 </div> -->
 
-<div class="content" role="main">
-  <p><button (click)="buttonFire($event)">Click!</button><p>
-  <p><input #txt01 type="text" (change)="0" [(ngModel)]="deposit"></p>
-  <p>{{txt01.value | titlecase}}</p>
-  <pre>{{user.name | slice:2}}</pre>
-
-  <form>
-    <label for="show">表示/非表示</label>
-    <input id="show" name="show" type="checkbox" [(ngModel)]="show">
-    <div *ngIf="show; then trueContent else elseContent"></div>
-    <ng-template #trueContent><div>表示された</div></ng-template>
-    <ng-template #elseContent><div>表示されなかった</div></ng-template>
-  </form>
-</div>
+<div class="content" role="main"></div>
 
 <router-outlet></router-outlet>
