@@ -3,3 +3,10 @@
 <ul>
   <li><a routerLink="/">Home</a></li>
 </ul>
+<ul>
+  <li *ngFor="let user of users">
+    {{user.name}}
+    {{user.id}}
+    {{user.email}}
+  </li>
+</ul>

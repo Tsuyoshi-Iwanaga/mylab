@@ -1,15 +1,17 @@
 const express = require('express')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const app = express()
 
 app.listen(8888);
 
+app.use(cors())
 app.use(bodyParser.json())
-app.use((req, res, next) => {
-  res.header('Access-Controll-Allow-Origin', '*')//CORSの許可 本番では使わない
-  res.header('Access-Controll-Allow-Header', 'Origin, X-Requested-With, Content-Type, Accept')
-  next();
-})
+// app.use((req, res, next) => {
+//   res.header('Access-Controll-Allow-Origin', '*')//CORSの許可 本番では使わない
+//   res.header('Access-Controll-Allow-Header', 'Origin, X-Requested-With, Content-Type, Accept')
+//   next();
+// })
 
 const users = [
   { id: 1, name: 'testUser01', email: 'test01@gmail.com' },

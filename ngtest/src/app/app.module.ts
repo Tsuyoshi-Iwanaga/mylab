@@ -18,6 +18,7 @@ import { Cmp201219Component } from './cmp201219/cmp201219.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
