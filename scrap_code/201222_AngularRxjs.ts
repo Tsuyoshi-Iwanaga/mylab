@@ -9,6 +9,6 @@ export class SomeService {
       .get<any>(url)
       .pipe(map(response => {
         response.data.product
-      });
+      })
   }
 }
