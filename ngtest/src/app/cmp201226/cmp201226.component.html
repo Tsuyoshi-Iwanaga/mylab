@@ -1,2 +1,11 @@
-<h1>201226ページ</h1>
-<p>cmp201226 works!</p>
+<h1>201226ページ(Book切り替えアプリ)</h1>
+<div>
+  <span *ngFor="let b of books">
+    [<a href="javascript:void(0)" (click)="onclick(b)">{{b.title}}</a>]
+  </span>
+</div>
+<hr>
+<pre>
+  {{selected|json}}
+</pre>
+<detail-book [item]="selected"></detail-book>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Cmp201226Book } from './cmp201226.book';
+import { Cmp201226BookService } from './cmp201226.book.service'
 
 @Component({
   selector: 'app-cmp201226',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Cmp201226Component implements OnInit {
 
-  constructor() { }
+  private selected?: Cmp201226Book
+  private books: Cmp201226Book[] = []
+
+  constructor(private bookHandler: Cmp201226BookService) {}
 
   ngOnInit(): void {
+    this.books = this.bookHandler.getAllBooks()
+    this.selected = this.books[0]
   }
 
+  onclick(book: Cmp201226Book): void {
+    this.selected = book;
+  }
 }
