@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component'
 import { Cmp201219Component } from './cmp201219/cmp201219.component';
+import { Cmp201226Component } from './cmp201226/cmp201226.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     Cmp201219Component,
+    Cmp201226Component,
   ],
   imports: [
     BrowserModule,
