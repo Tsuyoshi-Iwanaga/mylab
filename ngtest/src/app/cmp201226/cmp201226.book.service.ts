@@ -6,7 +6,7 @@ import { Cmp201226Book } from './cmp201226.book';
 })
 export class Cmp201226BookService {
 
-  private books = [
+  private books: Cmp201226Book[] = [
     {
       isbn: '978-4-7741-8411-1',
       title: '改訂新版JavaScript本格入門',

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component'
 import { Cmp201219Component } from './cmp201219/cmp201219.component';
 import { Cmp201226Component } from './cmp201226/cmp201226.component';
+import { DetailComponent } from './cmp201226/detail/detail.component'
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { Cmp201226Component } from './cmp201226/cmp201226.component';
     HomeComponent,
     Cmp201219Component,
     Cmp201226Component,
+    DetailComponent,
   ],
   imports: [
     BrowserModule,
