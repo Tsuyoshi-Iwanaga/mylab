@@ -22,4 +22,15 @@ export class Cmp201226Component implements OnInit {
   onclick(book: Cmp201226Book): void {
     this.selected = book;
   }
+
+  onedit(book: Cmp201226Book) {
+    alert(book.title)
+    for(let item of this.books) {
+      if(item.isbn === book.isbn) {
+        item.title = book.title;
+        item.price = book.price;
+        item.publisher = book.publisher;
+      }
+    }
+  }
 }

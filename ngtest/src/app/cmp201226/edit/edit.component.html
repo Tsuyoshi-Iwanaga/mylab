@@ -1,1 +1,18 @@
-<button (click)="onclick()">Edit!</button>
+<hr />
+<div>
+  <form #myForm="ngForm" (ngSubmit)="onsubmit()" *ngIf="item">
+    <div class="formItem">
+      <label for="isbn">ISBN:</label><br><span id="isbn">{{item.isbn}}</span>
+    </div>
+    <div class="formItem">
+      <label for="title">書名 </label><input id="title" type="text" name="title" [(ngModel)]="item.title">
+    </div>
+    <div class="formItem">
+    <label for="price">価格 </label><input id="price" type="text" name="price" [(ngModel)]="item.price">
+    </div>
+    <div class="formItem">
+      <label for="publisher">出版社 </label><input id="publisher" type="text" name="publisher" [(ngModel)]="item.publisher">
+    </div>
+    <button type="submit">Edit!</button>
+  </form>
+</div>
