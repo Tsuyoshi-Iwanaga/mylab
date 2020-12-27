@@ -3,8 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { Cmp201219Component } from './cmp201219/cmp201219.component';
 import { Cmp201226Component } from './cmp201226/cmp201226.component';
+import { Cmp201227Component } from './cmp201227/cmp201227.component';
 
 const routes: Routes = [
+  { path: '201227', component: Cmp201227Component },
   { path: '201226', component: Cmp201226Component },
   { path: '201219/:id', component: Cmp201219Component },
   { path: '', component: HomeComponent },
