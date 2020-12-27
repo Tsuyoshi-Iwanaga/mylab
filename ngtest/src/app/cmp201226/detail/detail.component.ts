@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Cmp201226Book } from '../cmp201226.book';
 
 @Component({
@@ -7,11 +7,9 @@ import { Cmp201226Book } from '../cmp201226.book';
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit {
-  @Input() item?: Cmp201226Book
+  @Input('item') item?: Cmp201226Book
 
   constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

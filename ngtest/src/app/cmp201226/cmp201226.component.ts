@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cmp201226Book } from './cmp201226.book';
 import { Cmp201226BookService } from './cmp201226.book.service'
-import { DetailComponent } from './detail/detail.component'
 
 @Component({
   selector: 'app-cmp201226',

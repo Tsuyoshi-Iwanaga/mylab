@@ -8,7 +8,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component'
 import { Cmp201219Component } from './cmp201219/cmp201219.component';
 import { Cmp201226Component } from './cmp201226/cmp201226.component';
-import { DetailComponent } from './cmp201226/detail/detail.component'
+import { DetailComponent } from './cmp201226/detail/detail.component';
+import { EditComponent } from './cmp201226/edit/edit.component'
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { DetailComponent } from './cmp201226/detail/detail.component'
     Cmp201219Component,
     Cmp201226Component,
     DetailComponent,
+    EditComponent,
   ],
   imports: [
     BrowserModule,
