@@ -1,1 +1,31 @@
-<p>LifeSycle</p>
+<hr>
+<h2>ngIfのサンプル</h2>
+<form>
+  <label for="show">切り替え→</label>
+  <input type="checkbox" id="show" name="show" [(ngModel)]="show">
+</form>
+<div *ngIf="show; then showContent; else hideContent">ここは表示されない</div>
+<div>
+  <ng-template #showContent>表示中...</ng-template>
+  <ng-template #hideContent>非表示中...</ng-template>
+  <p [style.display]="show?'block':'none'">★切り替え対象のコンテンツ★</p>
+</div>
+<hr>
+<h2>ngSwitchのサンプル</h2>
+<form>
+  <select name="season" [(ngModel)]="season">
+    <option value="">選択してください</option>
+    <option value="spring">春</option>
+    <option value="summer">夏</option>
+    <option value="autumn">秋</option>
+    <option value="winter">冬</option>
+  </select>
+</form>
+<div [ngSwitch]="season">
+  <span *ngSwitchCase="'spring'">春はあけぼの</span>
+  <span *ngSwitchCase="'summer'">夏は夜</span>
+  <span *ngSwitchCase="'autumn'">秋は夕暮れ</span>
+  <span *ngSwitchCase="'winter'">冬はつとめて</span>
+  <span *ngSwitchDefault>---</span>
+</div>
+<hr>

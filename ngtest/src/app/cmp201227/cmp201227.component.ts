@@ -6,17 +6,13 @@ import { Component, OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentCh
   styleUrls: ['./cmp201227.component.scss']
 })
 export class Cmp201227Component implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
-  show = true
+  show = false
+  season = ''
   current = new Date()
 
-  //1.インスタンス生成時に呼ばれる
+
   constructor() {
     console.log('constructor')
-  }
-
-  onchange() {
-    this.show = !this.show
-    this.current = new Date()
   }
 
   // ==== LifeCycleMethod ====
