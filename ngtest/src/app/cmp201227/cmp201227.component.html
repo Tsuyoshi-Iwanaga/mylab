@@ -29,3 +29,12 @@
   <span *ngSwitchDefault>---</span>
 </div>
 <hr>
+<h2>ngForのサンプル</h2>
+<ul>
+  <li *ngFor="let book of books; trackBy: trackFn">{{book.id}}/{{book.title}}</li>
+</ul>
+<input type="button" (click)="onclick()" value="更新">
+<hr>
+<h2>属性ディレクティブ</h2>
+<div [ngStyle]="style">Style Directive</div>
+<div [ngClass]="class">Class Directive</div>

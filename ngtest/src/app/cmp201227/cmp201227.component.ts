@@ -9,7 +9,34 @@ export class Cmp201227Component implements OnChanges, OnInit, DoCheck, AfterCont
   show = false
   season = ''
   current = new Date()
+  books = [
+    { id: 1, title: '改訂版JavaScriptの教科書'},
+    { id: 2, title: 'Androidアプリ開発'},
+    { id: 3, title: 'Swiftポケットリファレンス'},
+  ]
+  style = {
+    display: 'inline-block',
+    'padding.em' : '0.5',
+    backgroundColor: '#ff0',
+  }
+  class = {
+    back: true,
+    fore: true,
+    space: true,
+  }
 
+  onclick() {
+    this.books = [
+      { id: 1, title: '改訂版JavaScriptの教科書'},
+      { id: 2, title: 'Androidアプリ開発'},
+      { id: 3, title: 'Swiftポケットリファレンス'},
+      { id: 4, title: '独習PHP'},
+    ]
+  }
+
+  trackFn(index: number, book: any): number {
+    return book.id
+  }
 
   constructor() {
     console.log('constructor')
