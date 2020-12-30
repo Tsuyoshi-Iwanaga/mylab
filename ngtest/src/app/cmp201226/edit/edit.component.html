@@ -1,6 +1,6 @@
 <hr />
 <div>
-  <form #myForm="ngForm" (ngSubmit)="onsubmit()" *ngIf="item">
+  <form (ngSubmit)="onsubmit()" *ngIf="item">
     <div class="formItem">
       <label for="isbn">ISBN:</label><br><span id="isbn">{{item.isbn}}</span>
     </div>
