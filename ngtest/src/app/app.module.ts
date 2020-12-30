@@ -9,7 +9,8 @@ import { HomeComponent } from './home/home.component'
 import { Cmp201219Component } from './cmp201219/cmp201219.component';
 import { Cmp201227Module } from './cmp201227/cmp201227.module'
 import { Cmp201226Module } from './cmp201226/cmp201226.module'
-import { Cmp201230Module } from './cmp201230/cmp201230.module'
+import { Cmp201230Module } from './cmp201230/cmp201230.module';
+import { Cmp201231Module } from './cmp201231/cmp201231.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { Cmp201230Module } from './cmp201230/cmp201230.module'
     HttpClientModule,
     Cmp201226Module,
     Cmp201227Module,
-    Cmp201230Module
+    Cmp201230Module,
+    Cmp201231Module,
   ],
   providers: [],
   bootstrap: [AppComponent]

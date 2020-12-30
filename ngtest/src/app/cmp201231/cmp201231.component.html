@@ -1,0 +1,35 @@
+<h2>フォームサンプル</h2>
+<!-- #myForm="ngForm"でngFormディレクティブを変数に格納、後からコントロールの状態や検証結果などにアクセスができる -->
+<!-- ngSubmitはngForm版のsubmitイベント -->
+<form #myForm="ngForm" (ngSubmit)="show()">
+  <div>
+    <label for="mail">Mail:</label><br>
+    <input id="mail" name="mail" type="email" [(ngModel)]="user.mail" #mail="ngModel" required email>
+    <span *ngIf="mail.errors?.required">メールアドレスは必須です</span>
+    <span *ngIf="mail.errors?.email">メールアドレスは正しい形式で入力してください</span>
+  </div>
+  <div>
+    <label for="password">password:</label><br>
+    <input id="password" name="password" type="password" [(ngModel)]="user.password" #password="ngModel" required minlength="6">
+    <span *ngIf="password.errors?.required">パスワードは必須です</span>
+    <span *ngIf="password.errors?.minlength">パスワードは6文字以上で入力してください</span>
+  </div>
+  <div>
+    <label for="name">name:</label><br>
+    <input id="name" name="name" type="text" [(ngModel)]="user.name" #name="ngModel" required minlength="3" maxlength="10">
+    <span *ngIf="name.errors?.required">名前は必須です</span>
+    <span *ngIf="name.errors?.minlength">名前は3文字以上で入力してください</span>
+    <span *ngIf="name.errors?.maxlength">名前は10文字以内で入力してください</span>
+  </div>
+  <div>
+    <label for="memo">memo:</label><br>
+    <textarea id="memo" name="memo" rows="5" cols="30" [(ngModel)]="user.memo" #memo="ngModel" maxlength="10"></textarea>
+    <span *ngIf="memo.errors?.maxlength">備考は10文字以内で入力してください</span>
+  </div>
+  <div>
+    <!-- フォーム全体に検証エラーがあるかを確認するには#myForm.invalidを使う -->
+    <input type="submit" value="送信" [disabled]="myForm.invalid">
+  </div>
+  <!-- 検証用(フォームの値全体を得る) -->
+  <pre>{{myForm.value|json}}</pre>
+</form>
