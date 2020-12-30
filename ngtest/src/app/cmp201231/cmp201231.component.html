@@ -27,9 +27,35 @@
     <span *ngIf="memo.errors?.maxlength">備考は10文字以内で入力してください</span>
   </div>
   <div>
-    <!-- フォーム全体に検証エラーがあるかを確認するには#myForm.invalidを使う -->
-    <input type="submit" value="送信" [disabled]="myForm.invalid">
+    <!-- フォーム全体に検証エラーがあるかを確認するには#myForm.invalidを使う/#myForm.submittedで一度送信したら非活性に -->
+    <input type="submit" value="送信" [disabled]="myForm.invalid||myForm.submitted">
+    <!-- フォームが全く更新されていない場合はリセットボタンは非活性 -->
+    <input type="reset" value="リセット" [disabled]="myForm.pristine">
   </div>
-  <!-- 検証用(フォームの値全体を得る) -->
+  <!-- 検証用 -->
   <pre>{{myForm.value|json}}</pre>
+  <span>mailが正しい(mail.valid)：{{mail.valid}}</span><br>
+  <span>mailが正しくない(mail.invalid)：{{mail.invalid}}</span><br>
+  <span>mailが変更されていない(mail.pristine):{{mail.pristine}}</span><br>
+  <span>mailが更新されている(mail.dirty):{{mail.dirty}}</span><br>
+  <span>mailが一度でもフォーカスが入ってblurしている(mail.touched):{{mail.touched}}</span><br>
+  <span>mailが一度もフォーカスが入ってblurしていない(mail.untouched):{{mail.untouched}}</span><br>
+</form>
+<hr>
+<form #myForm2="ngForm">
+  <ng-container *ngFor="let item of data; index as i">
+    <label>
+      <input type="radio" name="animal" [(ngModel)]="selected" [value]="item.value" [checked]="selected === item.value" (change)="check(i)">
+      {{item.label}}
+    </label><br>
+  </ng-container>
+</form>
+<hr>
+<form>
+  <ng-container *ngFor="let item of data2; index as i">
+    <label>
+      <input type="checkbox" name="sweet{{i}}" [(ngModel)]="data2[i].selected" [value]="item.value" (change)="check2()">
+      {{item.label}}
+    </label><br>
+  </ng-container>
 </form>

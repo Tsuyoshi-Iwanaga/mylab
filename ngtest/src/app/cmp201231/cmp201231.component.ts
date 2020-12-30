@@ -25,4 +25,30 @@ export class Cmp201231Component implements OnInit {
     console.log('name: ' + this.user.name)
     console.log('memo: ' + this.user.memo)
   }
+
+  //radio sample
+  selected = 'hamster';
+  data = [
+    { label: '犬', value: 'dog' },
+    { label: '猫', value: 'cat' },
+    { label: 'ハムスター', value: 'hamster' },
+    { label: '金魚', value: 'fish' },
+    { label: '亀', value: 'turtle' },
+  ]
+
+  check(i: number) {
+    console.log('label:' + this.data[i].label)
+    console.log('value:' + this.selected)
+  }
+
+  //checkbox sample
+  data2 = [
+    { label: 'クッキー', value: 'cookie', selected: false},
+    { label: 'ケーキ', value: 'cake', selected: true},
+    { label: 'バナナ', value: 'banana', selected: false},
+  ]
+
+  check2() {
+    console.log(this.data2)
+  }
 }
