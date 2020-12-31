@@ -12,6 +12,7 @@ import { Cmp201226Module } from './cmp201226/cmp201226.module'
 import { Cmp201230Module } from './cmp201230/cmp201230.module';
 import { Cmp201231Module } from './cmp201231/cmp201231.module';
 import { Cmp2012312Module } from './cmp2012312/cmp2012312.module';
+import { Cmp2012313Module } from './cmp2012313/cmp2012313.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { Cmp2012312Module } from './cmp2012312/cmp2012312.module';
     Cmp201230Module,
     Cmp201231Module,
     Cmp2012312Module,
+    Cmp2012313Module,
   ],
   providers: [],
   bootstrap: [AppComponent]
