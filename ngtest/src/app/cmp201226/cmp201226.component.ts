@@ -33,4 +33,8 @@ export class Cmp201226Component implements OnInit {
       }
     }
   }
+
+  onShowTitle(title: string) {
+    console.log(title)
+  }
 }

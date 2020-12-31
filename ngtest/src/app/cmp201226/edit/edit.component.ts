@@ -9,10 +9,12 @@ import { Cmp201226Book } from '../cmp201226.book';
 export class EditComponent {
   @Input() item?: Cmp201226Book;
   @Output() edit = new EventEmitter<Cmp201226Book>();
+  @Output('showTitle') showTitle = new EventEmitter<string>();
 
   constructor() {}
 
   onsubmit() {
+    this.showTitle.emit(this.item?.title)
     this.edit.emit(this.item)
   }
 }
