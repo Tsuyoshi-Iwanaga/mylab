@@ -6,7 +6,7 @@ import sys
 
 driver = webdriver.Chrome()
 
-#エクセル読み込み
+#CSV読み込み
 asinList = pd.read_csv('./asinList.csv', encoding="UTF-8")
 
 for asin in asinList['ASIN']:
