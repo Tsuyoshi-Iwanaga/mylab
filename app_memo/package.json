@@ -28,7 +28,7 @@
         "@reduxjs/toolkit": "^1.4.0",
         "@types/react-redux": "^7.1.11",
         "@types/styled-components": "^5.1.4",
-        "axios": "^0.19",
+        "axios": "^0.21",
         "bootstrap": "^4.0.0",
         "jquery": "^3.2",
         "lodash": "^4.17.19",
