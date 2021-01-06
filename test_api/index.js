@@ -70,10 +70,9 @@ app.delete('/users/:id', (req, res) => {
 
 //test用API
 app.post('/quick/hosho/entry/emailValidator', (req, res) => {
-  console.log(req.body.val);
   if(req.body.val.indexOf('@') > 0) {
-    res.send(JSON.stringify({resultcpde: 200, errorMessage: ""}))
+    res.send(JSON.stringify({resultcode: 200, errorMessage: ""}))
   } else {
-    res.send(JSON.stringify({resultcpde: 400, errorMessage: "「メールアドレス」の形式が誤っています。"}))
+    res.send(JSON.stringify({resultcode: 400, errorMessage: "「メールアドレス」の形式が誤っています。"}))
   }
 })
