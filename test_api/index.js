@@ -6,7 +6,9 @@ const app = express()
 app.listen(8888);
 
 app.use(cors())
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+
 // app.use((req, res, next) => {
 //   res.header('Access-Controll-Allow-Origin', '*')//CORSの許可 本番では使わない
 //   res.header('Access-Controll-Allow-Header', 'Origin, X-Requested-With, Content-Type, Accept')
@@ -70,6 +72,7 @@ app.delete('/users/:id', (req, res) => {
 
 //test用API
 app.post('/quick/hosho/entry/emailValidator', (req, res) => {
+  console.log(req.body)
   if(req.body.val.indexOf('@') > 0) {
     res.send(JSON.stringify({resultcode: 200, errorMessage: ""}))
   } else {
