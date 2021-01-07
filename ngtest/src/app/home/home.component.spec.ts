@@ -22,4 +22,12 @@ describe('HomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('basicTest', () => {
+    expect(1 + 1).toEqual(2);
+  })
+
+  it('basicTest2', () => {
+    expect(1 + 1).not.toEqual(2);
+  })
 });
