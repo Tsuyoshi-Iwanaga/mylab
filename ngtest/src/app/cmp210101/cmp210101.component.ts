@@ -17,6 +17,8 @@ export class Cmp210101Component implements AfterViewChecked {
 
   ngAfterViewChecked() {
     console.log('ngAfterViewChecked')
-    this.poems = this.children ? this.children.map((v) => v.poem) : ['', '', '']
+    setTimeout(() => {
+      this.poems = this.children ? this.children.map((v) => v.poem) : ['', '', '']
+    })
   }
 }
