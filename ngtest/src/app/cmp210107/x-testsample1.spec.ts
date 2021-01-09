@@ -1,26 +1,29 @@
-import { Cmp210107Component } from './cmp210107.component'
+import { DebugElement } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
-import { DebugElement } from '@angular/core'
 
-describe('AppComponent', () => {
-  let debugElement: DebugElement
+import { Cmp210107Component } from './cmp210107.component'
+
+describe('Cmp210107', () => {
+  let debugElement: DebugElement[]
   let component: Cmp210107Component
   let fixture: ComponentFixture<Cmp210107Component>
 
-  beforeEach(() => {
+  beforeEach(async() => {
     TestBed.configureTestingModule({
       declarations: [Cmp210107Component]
     })
-
-    fixture = TestBed.createComponent(Cmp210107Component)
-    component = fixture.componentInstance;
-    debugElement = fixture.debugElement.query(By.css('h1'))
+    .compileComponents();
   })
 
-  it('<h1>要素の確認', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(Cmp210107Component)
+    component = fixture.componentInstance
+  })
+
+  it('check table row counts', () => {
     fixture.detectChanges();
-    const h1 = debugElement.nativeElement;
-    expect(h1.innerText).toMatch(/javascript/i)
+    debugElement = fixture.debugElement.queryAll(By.css('tr'))
+    expect(debugElement.length).toEqual(6);
   })
 })
