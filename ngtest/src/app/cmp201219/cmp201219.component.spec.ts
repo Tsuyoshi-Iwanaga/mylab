@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { Cmp201219Service } from './cmp201219.service'
+import { of } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 
 import { Cmp201219Component } from './cmp201219.component';
 
@@ -16,21 +16,11 @@ describe('Cmp201219Component', () => {
       }
     }
 
-    let Cmp201219ServiceStub = {
-      get users() {
-        return of({
-          id: 1,
-          name: 'testUser',
-          email: 'test@hoge@test.com',
-        })
-      }
-    }
-
     await TestBed.configureTestingModule({
       declarations: [ Cmp201219Component ],
+      imports: [HttpClientModule],
       providers: [
         { provide: ActivatedRoute, useValue: activeRouteStub },
-        { provide: Cmp201219Service, useValue: Cmp201219ServiceStub}
       ],
     })
     .compileComponents();
