@@ -4,8 +4,7 @@ const plays = {
   "othello": {name: "Othello", "type": "tragedy"}
 }
 
-const invoices = [
-  {
+const invoices = {
     "customer": "BigCo",
     "performances": [
       {
@@ -22,15 +21,14 @@ const invoices = [
       }
     ]
   }
-]
 
 function statement (invoices, plays) {
   let totalAmount = 0
   let volumeCredits = 0
-  let result = `Statement for ${invoices.customer}\nj`
+  let result = `Statement for ${invoices.customer}\n`
   const format = new Intl.NumberFormat("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2}).format
 
-  for(let perf of invoices[0].performances) {
+  for(let perf of invoices.performances) {
     const play = plays[perf.playID]
     let thisAmount = 0
 
