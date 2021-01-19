@@ -69,13 +69,3 @@ app.delete('/users/:id', (req, res) => {
 
 // ユーザ削除
 // curl -s -X DELETE http://localhost:8888/users/4
-
-//test用API
-app.post('/quick/hosho/entry/emailValidator', (req, res) => {
-  console.log(req.body)
-  if(req.body.val.indexOf('@') > 0) {
-    res.send(JSON.stringify({resultcode: 200, errorMessage: ""}))
-  } else {
-    res.send(JSON.stringify({resultcode: 400, errorMessage: "「メールアドレス」の形式が誤っています。"}))
-  }
-})
