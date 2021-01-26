@@ -23,7 +23,6 @@ afterAll(() => {
 //describeでテストをまとめることができる
 describe('matching cities to foods', () => {
   beforeEach(() => {
-    return initializeFoodDatabase()
   })
 
   test('test001', () => {
