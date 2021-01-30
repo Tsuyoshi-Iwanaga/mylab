@@ -31,7 +31,7 @@ function statement (invoice, plays) {
   const format = new Intl.NumberFormat("es-US", {style: "currency", currency: "USD", minimumFractionDigits: 2}).format
 
   for (let perf of invoice.performances) {
-    const play = plays[perf.playID]
+    const play = playFor(perf)
     let thisAmount = 0
 
     thisAmount = amountFor(perf, play)
@@ -65,6 +65,10 @@ function amountFor(aPerformance, play) {
       throw new Error(`unknown type: ${play.type}`)
   }
   return result
+}
+
+function playFor(aPerformance) {
+  return plays[aPerformance.playID] || {name: 'notFound', type: 'none'}
 }
 
 module.exports = statement
