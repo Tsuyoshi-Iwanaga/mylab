@@ -28,16 +28,19 @@ function statement (invoice) {
   let totalAmount = 0
   let volumeCredits = 0
   let result = `Statement for ${invoice.customer} `
-  const format = new Intl.NumberFormat("es-US", {style: "currency", currency: "USD", minimumFractionDigits: 2}).format
 
   for (let perf of invoice.performances) {
     volumeCredits += volumeCreditsFor(perf)
-    result += `・${playFor(perf).name}: ${format(amountFor(perf) / 100)} (${perf.audience} seats) `
+    result += `・${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats) `
     totalAmount += amountFor(perf)
   }
-  result += `Amount owed is ${format(totalAmount/100)} `
+  result += `Amount owed is ${usd(totalAmount)} `
   result += `You earned ${volumeCredits} credits`
   return result;
+}
+
+function usd(aNumber) {
+  return new Intl.NumberFormat("es-US", {style: "currency", currency: "USD", minimumFractionDigits: 2}).format(aNumber / 100)
 }
 
 function volumeCreditsFor(aPerformance) {
