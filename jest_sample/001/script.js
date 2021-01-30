@@ -31,14 +31,11 @@ function statement (invoice, plays) {
   const format = new Intl.NumberFormat("es-US", {style: "currency", currency: "USD", minimumFractionDigits: 2}).format
 
   for (let perf of invoice.performances) {
-    const play = playFor(perf)
-    let thisAmount = 0
-
-    thisAmount = amountFor(perf, play)
+    let thisAmount = amountFor(perf, playFor(perf))
 
     volumeCredits += Math.max(perf.audience - 30, 0)
-    if(play.type === "comedy") volumeCredits += Math.floor(perf.audience / 5)
-    result += `・${play.name}: ${format(thisAmount / 100)} (${perf.audience} seats) `
+    if(playFor(perf).type === "comedy") volumeCredits += Math.floor(perf.audience / 5)
+    result += `・${playFor(perf).name}: ${format(thisAmount / 100)} (${perf.audience} seats) `
     totalAmount += thisAmount
   }
   result += `Amount owed is ${format(totalAmount/100)} `
