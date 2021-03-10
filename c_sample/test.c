@@ -1,24 +1,17 @@
 #include <stdio.h>
 
-int getaverage(int data[]);
-
 int main(void)
 {
-  int average;
+  int *data;
+  int average = 0;
   int array[10] = {15, 78, 98, 15, 98, 85, 17, 35, 42, 15};
-  printf("%d\n", array[3]);
-  average = getaverage(array);
-  printf("%d\n", array[3]);
-  printf("%d\n", average);
-  return 0;
-}
 
-int getaverage(int data[10])
-{
-  int i, average = 0;
-  for (i = 0; i < 10; i++) {
-    average += data[i];
+  for(data = array; data != &array[10]; data++) {
+    average += *(data);
   }
-  data[3] = 100;
-  return average / 10;
+  
+  printf("%d\n", average / 10);
+  printf("%p\n", data);
+  printf("%p\n", data + 1);
+  return 0;
 }
