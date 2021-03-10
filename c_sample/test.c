@@ -1,12 +1,24 @@
 #include <stdio.h>
 
+int getaverage(int data[]);
+
 int main(void)
 {
-	int *p;
-	int i;
-	p = &i;
-	*p = 10; /* 通常変数モードに切り替えたポインタ変数に代入 */
-	printf("p = %d\n",*p);
-	printf("i = %d\n",i);
-	return 0;
+  int average;
+  int array[10] = {15, 78, 98, 15, 98, 85, 17, 35, 42, 15};
+  printf("%d\n", array[3]);
+  average = getaverage(array);
+  printf("%d\n", array[3]);
+  printf("%d\n", average);
+  return 0;
+}
+
+int getaverage(int data[10])
+{
+  int i, average = 0;
+  for (i = 0; i < 10; i++) {
+    average += data[i];
+  }
+  data[3] = 100;
+  return average / 10;
 }
