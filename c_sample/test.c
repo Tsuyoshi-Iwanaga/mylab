@@ -1,17 +1,35 @@
 #include <stdio.h>
 
+void maxmin(int array[], int *max, int *min);
+
 int main(void)
 {
-  int *data;
-  int average = 0;
-  int array[10] = {15, 78, 98, 15, 98, 85, 17, 35, 42, 15};
+  int i = 0;
+  int array[10];
+  int max;
+  int min;
 
-  for(data = array; data != &array[10]; data++) {
-    average += *(data);
-  }
-  
-  printf("%d\n", average / 10);
-  printf("%p\n", data);
-  printf("%p\n", data + 1);
+  do {
+    printf("%d番目の入力: ", i + 1);
+    scanf("%d", &array[i]);
+    i++;
+  } while (array[i - 1] != -1);
+
+  maxmin(array, &max, &min);
+  printf("max: %d/min: %d\n", max, min);
   return 0;
+}
+
+void maxmin(int array[], int *max, int *min)
+{
+  int i = 0;
+
+  *max = 0;
+  *min = 100;
+  
+  while (array[i] != -1) {
+    if(array[i] > *max) *max = array[i];
+    if(array[i] < *min) *min = array[i];
+    i++;
+  }
 }
