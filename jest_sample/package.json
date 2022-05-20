@@ -3,6 +3,7 @@
     "test": "jest"
   },
   "devDependencies": {
-    "jest": "^28.1.0"
+    "jest": "^28.1.0",
+    "ts-jest": "^28.0.2"
   }
 }
