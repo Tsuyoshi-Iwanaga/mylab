@@ -1,4 +1,4 @@
-# Python基礎
+# Python
 
 ## 演算子
 
