@@ -66,7 +66,7 @@
 
 ## Customer Enablement
 * AWS IQ
-* サポート
+* Support
 * Managed Services
 * Activate for Startups
 
@@ -133,10 +133,10 @@
 * Amazon Textract
 * Amazon Transcribe
 * Amazon Translate
-* Aws DeepComposer
-* Aws DeepLens
-* Aws DeepRacer
-* Aws Panorama
+* AWS DeepComposer
+* AWS DeepLens
+* AWS DeepRacer
+* AWS Panorama
 * Amazon Monitron
 * Amazon HealthLake
 * Amazon Lookout For Vision
@@ -199,7 +199,7 @@
 * Simple Notification Service
 * Simple Queue Service
 * SWF
-* マネージド Apache Airflow
+* Managed Apache Airflow
 
 ## AWS コスト管理
 * AWS Cost Explorer
