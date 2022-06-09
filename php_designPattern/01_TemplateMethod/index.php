@@ -80,4 +80,3 @@ $display2 = new TableDisplay($data);
 $display1->display();
 echo '<hr>';
 $display2->display();
-?>
