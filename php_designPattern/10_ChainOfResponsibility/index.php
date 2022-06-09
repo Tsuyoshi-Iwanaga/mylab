@@ -100,4 +100,3 @@ $handler02->setHandler($handler03);
 $result = $handler01->validate($input);
 
 echo ($result === true ? 'OK' : $result);
-?>

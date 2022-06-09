@@ -45,4 +45,3 @@ echo $instance02->getId().'<br>';
 
 //cloneしようとするとエラー
 // $instance04 = clone $instance01;
-?>

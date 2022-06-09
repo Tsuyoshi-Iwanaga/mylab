@@ -116,4 +116,3 @@ echo '<hr>';
 echo 'JSONデータ';
 $context = new ItemDataContext(new ReadJsonDataStrategy(__DIR__.'/src/item_data.json'));
 dumpData($context->getItemData());
-?>
