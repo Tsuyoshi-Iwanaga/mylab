@@ -1420,9 +1420,9 @@ tr46@~0.0.3:
   integrity sha1-gYT9NH2snNwYWZLzpmIuFLnZq2o=
 
 ts-deepmerge@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/ts-deepmerge/-/ts-deepmerge-2.0.1.tgz#cd24f52b17e34baeac7867477cc0cefe5d0d291b"
-  integrity sha512-2RpGIE0YVW6blKY756MP74czemC9x4XThhNCxq0A14Owm3ac8tZvigPbpZyZZQSyfOc7Qba5kG5xKBq74ihZfA==
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/ts-deepmerge/-/ts-deepmerge-2.0.5.tgz#7b8a9dcab5714cc7b91e307c4bbcf42d99dbc6c0"
+  integrity sha512-1CGOREP8pYWk3Iu1O0ANSVjS6IVYh8Hq6LmHLpKfuUW0P5Xbdh4nqiWrVkGkXKLidnLYV3p6RCYtypBYN2my9A==
 
 tslib@^2.1.0:
   version "2.4.0"
