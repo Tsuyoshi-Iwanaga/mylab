@@ -6,7 +6,7 @@ services:
       - '7777:8888'
     build: .
     container_name: 'python3'
-    working_dir: '/root/'
+    working_dir: '/root/src'
     tty: true
     volumes:
       - ./src:/root/src
