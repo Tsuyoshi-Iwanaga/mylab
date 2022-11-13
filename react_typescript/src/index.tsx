@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Name from './components/Name';
+import Hello from './components/Hello';
+import Message from './components/Message';
+import ChildrenSample from './components/ChildrenSample';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -9,6 +13,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    <Hello content="Hi" />
+    <Name />
+    <Message />
+    <ChildrenSample />
     <App />
   </React.StrictMode>
 );
