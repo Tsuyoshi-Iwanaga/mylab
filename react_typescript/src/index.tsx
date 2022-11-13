@@ -7,6 +7,12 @@ import Hello from './components/Hello';
 import Message from './components/Message';
 import ChildrenSample from './components/ChildrenSample';
 import ContextSample from './components/ContextSample';
+import Counter from './components/HookSample001';
+import Counter2 from './components/HookSample002';
+import { Counter3 } from './components/HookSample003';
+import { UseMemoSample } from './components/HookSample004';
+import { Clock } from './components/HookSample005';
+import UserDisplay from './components/HookSample006';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -19,6 +25,12 @@ root.render(
     <Message />
     <ChildrenSample />
     <ContextSample />
+    <Counter initialValue={0}/>
+    <Counter2 initialValue={0}/>
+    <Counter3 />
+    <UseMemoSample />
+    <Clock />
+    <UserDisplay />
     <App />
   </React.StrictMode>
 );
