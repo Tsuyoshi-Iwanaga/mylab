@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import Name from './components/Name';
 import Hello from './components/Hello';
 import Message from './components/Message';
@@ -13,6 +12,9 @@ import { Counter3 } from './components/HookSample003';
 import { UseMemoSample } from './components/HookSample004';
 import { Clock } from './components/HookSample005';
 import UserDisplay from './components/HookSample006';
+import ImageUploader from './components/HookSample007';
+import ShowDateTime from './components/HookSample008';
+import { InputBlock } from './components/HookSample009';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -20,18 +22,23 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    <h1>Learning React</h1>
+    <h2>Basic</h2>
     <Hello content="Hi" />
     <Name />
     <Message />
     <ChildrenSample />
     <ContextSample />
+    <h2>Hooks</h2>
     <Counter initialValue={0}/>
     <Counter2 initialValue={0}/>
     <Counter3 />
     <UseMemoSample />
     <Clock />
     <UserDisplay />
-    <App />
+    <ImageUploader />
+    <ShowDateTime />
+    <InputBlock />
   </React.StrictMode>
 );
 

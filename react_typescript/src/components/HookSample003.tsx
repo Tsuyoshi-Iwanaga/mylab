@@ -45,5 +45,3 @@ export const Counter3 = () => {
     </div>
   )
 }
-
-
