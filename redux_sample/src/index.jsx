@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import {createStore} from 'redux';
 
 const initialState = {
@@ -48,6 +48,8 @@ const inputTask = (task) => ({
 const store = createStore(tasksReducer);
 
 //React
+const root = ReactDOM.createRoot(document.getElementById('app'))
+
 function TodoApp({store}) {
   const {task, tasks} = store.getState();
   return (
@@ -66,10 +68,7 @@ function TodoApp({store}) {
 }
 
 function renderApp(store) {
-  ReactDOM.render(
-    <TodoApp store={store} />,
-    document.getElementById('app')
-  );
+  root.render(<TodoApp store={store} />)
 }
 
 const unsubscibe = store.subscribe(() => renderApp(store));
