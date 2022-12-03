@@ -1,6 +1,21 @@
 AWSTemplateFormatVersion: '2010-09-09'
+Description: Myfirst Create Stack
+# Metadata:
+# Parameters:
+# Mappings:
+# Outputs:
 Resources:
   FirstVPC:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 10.0.0.0/16
+      Tags:
+      - Key: Name
+        Value: MyFirstVPC
+
+# CLI Commands
+# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/index.html
+# aws cloudformation describe-stacks
+# aws cloudformation create-stack --stack-name xxx --template-body file:///Users/xxx/path/to/stack.yml
+# aws cloudformation update-stack --stack-name xxx --template-body file:///Users/xxx/path/to/stack.yml
+# aws cloudformation delete-stack --stack-name xxx
