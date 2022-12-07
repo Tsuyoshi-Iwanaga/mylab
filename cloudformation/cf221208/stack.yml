@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Create S3 Bucket
+
+# ---------------------- #
+# https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-sqs-queue.html
+# ---------------------- #
+
+Resources:
+  SQSQueue:
+    Type: AWS::SQS::Queue
+    Properties: 
+      # ContentBasedDeduplication: Boolean
+      # DeduplicationScope: String
+      # DelaySeconds: Integer(0-900/defalut=0)
+      # FifoQueue: Boolean(true:FIFO/false:standard/default=false)
+      # FifoThroughputLimit: String
+      # KmsDataKeyReusePeriodSeconds: Integer(60(1m) - 86400(24h)/default=500(5m))
+      # KmsMasterKeyId: String
+      # MaximumMessageSize: Integer(1024bytes(1KiB)-262144bytes(256KiB)default=262144)
+      # MessageRetentionPeriod: Integer(60sec(1m)-1209600sec(14days)default=345600(4days))
+      QueueName: CF-Test-Queue
+      # ReceiveMessageWaitTimeSeconds: Integer(1-20/default=0)
+      # RedriveAllowPolicy: Json
+      # RedrivePolicy: Json
+      # SqsManagedSseEnabled: Boolean
+      # Tags:
+        # - Tag
+      # VisibilityTimeout: Integer(0-43200sec(12h)/default=30)
