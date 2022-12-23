@@ -6,7 +6,7 @@ const books = [
     author: '夏目漱石'
   },
   {
-    title: '人間失格',
+    title: '走れメロス',
     author: '太宰治'
   }
 ]
@@ -27,8 +27,8 @@ const resolvers = {
   }
 }
 
-const server = new ApolloServer({typeDefs, resolvers})
+const server = new ApolloServer({ typeDefs, resolvers })
 
-server.listen().then(({url}) => {
+server.listen().then(({ url }) => {
   console.log(`Server ready at ${url}`)
 })
