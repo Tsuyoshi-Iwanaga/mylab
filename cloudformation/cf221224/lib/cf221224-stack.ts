@@ -3,6 +3,7 @@ import { Construct } from 'constructs'
 import { LambdaRestApi } from 'aws-cdk-lib/aws-apigateway'
 import { Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
+import { HitCounter } from './cf221224-stack02'
 
 export class Cf221224Stack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -15,9 +16,14 @@ export class Cf221224Stack extends Stack {
       runtime: Runtime.NODEJS_18_X
     })
 
+    //HitCounter Stack
+    const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {
+      downstream: lambda
+    })
+
     //API-Gateway
     const api = new LambdaRestApi(this, 'rest_api', {
-      handler: lambda,
+      handler: helloWithCounter.handler,
     })
   }
 }
