@@ -4,6 +4,7 @@ import { LambdaRestApi } from 'aws-cdk-lib/aws-apigateway'
 import { Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import { HitCounter } from './cf221224-stack02'
+import { TableViewer } from 'cdk-dynamo-table-viewer'
 
 export class Cf221224Stack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -24,6 +25,12 @@ export class Cf221224Stack extends Stack {
     //API-Gateway
     const api = new LambdaRestApi(this, 'rest_api', {
       handler: helloWithCounter.handler,
+    })
+
+    const tableViewer = new TableViewer(this, 'ViewHitCounter', {
+      title: 'Hello Hits',
+      table: helloWithCounter.table,
+      sortBy: '-hits'
     })
   }
 }
