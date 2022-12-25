@@ -1,4 +1,5 @@
 import { Construct } from 'constructs'
+import { RemovalPolicy } from 'aws-cdk-lib'
 import { IFunction, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
@@ -19,7 +20,8 @@ export class HitCounter extends Construct {
 
     //dynamo
     this.table = new Table(this, 'Hits', {
-      partitionKey: { name: 'path', type: AttributeType.STRING }
+      partitionKey: { name: 'path', type: AttributeType.STRING },
+      removalPolicy: RemovalPolicy.DESTROY
     })
 
     //lambda
